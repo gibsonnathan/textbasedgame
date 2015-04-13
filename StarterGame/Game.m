@@ -87,7 +87,7 @@
     Item* car = [[Item alloc]initWithName:@"car" andWeight:5 andCanPickup:NO];
     [boulevard addToItems:car];
     
-
+    
     
 	return outside;
 }

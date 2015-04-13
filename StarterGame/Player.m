@@ -125,7 +125,7 @@
 	Room *nextRoom = [currentRoom getExit:direction];
 	if (nextRoom) {
         if([self canVisit:nextRoom]){
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasWalked" object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasWalked" object:currentRoom];
             [previousLocations addObject:currentRoom];
             [self setCurrentRoom:nextRoom];
             [self outputMessage:[NSString stringWithFormat:@"\n%@", nextRoom]];
