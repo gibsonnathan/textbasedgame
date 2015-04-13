@@ -1,0 +1,82 @@
+//  ***
+//
+//  Room.m
+//  StarterGame
+//
+//  Created by Rodrigo A. Obando on 7/14/14.
+//  Copyright 2014 Columbus State University. All rights reserved.
+//
+
+#import "Room.h"
+#import "Item.h"
+
+@implementation Room
+
+@synthesize tag;
+
+-(id)init
+{
+	return [self initWithTag:@"No Tag"];
+}
+
+-(id)initWithTag:(NSString *)newTag
+{
+	self = [super init];
+    
+	if (nil != self) {
+		[self setTag:newTag];
+		exits = [[NSMutableDictionary alloc] initWithCapacity:10];
+        items = [[NSMutableDictionary alloc] initWithCapacity:10];
+        
+	}
+    
+	return self;
+}
+
+-(NSArray*) items{
+    return [items allKeys];
+}
+-(Item*)itemForKey:(NSString*) key{
+    return [items objectForKey:key];
+}
+
+-(void)addToItems:(Item*) newItem{
+    [items setObject: newItem forKey: [newItem name]];
+}
+
+-(Item*)removeFromItems:(NSString*)item{
+    Item* temp = [items objectForKey:item];
+    [items removeObjectForKey:item];
+    return temp;
+}
+
+-(void)setExit:(NSString *)exit toRoom:(Room *)room
+{
+	[exits setObject:room forKey:exit];
+}
+
+-(Room *)getExit:(NSString *)exit
+{
+	return [exits objectForKey:exit];
+}
+
+-(NSString *)getExits
+{
+	NSArray *exitNames = [exits allKeys];
+	return [NSString stringWithFormat:@"Exits: %@", [exitNames componentsJoinedByString:@" "]];
+}
+
+-(NSString *)description
+{
+	return [NSString stringWithFormat:@"You are %@.\n *** %@", tag, [self getExits]];
+}
+
+-(void)dealloc
+{
+	[tag release];
+	[exits release];
+	
+	[super dealloc];
+}
+
+@end
