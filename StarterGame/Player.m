@@ -32,7 +32,7 @@
         previousLocations = [[NSMutableArray alloc]init];
         currentWeight = 0;
         maxWeight = 10;
-	}
+    }
 	return self;
 }
 
@@ -45,7 +45,6 @@
     }else{
         [self warningMessage: @"\nNo more previous locations"];
     }
-    
 }
 
 -(void)dropItem:(NSString*) item{
@@ -78,17 +77,20 @@
 -(void)pickUp:(NSString*) item{
     Item* temp = [currentRoom itemForKey:item];
     if(temp){
-        if(currentWeight + [temp weight] <= maxWeight){
-            [inventory setObject:[currentRoom itemForKey:item] forKey:item];
-            currentWeight += [[currentRoom itemForKey:item] weight];
-            [currentRoom removeFromItems:item];
+        if([temp canPickup]){
+            if(currentWeight + [temp weight] <= maxWeight){
+                [inventory setObject:[currentRoom itemForKey:item] forKey:item];
+                currentWeight += [[currentRoom itemForKey:item] weight];
+                [currentRoom removeFromItems:item];
+            }else{
+                [self warningMessage:[NSString stringWithFormat:@"\nYour inventory is too full to pickup %@", item]];
+            }
         }else{
-            [self warningMessage:[NSString stringWithFormat:@"\nYour inventory is too full to pickup %@", item]];        }
+            [self warningMessage:[NSString stringWithFormat:@"\n%@ is not an item you can pickup", item]];
+        }
     }else{
         [self warningMessage:[NSString stringWithFormat:@"\nCannot find %@", item]];
     }
-    
-    
 }
 
 -(void) exploreRoom{
@@ -101,20 +103,35 @@
         }
         temp = [temp substringFromIndex:1];
         NSString* final = [NSString stringWithFormat:@"%@ %@", header, temp];
-        
         [self outputMessage:final];
     }else{
         [self outputMessage:@"\nEmpty Room"];
     }
 }
 
+-(BOOL)canVisit:(Room*) room{
+
+    if([room isLocked] == NO){
+        return YES;
+    }else{
+        
+    }
+    return NO;
+
+}
+
 -(void)walkTo:(NSString *)direction
 {
 	Room *nextRoom = [currentRoom getExit:direction];
 	if (nextRoom) {
-        [previousLocations addObject:currentRoom];
-        [self setCurrentRoom:nextRoom];
-        [self outputMessage:[NSString stringWithFormat:@"\n%@", nextRoom]];
+        if([self canVisit:nextRoom]){
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasWalked" object:self];
+            [previousLocations addObject:currentRoom];
+            [self setCurrentRoom:nextRoom];
+            [self outputMessage:[NSString stringWithFormat:@"\n%@", nextRoom]];
+        }else{
+            [self warningMessage:@"\nDoor is locked"];
+        }
     }
 	else {
         [self errorMessage:[NSString stringWithFormat:@"\nThere is no door on %@!", direction]];

@@ -14,7 +14,7 @@
 	NSMutableDictionary *exits;
     NSMutableDictionary *items;
 }
-
+@property (nonatomic)BOOL isLocked;
 @property (retain, nonatomic)NSString *tag;
 
 -(id)init;

@@ -1,40 +1,32 @@
-//  ***
 //
-//  Player.h
+//  Character.h
 //  StarterGame
 //
-//  Created by Rodrigo A. Obando on 7/14/14.
-//  Copyright 2014 Columbus State University. All rights reserved.
+//  Created by Nathan Gibson on 4/13/15.
+//  Copyright (c) 2015 Ringtuple, Inc. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+#import "Protocols.h"
 #import "Room.h"
 #import "GameIO.h"
-#import "Item.h"
-#import "Protocols.h"
-@interface Player : NSObject{
-    NSMutableArray* previousLocations;
+@interface Character : NSObject <Character>{
     NSMutableDictionary* inventory;
-    int currentWeight;
-    int maxWeight;
 }
 
+@property (retain, nonatomic)id<Character> delegate;
 @property (retain, nonatomic)Room *currentRoom;
 @property (retain, nonatomic)GameIO *io;
 
 -(id)init;
 -(id)initWithRoom:(Room *)room andIO:(GameIO *)theIO;
 -(void)walkTo:(NSString *)direction;
--(BOOL)canVisit:(Room*) room;
 -(void)outputMessage:(NSString *)message;
 -(void)outputMessage:(NSString *)message withColor:(NSColor *)color;
 -(void)warningMessage:(NSString *)message;
 -(void)errorMessage:(NSString *)message;
 -(void)commandMessage:(NSString *)message;
 -(void)addToInventory:(Item*) item;
--(void)exploreRoom;
--(void)pickUp:(NSString*) item;
--(void)searchInventory;
 -(void)dropItem:(NSString*) item;
--(void)goBack;
+
 @end

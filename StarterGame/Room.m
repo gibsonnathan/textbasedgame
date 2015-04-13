@@ -10,8 +10,9 @@
 #import "Room.h"
 #import "Item.h"
 
-@implementation Room
+@implementation Room 
 
+@synthesize isLocked;
 @synthesize tag;
 
 -(id)init

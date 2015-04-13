@@ -9,6 +9,7 @@
 
 #import "Game.h"
 #import "Item.h"
+#import "Key.h"
 
 @implementation Game
 
@@ -22,8 +23,13 @@
 		[self setParser:[[[Parser alloc] init] autorelease]];
 		[self setPlayer:[[[Player alloc] initWithRoom:[self createWorld] andIO:theIO] autorelease]];
         playing = NO;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerHasWalked:) name:@"PlayerHasWalked" object:nil];
 	}
 	return self;
+}
+
+-(void) playerHasWalked:(NSNotification *)notification{
+    [player outputMessage:@"\nPlayer has moved"];
 }
 
 -(Room *)createWorld
@@ -78,8 +84,10 @@
     Item* cat = [[Item alloc]initWithName:@"cat" andWeight:5];
     [boulevard addToItems:cat];
     
-    Item* car = [[Item alloc]initWithName:@"car" andWeight:5];
+    Item* car = [[Item alloc]initWithName:@"car" andWeight:5 andCanPickup:NO];
     [boulevard addToItems:car];
+    
+
     
 	return outside;
 }

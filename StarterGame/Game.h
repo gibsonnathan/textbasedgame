@@ -28,5 +28,5 @@
 -(BOOL)execute:(NSString *)commandString;
 -(NSString *)welcome;
 -(NSString *)goodbye;
-
+-(void)playerHasWalked:(NSNotification*) notification;
 @end
