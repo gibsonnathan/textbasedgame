@@ -83,6 +83,7 @@
 		E499C8C11ADC323F004855F7 /* Key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Key.m; sourceTree = "<group>"; };
 		E499C8C31ADC808E004855F7 /* TeleportRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeleportRoom.h; sourceTree = "<group>"; };
 		E499C8C41ADC808E004855F7 /* TeleportRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeleportRoom.m; sourceTree = "<group>"; };
+		E499C8CC1ADD820A004855F7 /* Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocols.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +116,7 @@
 				E44645171AD5E93800BC3008 /* Item.m */,
 				E499C8C01ADC323F004855F7 /* Key.h */,
 				E499C8C11ADC323F004855F7 /* Key.m */,
+				E499C8CC1ADD820A004855F7 /* Protocols.h */,
 				E499C8C31ADC808E004855F7 /* TeleportRoom.h */,
 				E499C8C41ADC808E004855F7 /* TeleportRoom.m */,
 			);

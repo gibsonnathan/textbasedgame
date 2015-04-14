@@ -10,6 +10,7 @@
 #import "Game.h"
 #import "Item.h"
 #import "Key.h"
+#import "TeleportRoom.h"
 
 @implementation Game
 
@@ -23,18 +24,17 @@
 		[self setParser:[[[Parser alloc] init] autorelease]];
 		[self setPlayer:[[[Player alloc] initWithRoom:[self createWorld] andIO:theIO] autorelease]];
         playing = NO;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerHasWalked:) name:@"PlayerHasWalked" object:nil];
+        
 	}
 	return self;
 }
 
--(void) playerHasWalked:(NSNotification *)notification{
-    [player outputMessage:@"\nPlayer has moved"];
-}
 
 -(Room *)createWorld
 {
 	Room *outside, *cctParking, *boulevard, *universityParking, *parkingDeck, *cct, *theGreen, *universityHall, *schuster;
+    
+    TeleportRoom* teleport;
 	
 	outside = [[[Room alloc] initWithTag:@"outside the main entrance of the university"] autorelease];
 	cctParking = [[[Room alloc] initWithTag:@"in the parking lot at CCT"] autorelease];
@@ -45,14 +45,17 @@
 	theGreen = [[[Room alloc] initWithTag:@"in the green in front of Schuster Center"] autorelease];
 	universityHall = [[[Room alloc] initWithTag:@"in University Hall"] autorelease];
 	schuster = [[[Room alloc] initWithTag:@"in the Schuster Center"] autorelease];
-	
+    teleport = [[TeleportRoom alloc] initWithTag:@"in the Teleport Room"];
+    
+    
 	[outside setExit:@"west" toRoom:boulevard];
 	
 	[boulevard setExit:@"east" toRoom:outside];
 	[boulevard setExit:@"south" toRoom:cctParking];
 	[boulevard setExit:@"west" toRoom:theGreen];
 	[boulevard setExit:@"north" toRoom:universityParking];
-	
+    [boulevard setExit:@"teleport" toRoom:teleport];
+    [teleport setExit:@"north" toRoom:cct];
 	[cctParking setExit:@"west" toRoom:cct];
 	[cctParking setExit:@"north" toRoom:boulevard];
 	

@@ -8,32 +8,27 @@
 
 #import <Foundation/Foundation.h>
 #import "Protocols.h"
-
 #import "Room.h"
 #import "Player.h"
-@class TeleportRoom;
 
-@protocol TeleportDelegate
-
--(void)setExit:(NSString *)exit toRoom:(Room *)room;
--(Room *)getExit:(NSString *)exit;
--(NSString *)getExit;
-
-
-@end
-
-@interface TeleportRoom : NSObject {
+@interface TeleportRoom : NSObject <Rooms>{
     NSMutableDictionary *exits;
-    NSMutableSet* previousLocations;
-    Player* p;
+    NSMutableArray* previousLocations;
+    
 }
 
-@property (nonatomic, retain)id<TeleportDelegate>delegate;
+@property (nonatomic, retain)id<Rooms>delegate;
 @property (nonatomic, retain)NSString* tag;
+@property (nonatomic)BOOL isLocked;
 
--(void)setExit:(NSString *)exit toRoom:(Room *)room;
--(Room *)getExit:(NSString *)exit;
+-(id)init;
+-(id)initWithTag:(NSString *)newTag;
+-(void)setExit:(NSString *)exit toRoom:(id<Rooms>)room;
+-(id<Rooms>)getExit:(NSString *)exit;
 -(NSString *)getExits;
 -(void)addLocation:(NSNotification*)notification;
-
+-(void)addToItems:(Item*) newItem;
+-(Item*)removeFromItems:(NSString*)item;
+-(Item*)itemForKey:(NSString*) key;
+-(NSArray*) items;
 @end

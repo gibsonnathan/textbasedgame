@@ -9,6 +9,7 @@
 
 #import "Room.h"
 #import "Item.h"
+#import "Protocols.h"
 
 @implementation Room 
 
@@ -28,7 +29,6 @@
 		[self setTag:newTag];
 		exits = [[NSMutableDictionary alloc] initWithCapacity:10];
         items = [[NSMutableDictionary alloc] initWithCapacity:10];
-        
 	}
     
 	return self;
@@ -51,12 +51,12 @@
     return temp;
 }
 
--(void)setExit:(NSString *)exit toRoom:(Room *)room
+-(void)setExit:(NSString *)exit toRoom:(id<Rooms>)room
 {
 	[exits setObject:room forKey:exit];
 }
 
--(Room *)getExit:(NSString *)exit
+-(id<Rooms>)getExit:(NSString *)exit
 {
 	return [exits objectForKey:exit];
 }

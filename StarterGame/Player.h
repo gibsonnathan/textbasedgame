@@ -12,6 +12,7 @@
 #import "GameIO.h"
 #import "Item.h"
 #import "Protocols.h"
+
 @interface Player : NSObject{
     NSMutableArray* previousLocations;
     NSMutableArray* visitedRooms;
@@ -20,13 +21,13 @@
     int maxWeight;
 }
 
-@property (retain, nonatomic)Room *currentRoom;
+@property (nonatomic, retain)id<Rooms>currentRoom;
 @property (retain, nonatomic)GameIO *io;
 
 -(id)init;
--(id)initWithRoom:(Room *)room andIO:(GameIO *)theIO;
+-(id)initWithRoom:(id<Rooms>)room andIO:(GameIO *)theIO;
 -(void)walkTo:(NSString *)direction;
--(BOOL)canVisit:(Room*) room;
+-(BOOL)canVisit:(id<Rooms>) room;
 -(void)outputMessage:(NSString *)message;
 -(void)outputMessage:(NSString *)message withColor:(NSColor *)color;
 -(void)warningMessage:(NSString *)message;
