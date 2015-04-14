@@ -30,6 +30,7 @@
         [self setIo:theIO];
         inventory = [[NSMutableDictionary alloc]init];
         previousLocations = [[NSMutableArray alloc]init];
+        visitedRooms = [[NSMutableArray alloc]init];
         currentWeight = 0;
         maxWeight = 10;
     }
@@ -127,6 +128,7 @@
         if([self canVisit:nextRoom]){
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasWalked" object:currentRoom];
             [previousLocations addObject:currentRoom];
+            [visitedRooms addObject:currentRoom];
             [self setCurrentRoom:nextRoom];
             [self outputMessage:[NSString stringWithFormat:@"\n%@", nextRoom]];
         }else{

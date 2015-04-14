@@ -30,6 +30,7 @@
 		E446452D1AD702B200BC3008 /* DropCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E446452C1AD702B200BC3008 /* DropCommand.m */; };
 		E44645301AD70ED000BC3008 /* BackCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E446452F1AD70ED000BC3008 /* BackCommand.m */; };
 		E499C8C21ADC323F004855F7 /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8C11ADC323F004855F7 /* Key.m */; };
+		E499C8C51ADC808E004855F7 /* TeleportRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8C41ADC808E004855F7 /* TeleportRoom.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,9 +79,10 @@
 		E446452C1AD702B200BC3008 /* DropCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropCommand.m; sourceTree = "<group>"; };
 		E446452E1AD70ED000BC3008 /* BackCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackCommand.h; sourceTree = "<group>"; };
 		E446452F1AD70ED000BC3008 /* BackCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackCommand.m; sourceTree = "<group>"; };
-		E499C8B71ADB532F004855F7 /* Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocols.h; sourceTree = "<group>"; };
 		E499C8C01ADC323F004855F7 /* Key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
 		E499C8C11ADC323F004855F7 /* Key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Key.m; sourceTree = "<group>"; };
+		E499C8C31ADC808E004855F7 /* TeleportRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeleportRoom.h; sourceTree = "<group>"; };
+		E499C8C41ADC808E004855F7 /* TeleportRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeleportRoom.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,9 +113,10 @@
 				819122DE16E95A0000BEDA1B /* Room.m */,
 				E44645161AD5E93800BC3008 /* Item.h */,
 				E44645171AD5E93800BC3008 /* Item.m */,
-				E499C8B71ADB532F004855F7 /* Protocols.h */,
 				E499C8C01ADC323F004855F7 /* Key.h */,
 				E499C8C11ADC323F004855F7 /* Key.m */,
+				E499C8C31ADC808E004855F7 /* TeleportRoom.h */,
+				E499C8C41ADC808E004855F7 /* TeleportRoom.m */,
 			);
 			name = GameClasses;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E44645181AD5E93800BC3008 /* Item.m in Sources */,
+				E499C8C51ADC808E004855F7 /* TeleportRoom.m in Sources */,
 				E44645271AD6B1D800BC3008 /* PickUpCommand.m in Sources */,
 				E446452D1AD702B200BC3008 /* DropCommand.m in Sources */,
 				81AF891D16E6AAC400276C6B /* main.m in Sources */,

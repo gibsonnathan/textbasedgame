@@ -14,6 +14,7 @@
 #import "Protocols.h"
 @interface Player : NSObject{
     NSMutableArray* previousLocations;
+    NSMutableArray* visitedRooms;
     NSMutableDictionary* inventory;
     int currentWeight;
     int maxWeight;

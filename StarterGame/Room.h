@@ -9,13 +9,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Item.h"
-
-@interface Room : NSObject {
+@interface Room : NSObject{
 	NSMutableDictionary *exits;
     NSMutableDictionary *items;
 }
+
 @property (nonatomic)BOOL isLocked;
 @property (retain, nonatomic)NSString *tag;
+
 
 -(id)init;
 -(id)initWithTag:(NSString *)newTag;
