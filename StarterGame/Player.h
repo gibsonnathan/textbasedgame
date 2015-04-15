@@ -21,19 +21,19 @@
     int maxWeight;
 }
 
-@property (nonatomic, retain)id<Rooms>currentRoom;
+@property (nonatomic, retain)id<Room>currentRoom;
 @property (retain, nonatomic)GameIO *io;
 
 -(id)init;
--(id)initWithRoom:(id<Rooms>)room andIO:(GameIO *)theIO;
+-(id)initWithRoom:(id<Room>)room andIO:(GameIO *)theIO;
 -(void)walkTo:(NSString *)direction;
--(BOOL)canVisit:(id<Rooms>) room;
+-(BOOL)canVisit:(id<Room>) room;
 -(void)outputMessage:(NSString *)message;
 -(void)outputMessage:(NSString *)message withColor:(NSColor *)color;
 -(void)warningMessage:(NSString *)message;
 -(void)errorMessage:(NSString *)message;
 -(void)commandMessage:(NSString *)message;
--(void)addToInventory:(Item*) item;
+-(void)addToInventory:(id<Item>) item;
 -(void)exploreRoom;
 -(void)pickUp:(NSString*) item;
 -(void)searchInventory;

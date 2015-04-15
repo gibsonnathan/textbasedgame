@@ -21,7 +21,7 @@
 	return [self initWithRoom:nil andIO:nil];
 }
 
--(id)initWithRoom:(Room *)room andIO:(GameIO *)theIO
+-(id)initWithRoom:(id<Room>)room andIO:(GameIO *)theIO
 {
 	self = [super init];
     
@@ -38,7 +38,7 @@
 }
 
 -(void)goBack{
-    Room* lastRoom = [previousLocations lastObject];
+    id<Room> lastRoom = [previousLocations lastObject];
     if(lastRoom){
         [previousLocations removeLastObject];
         currentRoom = lastRoom;
@@ -49,7 +49,7 @@
 }
 
 -(void)dropItem:(NSString*) item{
-    Item* temp = [inventory objectForKey:item];
+    id<Item> temp = [inventory objectForKey:item];
     if(temp){
         [inventory removeObjectForKey:item];
         [currentRoom addToItems:temp];
@@ -110,7 +110,7 @@
     }
 }
 
--(BOOL)canVisit:(Room*) room{
+-(BOOL)canVisit:(id<Room>) room{
 
     if([room isLocked] == NO){
         return YES;

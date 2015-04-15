@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "Item.h"
 #import "Room.h"
-@interface Key : Item{
+#import "Protocols.h"
+@interface Key : NSObject  <Item>{
     
 }
 

@@ -27,7 +27,8 @@
         [self setTag:newTag];
         exits = [[NSMutableDictionary alloc] initWithCapacity:10];
         previousLocations = [[NSMutableArray alloc] init];
-        [self setDelegate:nil];
+        Room* x = [[Room alloc]init];
+        [self setDelegate:x];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addLocation:) name:@"PlayerHasWalked" object:nil];
     }
     return self;
@@ -39,66 +40,36 @@
     }
 }
 
--(void)setExit:(NSString *)exit toRoom:(id<Rooms>)room
+-(void)setExit:(NSString *)exit toRoom:(id<Room>)room
 {
-    if(delegate){
-        [delegate setExit:exit toRoom:room];
-    }else{
-        [exits setObject:room forKey:exit];
-    }
+    [delegate setExit:exit toRoom:room];
 }
 
--(id<Rooms>)getExit:(NSString *)exit{
-    if (delegate) {
-        return [delegate getExit: exit];
-    }
-    else{
-        if (![exit isEqualTo:@"outside"]) {
-            return nil;
-        }else{
-            NSInteger randomValue = arc4random_uniform((int)[previousLocations count]);
-            id<Rooms> temp = [previousLocations objectAtIndex: randomValue];
-            return temp;
-        }
-    }
-}
--(NSString *)getExits
-{
-    if(delegate){
-        return [delegate getExits];
-    }else{
-        return [NSString stringWithFormat:@"Exits: outside"];
-    }
-}
-
--(void)addToItems:(Item*) newItem{
-    if(delegate){
-        [delegate addToItems:newItem];
-    }else{
-        
-    }
-
-}
--(Item*)removeFromItems:(NSString*)item{
-    if(delegate){
-        return [delegate removeFromItems:item];
-    }else{
+-(id<Room>)getExit:(NSString *)exit{
+    if (![exit isEqualTo:@"outside"]) {
         return nil;
+    }else{
+        NSInteger randomValue = arc4random_uniform((int)[previousLocations count]);
+        id<Room> temp = [previousLocations objectAtIndex: randomValue];
+        return temp;
     }
 }
--(Item*)itemForKey:(NSString*) key{
-    if(delegate){
-        return [delegate itemForKey:key];
-    }else{
-        return nil;
-    }
+-(NSString *)getExits{
+    return [NSString stringWithFormat:@"Exits: outside"];
+}
+
+-(void)addToItems:(id<Item>) newItem{
+    [delegate addToItems:newItem];
+}
+-(id<Item>)removeFromItems:(NSString*)item{
+    return [delegate removeFromItems:item];
+}
+-(id<Item>)itemForKey:(NSString*) key{
+    return [delegate itemForKey:key];
+
 }
 -(NSArray*) items{
-    if(delegate){
-        return [delegate items];
-    }else{
-        return nil;
-    }
+    return [delegate items];
 }
 
 -(NSString *)description

@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Protocols.h"
 
-@interface Item : NSObject{
-    
+@interface Item : NSObject <Item>{
+
 }
-
 @property (retain, nonatomic) NSString *name;
 @property (nonatomic) int weight;
 @property (nonatomic) BOOL canPickup;
