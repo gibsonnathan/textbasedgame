@@ -8,7 +8,7 @@
 //
 
 #import "Player.h"
-
+#import "Key.h"
 
 @implementation Player
 
@@ -115,10 +115,16 @@
     if([room isLocked] == NO){
         return YES;
     }else{
-        
+        for (id<Item> x in [inventory allValues]) {
+            
+            if ([x isKindOfClass:[Key class]]) {
+                if ([[(Key*)x unlocks] isEqual:room]) {
+                    return YES;
+                }
+            }
+        }
     }
     return NO;
-
 }
 
 -(void)walkTo:(NSString *)direction
@@ -130,6 +136,9 @@
             [previousLocations addObject:currentRoom];
             [visitedRooms addObject:currentRoom];
             [self setCurrentRoom:nextRoom];
+            if ([currentRoom isLocked] == YES) {
+                [currentRoom setIsLocked: NO];
+            }
             [self outputMessage:[NSString stringWithFormat:@"\n%@", nextRoom]];
         }else{
             [self warningMessage:@"\nDoor is locked"];

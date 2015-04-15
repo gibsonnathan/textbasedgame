@@ -11,6 +11,7 @@
 #import "Item.h"
 #import "Key.h"
 #import "TeleportRoom.h"
+#import "Key.h"
 
 @implementation Game
 
@@ -46,6 +47,11 @@
 	universityHall = [[[Room alloc] initWithTag:@"in University Hall"] autorelease];
 	schuster = [[[Room alloc] initWithTag:@"in the Schuster Center"] autorelease];
     teleport = [[TeleportRoom alloc] initWithTag:@"in the Teleport Room"];
+    
+    
+    [teleport setIsLocked:YES];
+    Key* teleportKey = [[Key alloc] initWithName:@"TeleportKey" andWeight:1 andCanPickup:YES andUnlocks:teleport];
+    [boulevard addToItems:teleportKey];
     
     
 	[outside setExit:@"west" toRoom:boulevard];
