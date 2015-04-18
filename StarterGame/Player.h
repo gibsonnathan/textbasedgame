@@ -12,6 +12,8 @@
 #import "GameIO.h"
 #import "Item.h"
 #import "Protocols.h"
+#import "Weapon.h"
+#import "Armor.h"
 
 @interface Player : NSObject{
     NSMutableArray* previousLocations;
@@ -19,6 +21,7 @@
     NSMutableDictionary* inventory;
     int currentWeight;
     int maxWeight;
+    int health;
 }
 
 @property (nonatomic, retain)id<Room>currentRoom;
@@ -39,4 +42,5 @@
 -(void)searchInventory;
 -(void)dropItem:(NSString*) item;
 -(void)goBack;
+-(void)takeDamage:(int)amount;
 @end

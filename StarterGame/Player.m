@@ -33,8 +33,20 @@
         visitedRooms = [[NSMutableArray alloc]init];
         currentWeight = 0;
         maxWeight = 10;
+        health = 100;
+    
     }
 	return self;
+}
+
+
+
+-(void)takeDamage:(int)amountOfDamage{
+    if (health - amountOfDamage <= 0) {
+        
+    }else{
+        health = health - amountOfDamage;
+    }
 }
 
 -(void)goBack{
@@ -67,7 +79,7 @@
             temp = [NSString stringWithFormat:@"%@, %@", temp, [[inventory allKeys] objectAtIndex:i]];
         }
         temp = [temp substringFromIndex:1];
-        NSString* final = [NSString stringWithFormat:@"%@ %@\n%d/%d", header, temp, currentWeight, maxWeight];
+        NSString* final = [NSString stringWithFormat:@"%@ %@\n%d/%d", header, temp,currentWeight, maxWeight];
         [self outputMessage:final];
 
     }else{
@@ -116,7 +128,6 @@
         return YES;
     }else{
         for (id<Item> x in [inventory allValues]) {
-            
             if ([x isKindOfClass:[Key class]]) {
                 if ([[(Key*)x unlocks] isEqual:room]) {
                     return YES;

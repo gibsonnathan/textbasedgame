@@ -31,6 +31,8 @@
 		E44645301AD70ED000BC3008 /* BackCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E446452F1AD70ED000BC3008 /* BackCommand.m */; };
 		E499C8C21ADC323F004855F7 /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8C11ADC323F004855F7 /* Key.m */; };
 		E499C8C51ADC808E004855F7 /* TeleportRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8C41ADC808E004855F7 /* TeleportRoom.m */; };
+		E499C8D41ADF14FB004855F7 /* Weapon.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8D31ADF14FB004855F7 /* Weapon.m */; };
+		E499C8D71ADFEA97004855F7 /* EquipCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8D61ADFEA97004855F7 /* EquipCommand.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,10 @@
 		E499C8C31ADC808E004855F7 /* TeleportRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeleportRoom.h; sourceTree = "<group>"; };
 		E499C8C41ADC808E004855F7 /* TeleportRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeleportRoom.m; sourceTree = "<group>"; };
 		E499C8CC1ADD820A004855F7 /* Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocols.h; sourceTree = "<group>"; };
+		E499C8D21ADF14FB004855F7 /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
+		E499C8D31ADF14FB004855F7 /* Weapon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weapon.m; sourceTree = "<group>"; };
+		E499C8D51ADFEA97004855F7 /* EquipCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EquipCommand.h; sourceTree = "<group>"; };
+		E499C8D61ADFEA97004855F7 /* EquipCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EquipCommand.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,8 @@
 				E499C8CC1ADD820A004855F7 /* Protocols.h */,
 				E499C8C31ADC808E004855F7 /* TeleportRoom.h */,
 				E499C8C41ADC808E004855F7 /* TeleportRoom.m */,
+				E499C8D21ADF14FB004855F7 /* Weapon.h */,
+				E499C8D31ADF14FB004855F7 /* Weapon.m */,
 			);
 			name = GameClasses;
 			sourceTree = "<group>";
@@ -146,6 +154,8 @@
 				E446452C1AD702B200BC3008 /* DropCommand.m */,
 				E446452E1AD70ED000BC3008 /* BackCommand.h */,
 				E446452F1AD70ED000BC3008 /* BackCommand.m */,
+				E499C8D51ADFEA97004855F7 /* EquipCommand.h */,
+				E499C8D61ADFEA97004855F7 /* EquipCommand.m */,
 			);
 			name = Commands;
 			sourceTree = "<group>";
@@ -274,9 +284,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E499C8D41ADF14FB004855F7 /* Weapon.m in Sources */,
 				E44645181AD5E93800BC3008 /* Item.m in Sources */,
 				E499C8C51ADC808E004855F7 /* TeleportRoom.m in Sources */,
 				E44645271AD6B1D800BC3008 /* PickUpCommand.m in Sources */,
+				E499C8D71ADFEA97004855F7 /* EquipCommand.m in Sources */,
 				E446452D1AD702B200BC3008 /* DropCommand.m in Sources */,
 				81AF891D16E6AAC400276C6B /* main.m in Sources */,
 				81AF892416E6AAC400276C6B /* AppDelegate.m in Sources */,

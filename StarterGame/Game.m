@@ -48,11 +48,9 @@
 	schuster = [[[Room alloc] initWithTag:@"in the Schuster Center"] autorelease];
     teleport = [[TeleportRoom alloc] initWithTag:@"in the Teleport Room"];
     
-    
     [teleport setIsLocked:YES];
-    Key* teleportKey = [[Key alloc] initWithName:@"TeleportKey" andWeight:1 andCanPickup:YES andUnlocks:teleport];
+    Key* teleportKey = [[Key alloc] initWithName:@"teleport-key" andWeight:1 andCanPickup:YES andUnlocks:teleport];
     [boulevard addToItems:teleportKey];
-    
     
 	[outside setExit:@"west" toRoom:boulevard];
 	
@@ -96,7 +94,8 @@
     Item* car = [[Item alloc]initWithName:@"car" andWeight:5 andCanPickup:NO];
     [boulevard addToItems:car];
     
-    
+    Weapon* weapon = [[Weapon alloc] initWithName:@"weapon" andDamage:10 andWeight:1 andCanPickUp:YES];
+    [boulevard addToItems:weapon];
     
 	return outside;
 }
