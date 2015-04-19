@@ -14,18 +14,20 @@
 
 @synthesize isLocked;
 @synthesize tag;
+@synthesize name;
 
 -(id)init
 {
-	return [self initWithTag:@"No Tag"];
+    return [self initWithTag:@"No Tag" andName:@"Room"];
 }
 
--(id)initWithTag:(NSString *)newTag
+-(id)initWithTag:(NSString *)newTag andName:(NSString*)newName;
 {
 	self = [super init];
     
 	if (nil != self) {
 		[self setTag:newTag];
+        [self setName:newName];
 		exits = [[NSMutableDictionary alloc] initWithCapacity:10];
         items = [[NSMutableDictionary alloc] initWithCapacity:10];
 	}
@@ -33,7 +35,7 @@
 	return self;
 }
 
--(NSArray*) items{
+-(NSArray*)items{
     return [items allKeys];
 }
 -(id<Item>)itemForKey:(NSString*) key{
@@ -75,7 +77,6 @@
 {
 	[tag release];
 	[exits release];
-	
 	[super dealloc];
 }
 

@@ -34,7 +34,7 @@
         currentWeight = 0;
         maxWeight = 10;
         health = 100;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(encounteredNPC:) name:@"NPC1WillWalk" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(encounteredNPC:) name:@"NPCWillWalk" object:nil];
     
     }
 	return self;
@@ -42,7 +42,7 @@
 
 -(void)encounteredNPC:(NSNotification*)notification{
     if ([[notification object] isEqualTo:currentRoom]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"NPC1StopMoving" object:currentRoom];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NPCStopMoving" object:currentRoom];
     }
 }
 
@@ -188,6 +188,10 @@
 
 -(void)addToInventory:(Item*) newItem{
     [inventory setObject: newItem forKey: [newItem name]];
+}
+
+-(NSArray*)inventoryKeys{
+    return [inventory allKeys];
 }
 
 -(void)dealloc

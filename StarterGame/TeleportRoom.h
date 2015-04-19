@@ -17,11 +17,9 @@
 }
 
 @property (nonatomic, retain)id<Room> delegate;
-@property (nonatomic, retain)NSString* tag;
-@property (nonatomic)BOOL isLocked;
 
 -(id)init;
--(id)initWithTag:(NSString*)newTag;
+-(id)initWithTag:(NSString *)newTag andName:(NSString*)newName;
 -(void)setExit:(NSString*)exit toRoom:(id<Room>)room;
 -(id<Room>)getExit:(NSString *)exit;
 -(NSString*)getExits;

@@ -11,23 +11,18 @@
 @implementation TeleportRoom
 
 @synthesize delegate;
-@synthesize tag;
-@synthesize isLocked;
 
--(id)init
-{
-    return [self initWithTag:@"No Tag"];
+-(id)init{
+    return [self initWithTag:@"No Tag" andName:@"Room"];
 }
 
--(id)initWithTag:(NSString *)newTag
-{
+-(id)initWithTag:(NSString *)newTag andName:(NSString*)newName{
     self = [super init];
     
     if (nil != self) {
-        [self setTag:newTag];
-        exits = [[NSMutableDictionary alloc] initWithCapacity:10];
+        [self setDelegate:[[Room alloc]initWithTag:newTag andName:newName]];
         previousLocations = [[NSMutableArray alloc] init];
-        [self setDelegate:[[Room alloc]init]];
+        [delegate setTag:newTag];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addLocation:) name:@"PlayerHasWalked" object:nil];
     }
     return self;
@@ -39,9 +34,15 @@
     }
 }
 
--(void)setExit:(NSString *)exit toRoom:(id<Room>)room
-{
+-(void)setExit:(NSString *)exit toRoom:(id<Room>)room{
     [delegate setExit:exit toRoom:room];
+}
+
+-(void)setName:(NSString*)newName{
+    [delegate setName:newName];
+}
+-(NSString*)name{
+    return [delegate name];
 }
 
 -(id<Room>)getExit:(NSString *)exit{
@@ -74,14 +75,25 @@
     return [delegate items];
 }
 
--(NSString *)description
-{
-    return [NSString stringWithFormat:@"You are %@.\n *** %@", tag, [self getExits]];
+-(void)setIsLocked:(BOOL)locked{
+    [delegate setIsLocked:locked];
+}
+-(BOOL)isLocked{
+    return [delegate isLocked];
 }
 
--(void)dealloc
-{
-    [tag release];
+-(void)setTag:(NSString*)newTag{
+    [delegate setTag:newTag];
+}
+-(NSString*)tag{
+    return [delegate tag];
+}
+
+-(NSString *)description{
+    return [NSString stringWithFormat:@"You are %@.\n *** %@", [delegate tag], [self getExits]];
+}
+
+-(void)dealloc{
     [exits release];
     [super dealloc];
 }

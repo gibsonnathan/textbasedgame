@@ -14,18 +14,18 @@
 @synthesize weight;
 @synthesize canPickup;
 
--(id) init{
+-(id)init{
     return [self initWithName:@"Item"];
 }
--(id) initWithName:(NSString*) newName{
+-(id)initWithName:(NSString*) newName{
     return [self initWithName:newName andWeight:10];
 }
 
--(id) initWithName:(NSString *)newName andWeight:(int)newWeight{
+-(id)initWithName:(NSString *)newName andWeight:(int)newWeight{
     return[self initWithName:newName andWeight:newWeight andCanPickup:true];
 }
 
--(id) initWithName:(NSString*) newName andWeight: (int) newWeight andCanPickup:(BOOL)pickup{
+-(id)initWithName:(NSString*) newName andWeight: (int) newWeight andCanPickup:(BOOL)pickup{
     self = [super init];
     if(self){
         [self setCanPickup:pickup];
@@ -34,11 +34,11 @@
     }
     return self;
 }
--(NSString*) description{
+-(NSString*)description{
     return [NSString stringWithFormat:@" %@ %d", [self name], [self weight]];
 }
 
--(void) dealloc{
+-(void)dealloc{
     [name release];
     [super dealloc];
 }

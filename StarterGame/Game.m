@@ -11,9 +11,8 @@
 #import "Item.h"
 #import "Key.h"
 #import "TeleportRoom.h"
-#import "Key.h"
-#import "NPC.h"
 #import "GameIOManager.h"
+#import "Alien.h"
 
 @implementation Game
 
@@ -40,16 +39,16 @@
     
     TeleportRoom* teleport;
 	
-	outside = [[[Room alloc] initWithTag:@"outside the main entrance of the university"] autorelease];
-	cctParking = [[[Room alloc] initWithTag:@"in the parking lot at CCT"] autorelease];
-	boulevard = [[[Room alloc] initWithTag:@"on the boulevard"] autorelease];
-	universityParking = [[[Room alloc] initWithTag:@"in the parking lot at University Hall"] autorelease];
-	parkingDeck = [[[Room alloc] initWithTag:@"in the parking deck"] autorelease];
-	cct = [[[Room alloc] initWithTag:@"in the CCT building"] autorelease];
-	theGreen = [[[Room alloc] initWithTag:@"in the green in front of Schuster Center"] autorelease];
-	universityHall = [[[Room alloc] initWithTag:@"in University Hall"] autorelease];
-	schuster = [[[Room alloc] initWithTag:@"in the Schuster Center"] autorelease];
-    teleport = [[TeleportRoom alloc] initWithTag:@"in the Teleport Room"];
+	outside = [[[Room alloc] initWithTag:@"outside the main entrance of the university" andName:@"outside"] autorelease];
+	cctParking = [[[Room alloc] initWithTag:@"in the parking lot at CCT" andName:@"cctParking"] autorelease];
+	boulevard = [[[Room alloc] initWithTag:@"on the boulevard" andName:@"boulevard"] autorelease];
+    universityParking = [[[Room alloc] initWithTag:@"in the parking lot at University Hall" andName:@"university parking"] autorelease];
+	parkingDeck = [[[Room alloc] initWithTag:@"in the parking deck" andName:@"parking deck"] autorelease];
+	cct = [[[Room alloc] initWithTag:@"in the CCT building" andName:@"cct"] autorelease];
+	theGreen = [[[Room alloc] initWithTag:@"in the green in front of Schuster Center" andName:@"the green"] autorelease];
+	universityHall = [[[Room alloc] initWithTag:@"in University Hall" andName:@"university hall"] autorelease];
+	schuster = [[[Room alloc] initWithTag:@"in the Schuster Center" andName:@"schuster"] autorelease];
+    teleport = [[TeleportRoom alloc] initWithTag:@"in the Teleport Room" andName:@"teleport"];
     
     [teleport setIsLocked:YES];
     Key* teleportKey = [[Key alloc] initWithName:@"teleport-key" andWeight:1 andCanPickup:YES andUnlocks:teleport];
@@ -97,11 +96,11 @@
     Item* car = [[Item alloc]initWithName:@"car" andWeight:5 andCanPickup:NO];
     [boulevard addToItems:car];
     
-    Weapon* weapon = [[Weapon alloc] initWithName:@"weapon" andDamage:10 andWeight:1 andCanPickUp:YES];
+    Weapon* weapon = [[Weapon alloc] initWithName:@"weapon" andDamage:1 andWeight:1 andCanPickUp:YES];
     [boulevard addToItems:weapon];
     
-    NPC* alien = [[NPC alloc]initWithRoom:schuster];
- 
+    Alien* alien1 = [[Alien alloc] initWithRoom:schuster andName:@"Larry" andMoveTime:5];
+    Alien* alien2 = [[Alien alloc] initWithRoom:parkingDeck andName:@"Tom" andMoveTime:2];
     
 	return outside;
 }

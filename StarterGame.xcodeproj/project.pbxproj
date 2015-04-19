@@ -23,6 +23,7 @@
 		81AF892116E6AAC400276C6B /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 81AF891F16E6AAC400276C6B /* Credits.rtf */; };
 		81AF892416E6AAC400276C6B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AF892316E6AAC400276C6B /* AppDelegate.m */; };
 		81AF892716E6AAC500276C6B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81AF892516E6AAC500276C6B /* MainMenu.xib */; };
+		E400A91E1AE462070069EADC /* Alien.m in Sources */ = {isa = PBXBuildFile; fileRef = E400A91D1AE462070069EADC /* Alien.m */; };
 		E43FCC721AE2E55C000D66B9 /* NPC.m in Sources */ = {isa = PBXBuildFile; fileRef = E43FCC711AE2E55C000D66B9 /* NPC.m */; };
 		E43FCC751AE2FA34000D66B9 /* GameIOManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E43FCC741AE2FA34000D66B9 /* GameIOManager.m */; };
 		E44645181AD5E93800BC3008 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = E44645171AD5E93800BC3008 /* Item.m */; };
@@ -70,6 +71,8 @@
 		81AF892216E6AAC400276C6B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		81AF892316E6AAC400276C6B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		81AF892616E6AAC500276C6B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		E400A91C1AE462070069EADC /* Alien.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alien.h; sourceTree = "<group>"; };
+		E400A91D1AE462070069EADC /* Alien.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alien.m; sourceTree = "<group>"; };
 		E43FCC701AE2E55C000D66B9 /* NPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPC.h; sourceTree = "<group>"; };
 		E43FCC711AE2E55C000D66B9 /* NPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPC.m; sourceTree = "<group>"; };
 		E43FCC731AE2FA34000D66B9 /* GameIOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameIOManager.h; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 				E43FCC711AE2E55C000D66B9 /* NPC.m */,
 				E43FCC731AE2FA34000D66B9 /* GameIOManager.h */,
 				E43FCC741AE2FA34000D66B9 /* GameIOManager.m */,
+				E400A91C1AE462070069EADC /* Alien.h */,
+				E400A91D1AE462070069EADC /* Alien.m */,
 			);
 			name = GameClasses;
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 				E499C8D41ADF14FB004855F7 /* Weapon.m in Sources */,
 				E44645181AD5E93800BC3008 /* Item.m in Sources */,
 				E499C8C51ADC808E004855F7 /* TeleportRoom.m in Sources */,
+				E400A91E1AE462070069EADC /* Alien.m in Sources */,
 				E44645271AD6B1D800BC3008 /* PickUpCommand.m in Sources */,
 				E446452D1AD702B200BC3008 /* DropCommand.m in Sources */,
 				81AF891D16E6AAC400276C6B /* main.m in Sources */,

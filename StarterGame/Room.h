@@ -19,9 +19,10 @@
 
 @property (nonatomic)BOOL isLocked;
 @property (retain, nonatomic)NSString *tag;
+@property (retain, nonatomic)NSString* name;
 
 -(id)init;
--(id)initWithTag:(NSString*)newTag;
+-(id)initWithTag:(NSString *)newTag andName:(NSString*)newName;
 -(void)setExit:(NSString*)exit toRoom:(id<Room>)room;
 -(id<Room>)getExit:(NSString*)exit;
 -(NSString*)getExits;
@@ -29,5 +30,6 @@
 -(id<Item>)removeFromItems:(NSString*)item;
 -(id<Item>)itemForKey:(NSString*)key;
 -(NSArray*)items;
+
 
 @end

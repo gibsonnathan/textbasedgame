@@ -21,7 +21,11 @@
 @class Room;
 @protocol Room <NSObject>
 -(id)init;
--(id)initWithTag:(NSString*)newTag;
+-(id)initWithTag:(NSString *)newTag andName:(NSString*)newName;
+-(void)setTag:(NSString*)newTag;
+-(NSString*)tag;
+-(void)setName:(NSString*)newName;
+-(NSString*)name;
 -(void)setExit:(NSString*)exit toRoom:(id<Room>)room;
 -(id<Room>)getExit:(NSString*)exit;
 -(NSString*)getExits;
@@ -35,12 +39,12 @@
 
 @class NPC;
 @protocol NPC <NSObject>
--(id)initWithRoom:(id<Room>)room;
+-(id)initWithRoom:(id<Room>)room andName:(NSString*)newName andMoveTime:(int)newMoveTime;
 -(void)encounteredPlayer:(NSNotification*)notification;
 -(void)talkToPlayer:(NSString*)message;
 -(void)stopWalking;
 -(void)walk;
 -(void)addToInventory:(id<Item>)item;
--(void)dropItem:(NSString*)item;
+-(void)dropItems;
 
 @end

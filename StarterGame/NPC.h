@@ -13,15 +13,15 @@
     BOOL moving;
 }
 
-@property(nonatomic, retain)Player* delegate;
+@property(nonatomic, retain)id delegate;
+@property(nonatomic, retain)NSString* name;
 
--(id)initWithRoom:(id<Room>)room;
+-(id)initWithRoom:(id<Room>)room andName:(NSString*)newName andMoveTime:(int)newMoveTime;
 -(void)encounteredPlayer:(NSNotification*)notification;
 -(void)talkToPlayer:(NSString*)message;
 -(void)stopWalking;
 -(void)walk;
 -(void)addToInventory:(id<Item>)item;
--(void)dropItem:(NSString*)item;
--(void)attack:(int)amount;
+-(void)dropItems;
 
 @end

@@ -37,6 +37,7 @@
 -(void)errorMessage:(NSString*)message;
 -(void)commandMessage:(NSString*)message;
 -(void)addToInventory:(id<Item>)item;
+-(NSArray*)inventoryKeys;
 -(void)exploreRoom;
 -(void)pickUp:(NSString*)item;
 -(void)searchInventory;
