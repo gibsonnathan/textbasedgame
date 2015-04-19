@@ -100,7 +100,7 @@
     Weapon* weapon = [[Weapon alloc] initWithName:@"weapon" andDamage:10 andWeight:1 andCanPickUp:YES];
     [boulevard addToItems:weapon];
     
-    NPC* alien = [[NPC alloc]initWithRoom:schuster andHealth:20];
+    NPC* alien = [[NPC alloc]initWithRoom:schuster];
  
     
 	return outside;

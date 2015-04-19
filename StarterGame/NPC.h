@@ -7,14 +7,21 @@
 //
 
 #import "Player.h"
-
-@interface NPC : Player{
+#import "Protocols.h"
+@interface NPC : NSObject <NPC>{
     NSTimer* moveTimer;
+    BOOL moving;
 }
 
--(id)initWithRoom:(id<Room>)room andHealth:(int)newHealth;
+@property(nonatomic, retain)Player* delegate;
+
+-(id)initWithRoom:(id<Room>)room;
+-(void)encounteredPlayer:(NSNotification*)notification;
+-(void)talkToPlayer:(NSString*)message;
+-(void)stopWalking;
 -(void)walk;
--(void)talkToPlayer;
--(void)talk;
+-(void)addToInventory:(id<Item>)item;
+-(void)dropItem:(NSString*)item;
+-(void)attack:(int)amount;
 
 @end

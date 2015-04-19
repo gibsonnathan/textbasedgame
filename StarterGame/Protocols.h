@@ -32,3 +32,15 @@
 -(void)setIsLocked:(BOOL)locked;
 -(BOOL)isLocked;
 @end
+
+@class NPC;
+@protocol NPC <NSObject>
+-(id)initWithRoom:(id<Room>)room;
+-(void)encounteredPlayer:(NSNotification*)notification;
+-(void)talkToPlayer:(NSString*)message;
+-(void)stopWalking;
+-(void)walk;
+-(void)addToInventory:(id<Item>)item;
+-(void)dropItem:(NSString*)item;
+
+@end

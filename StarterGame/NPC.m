@@ -11,51 +11,62 @@
 #import "TeleportRoom.h"
 @implementation NPC
 
--(id)initWithRoom:(id<Room>)room andHealth:(int) newHealth;
+@synthesize delegate;
+
+-(id)initWithRoom:(id<Room>)room;
 {
     self = [self init];
     
     if (nil != self) {
-        [self setCurrentRoom:room];
-        [self setIo: [GameIOManager sharedInstance:nil]];
-        inventory = [[NSMutableDictionary alloc]init];
-        health = newHealth;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopMoving) name:@"NPC1StopMoving" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sameRoomAsNPC:) name:@"PlayerWillWalk" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talk) name:@"NPC1Talk" object:nil];
+        delegate = [[Player alloc]init];
+        [delegate setCurrentRoom:room];
+        [delegate setIo:[GameIOManager sharedInstance:nil]];
+        moving = YES;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopWalking) name:@"NPC1StopMoving" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(encounteredPlayer:) name:@"PlayerWillWalk" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkToPlayer:) name:@"NPC1Talk" object:nil];
         moveTimer = [NSTimer scheduledTimerWithTimeInterval:100 target:self selector:@selector(walk) userInfo:nil repeats:YES];
     }
     return self;
 }
 
--(void)sameRoomAsNPC:(NSNotification*)notification{
-    if ([[notification object] isEqualTo:[self currentRoom]]) {
-        [self stopMoving];
+-(void)encounteredPlayer:(NSNotification*)notification{
+    if ([[notification object] isEqualTo:[delegate currentRoom]]) {
+        [self stopWalking];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NPC1Talk" object:nil];
     }
 }
 
--(void)talk{
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(talkToPlayer) userInfo:nil repeats:NO];
+-(void)talkToPlayer:(NSString*)message{
+    [self performSelector:@selector(outputMessage:) withObject:@"\nasdflkjasdlf" afterDelay:1];
 }
 
--(void)talkToPlayer{
-    
-    [self outputMessage:@"\nalsdkfjalskjfd" withColor:[NSColor greenColor]];
+-(void)outputMessage:(NSString*)message{
+    [delegate outputMessage:message withColor:[NSColor greenColor]];
 }
 
--(void)stopMoving{
+-(void)stopWalking{
     [moveTimer invalidate];
+    moving = NO;
 }
 
 -(void)walk{
-    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[self currentRoom] getExits] componentsSeparatedByString:@" "]];
-    Room *nextRoom = [[self currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
+    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[delegate currentRoom] getExits] componentsSeparatedByString:@" "]];
+    Room *nextRoom = [[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
     if (nextRoom && ![nextRoom isKindOfClass:[TeleportRoom class]]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NPC1WillWalk" object:nextRoom];
-        [self setCurrentRoom:nextRoom];
-        //[self outputMessage:[NSString stringWithFormat:@"\nAlien moved to %@", nextRoom]];
+        [delegate setCurrentRoom:nextRoom];
     }
 }
 
+-(void)addToInventory:(id<Item>)item{
+    [delegate addToInventory:item];
+}
+-(void)dropItem:(NSString*)item{
+    [delegate dropItem:item];
+}
+
+-(void)attack:(int)amount{
+
+}
 @end

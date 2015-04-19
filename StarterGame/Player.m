@@ -34,13 +34,13 @@
         currentWeight = 0;
         maxWeight = 10;
         health = 100;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sameRoomAsNPC:) name:@"NPC1WillWalk" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(encounteredNPC:) name:@"NPC1WillWalk" object:nil];
     
     }
 	return self;
 }
 
--(void)sameRoomAsNPC:(NSNotification*)notification{
+-(void)encounteredNPC:(NSNotification*)notification{
     if ([[notification object] isEqualTo:currentRoom]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NPC1StopMoving" object:currentRoom];
     }
@@ -76,9 +76,8 @@
             temp = [NSString stringWithFormat:@"%@, %@", temp, [[inventory allKeys] objectAtIndex:i]];
         }
         temp = [temp substringFromIndex:1];
-        NSString* final = [NSString stringWithFormat:@"%@ %@\n%d/%d", header, temp,currentWeight, maxWeight];
+        NSString* final = [NSString stringWithFormat:@"%@ %@\n%d/%d", header, temp, currentWeight, maxWeight];
         [self outputMessage:final];
-
     }else{
         [self outputMessage:@"\nEmpty Inventory"];
     }
@@ -139,7 +138,9 @@
 	Room *nextRoom = [currentRoom getExit:direction];
 	if (nextRoom) {
         if([self canVisit:nextRoom]){
+            //needed for teleport room
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasWalked" object:currentRoom];
+            //needed for NPC
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerWillWalk" object:nextRoom];
             [previousLocations addObject:currentRoom];
             [visitedRooms addObject:currentRoom];
