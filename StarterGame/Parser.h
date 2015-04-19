@@ -18,7 +18,7 @@
 @property (retain, nonatomic)CommandWords *commands;
 
 -(id)init;
--(id)initWithCommands:(CommandWords *)newCommands;
--(Command *)parseCommand:(NSString *)commandString;
+-(id)initWithCommands:(CommandWords*)newCommands;
+-(Command*)parseCommand:(NSString*)commandString;
 
 @end

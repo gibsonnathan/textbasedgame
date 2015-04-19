@@ -63,7 +63,7 @@
 -(NSString *)getExits
 {
 	NSArray *exitNames = [exits allKeys];
-	return [NSString stringWithFormat:@"Exits: %@", [exitNames componentsJoinedByString:@" "]];
+	return [NSString stringWithFormat:@"%@", [exitNames componentsJoinedByString:@" "]];
 }
 
 -(NSString *)description

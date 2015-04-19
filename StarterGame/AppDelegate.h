@@ -13,8 +13,9 @@
 #import "Game.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
-    GameIO *gameIO;
     Game *game;
+    GameIO* gameIO;
+    
 }
 
 @property (assign) IBOutlet NSTextField *command;

@@ -9,7 +9,7 @@
 
 #import "Player.h"
 #import "Key.h"
-
+#import "GameIOManager.h"
 @implementation Player
 
 
@@ -18,34 +18,31 @@
 
 -(id)init
 {
-	return [self initWithRoom:nil andIO:nil];
+	return [self initWithRoom:nil];
 }
 
--(id)initWithRoom:(id<Room>)room andIO:(GameIO *)theIO
+-(id)initWithRoom:(id<Room>)room
 {
 	self = [super init];
     
 	if (nil != self) {
 		[self setCurrentRoom:room];
-        [self setIo:theIO];
+        [self setIo:[GameIOManager sharedInstance:nil]];
         inventory = [[NSMutableDictionary alloc]init];
         previousLocations = [[NSMutableArray alloc]init];
         visitedRooms = [[NSMutableArray alloc]init];
         currentWeight = 0;
         maxWeight = 10;
         health = 100;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sameRoomAsNPC:) name:@"NPC1WillWalk" object:nil];
     
     }
 	return self;
 }
 
-
-
--(void)takeDamage:(int)amountOfDamage{
-    if (health - amountOfDamage <= 0) {
-        
-    }else{
-        health = health - amountOfDamage;
+-(void)sameRoomAsNPC:(NSNotification*)notification{
+    if ([[notification object] isEqualTo:currentRoom]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NPC1StopMoving" object:currentRoom];
     }
 }
 
@@ -123,7 +120,6 @@
 }
 
 -(BOOL)canVisit:(id<Room>) room{
-
     if([room isLocked] == NO){
         return YES;
     }else{
@@ -144,6 +140,7 @@
 	if (nextRoom) {
         if([self canVisit:nextRoom]){
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasWalked" object:currentRoom];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerWillWalk" object:nextRoom];
             [previousLocations addObject:currentRoom];
             [visitedRooms addObject:currentRoom];
             [self setCurrentRoom:nextRoom];

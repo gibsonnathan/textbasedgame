@@ -16,18 +16,18 @@
     NSMutableArray* previousLocations;
 }
 
-@property (nonatomic, retain)id<Room>delegate;
+@property (nonatomic, retain)id<Room> delegate;
 @property (nonatomic, retain)NSString* tag;
 @property (nonatomic)BOOL isLocked;
 
 -(id)init;
--(id)initWithTag:(NSString *)newTag;
--(void)setExit:(NSString *)exit toRoom:(id<Room>)room;
+-(id)initWithTag:(NSString*)newTag;
+-(void)setExit:(NSString*)exit toRoom:(id<Room>)room;
 -(id<Room>)getExit:(NSString *)exit;
--(NSString *)getExits;
+-(NSString*)getExits;
 -(void)addLocation:(NSNotification*)notification;
--(void)addToItems:(id<Item>) newItem;
+-(void)addToItems:(id<Item>)newItem;
 -(id<Item>)removeFromItems:(NSString*)item;
--(id<Item>)itemForKey:(NSString*) key;
--(NSArray*) items;
+-(id<Item>)itemForKey:(NSString*)key;
+-(NSArray*)items;
 @end

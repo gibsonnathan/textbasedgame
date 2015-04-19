@@ -12,14 +12,14 @@
 @interface Item : NSObject <Item>{
 
 }
+
 @property (retain, nonatomic) NSString *name;
 @property (nonatomic) int weight;
 @property (nonatomic) BOOL canPickup;
 
-
--(id) init;
--(id) initWithName:(NSString*) newName;
--(id) initWithName:(NSString*) newName andWeight: (int) newWeight;
--(id) initWithName:(NSString*) newName andWeight: (int) newWeight andCanPickup: (BOOL) pickup;
+-(id)init;
+-(id)initWithName:(NSString*)newName;
+-(id)initWithName:(NSString*)newName andWeight: (int)newWeight;
+-(id)initWithName:(NSString*)newName andWeight: (int)newWeight andCanPickup:(BOOL)pickup;
 
 @end

@@ -17,9 +17,9 @@
 @property (nonatomic) BOOL canPickup;
 @property (nonatomic) int damage;
 
--(id) init;
--(id) initWithName:(NSString*)newName;
--(id) initWithName:(NSString*)newName andWeight:(int)newWeight;
--(id) initWithName:(NSString *)newName andDamage:(int)newDamage andWeight:(int)newWeight andCanPickUp:(BOOL*) newCanPickup;
+-(id)init;
+-(id)initWithName:(NSString*)newName;
+-(id)initWithName:(NSString*)newName andWeight:(int)newWeight;
+-(id)initWithName:(NSString *)newName andDamage:(int)newDamage andWeight:(int)newWeight andCanPickUp:(BOOL*) newCanPickup;
 
 @end

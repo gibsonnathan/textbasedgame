@@ -23,6 +23,8 @@
 		81AF892116E6AAC400276C6B /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 81AF891F16E6AAC400276C6B /* Credits.rtf */; };
 		81AF892416E6AAC400276C6B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AF892316E6AAC400276C6B /* AppDelegate.m */; };
 		81AF892716E6AAC500276C6B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81AF892516E6AAC500276C6B /* MainMenu.xib */; };
+		E43FCC721AE2E55C000D66B9 /* NPC.m in Sources */ = {isa = PBXBuildFile; fileRef = E43FCC711AE2E55C000D66B9 /* NPC.m */; };
+		E43FCC751AE2FA34000D66B9 /* GameIOManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E43FCC741AE2FA34000D66B9 /* GameIOManager.m */; };
 		E44645181AD5E93800BC3008 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = E44645171AD5E93800BC3008 /* Item.m */; };
 		E44645241AD61D2000BC3008 /* ExploreCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E44645231AD61D2000BC3008 /* ExploreCommand.m */; };
 		E44645271AD6B1D800BC3008 /* PickUpCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E44645261AD6B1D800BC3008 /* PickUpCommand.m */; };
@@ -32,7 +34,6 @@
 		E499C8C21ADC323F004855F7 /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8C11ADC323F004855F7 /* Key.m */; };
 		E499C8C51ADC808E004855F7 /* TeleportRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8C41ADC808E004855F7 /* TeleportRoom.m */; };
 		E499C8D41ADF14FB004855F7 /* Weapon.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8D31ADF14FB004855F7 /* Weapon.m */; };
-		E499C8D71ADFEA97004855F7 /* EquipCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8D61ADFEA97004855F7 /* EquipCommand.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,10 @@
 		81AF892216E6AAC400276C6B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		81AF892316E6AAC400276C6B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		81AF892616E6AAC500276C6B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		E43FCC701AE2E55C000D66B9 /* NPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPC.h; sourceTree = "<group>"; };
+		E43FCC711AE2E55C000D66B9 /* NPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPC.m; sourceTree = "<group>"; };
+		E43FCC731AE2FA34000D66B9 /* GameIOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameIOManager.h; sourceTree = "<group>"; };
+		E43FCC741AE2FA34000D66B9 /* GameIOManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameIOManager.m; sourceTree = "<group>"; };
 		E44645161AD5E93800BC3008 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		E44645171AD5E93800BC3008 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		E44645221AD61D2000BC3008 /* ExploreCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExploreCommand.h; sourceTree = "<group>"; };
@@ -88,8 +93,6 @@
 		E499C8CC1ADD820A004855F7 /* Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocols.h; sourceTree = "<group>"; };
 		E499C8D21ADF14FB004855F7 /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
 		E499C8D31ADF14FB004855F7 /* Weapon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weapon.m; sourceTree = "<group>"; };
-		E499C8D51ADFEA97004855F7 /* EquipCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EquipCommand.h; sourceTree = "<group>"; };
-		E499C8D61ADFEA97004855F7 /* EquipCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EquipCommand.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,10 @@
 				E499C8C41ADC808E004855F7 /* TeleportRoom.m */,
 				E499C8D21ADF14FB004855F7 /* Weapon.h */,
 				E499C8D31ADF14FB004855F7 /* Weapon.m */,
+				E43FCC701AE2E55C000D66B9 /* NPC.h */,
+				E43FCC711AE2E55C000D66B9 /* NPC.m */,
+				E43FCC731AE2FA34000D66B9 /* GameIOManager.h */,
+				E43FCC741AE2FA34000D66B9 /* GameIOManager.m */,
 			);
 			name = GameClasses;
 			sourceTree = "<group>";
@@ -154,8 +161,6 @@
 				E446452C1AD702B200BC3008 /* DropCommand.m */,
 				E446452E1AD70ED000BC3008 /* BackCommand.h */,
 				E446452F1AD70ED000BC3008 /* BackCommand.m */,
-				E499C8D51ADFEA97004855F7 /* EquipCommand.h */,
-				E499C8D61ADFEA97004855F7 /* EquipCommand.m */,
 			);
 			name = Commands;
 			sourceTree = "<group>";
@@ -288,7 +293,6 @@
 				E44645181AD5E93800BC3008 /* Item.m in Sources */,
 				E499C8C51ADC808E004855F7 /* TeleportRoom.m in Sources */,
 				E44645271AD6B1D800BC3008 /* PickUpCommand.m in Sources */,
-				E499C8D71ADFEA97004855F7 /* EquipCommand.m in Sources */,
 				E446452D1AD702B200BC3008 /* DropCommand.m in Sources */,
 				81AF891D16E6AAC400276C6B /* main.m in Sources */,
 				81AF892416E6AAC400276C6B /* AppDelegate.m in Sources */,
@@ -296,7 +300,9 @@
 				E44645301AD70ED000BC3008 /* BackCommand.m in Sources */,
 				819122DF16E95A0000BEDA1B /* Command.m in Sources */,
 				819122E016E95A0000BEDA1B /* CommandWords.m in Sources */,
+				E43FCC721AE2E55C000D66B9 /* NPC.m in Sources */,
 				819122E116E95A0000BEDA1B /* Game.m in Sources */,
+				E43FCC751AE2FA34000D66B9 /* GameIOManager.m in Sources */,
 				E44645241AD61D2000BC3008 /* ExploreCommand.m in Sources */,
 				819122E216E95A0000BEDA1B /* GoCommand.m in Sources */,
 				E446452A1AD6B4C300BC3008 /* InventoryCommand.m in Sources */,

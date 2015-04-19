@@ -24,23 +24,23 @@
     int health;
 }
 
-@property (nonatomic, retain)id<Room>currentRoom;
-@property (retain, nonatomic)GameIO *io;
+@property (nonatomic, retain)id<Room> currentRoom;
+@property (nonatomic, retain)GameIO* io;
 
 -(id)init;
--(id)initWithRoom:(id<Room>)room andIO:(GameIO *)theIO;
--(void)walkTo:(NSString *)direction;
--(BOOL)canVisit:(id<Room>) room;
--(void)outputMessage:(NSString *)message;
--(void)outputMessage:(NSString *)message withColor:(NSColor *)color;
--(void)warningMessage:(NSString *)message;
--(void)errorMessage:(NSString *)message;
--(void)commandMessage:(NSString *)message;
--(void)addToInventory:(id<Item>) item;
+-(id)initWithRoom:(id<Room>)room;
+-(void)walkTo:(NSString*)direction;
+-(BOOL)canVisit:(id<Room>)room;
+-(void)outputMessage:(NSString*)message;
+-(void)outputMessage:(NSString*)message withColor:(NSColor*)color;
+-(void)warningMessage:(NSString*)message;
+-(void)errorMessage:(NSString*)message;
+-(void)commandMessage:(NSString*)message;
+-(void)addToInventory:(id<Item>)item;
 -(void)exploreRoom;
--(void)pickUp:(NSString*) item;
+-(void)pickUp:(NSString*)item;
 -(void)searchInventory;
--(void)dropItem:(NSString*) item;
+-(void)dropItem:(NSString*)item;
 -(void)goBack;
--(void)takeDamage:(int)amount;
+
 @end

@@ -27,8 +27,7 @@
         [self setTag:newTag];
         exits = [[NSMutableDictionary alloc] initWithCapacity:10];
         previousLocations = [[NSMutableArray alloc] init];
-        Room* x = [[Room alloc]init];
-        [self setDelegate:x];
+        [self setDelegate:[[Room alloc]init]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addLocation:) name:@"PlayerHasWalked" object:nil];
     }
     return self;
@@ -46,16 +45,19 @@
 }
 
 -(id<Room>)getExit:(NSString *)exit{
-    if (![exit isEqualTo:@"outside"]) {
+    if ([exit isNotEqualTo:@"outside"]) {
         return nil;
     }else{
-        NSInteger randomValue = arc4random_uniform((int)[previousLocations count]);
-        id<Room> temp = [previousLocations objectAtIndex: randomValue];
-        return temp;
+        if ([previousLocations count] > 0) {
+            NSInteger randomValue = arc4random_uniform((int)[previousLocations count]);
+            id<Room> temp = [previousLocations objectAtIndex: randomValue];
+            return temp;
+        }
     }
+    return nil;
 }
 -(NSString *)getExits{
-    return [NSString stringWithFormat:@"Exits: outside"];
+    return [NSString stringWithFormat:@"outside"];
 }
 
 -(void)addToItems:(id<Item>) newItem{

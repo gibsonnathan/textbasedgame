@@ -12,18 +12,21 @@
 #import "Key.h"
 #import "TeleportRoom.h"
 #import "Key.h"
+#import "NPC.h"
+#import "GameIOManager.h"
 
 @implementation Game
 
 @synthesize parser;
 @synthesize player;
 
+
 -(id)initWithGameIO:(GameIO *)theIO
 {
 	self = [super init];
 	if (nil != self) {
 		[self setParser:[[[Parser alloc] init] autorelease]];
-		[self setPlayer:[[[Player alloc] initWithRoom:[self createWorld] andIO:theIO] autorelease]];
+		[self setPlayer:[[[Player alloc] initWithRoom:[self createWorld]] autorelease]];
         playing = NO;
         
 	}
@@ -96,6 +99,9 @@
     
     Weapon* weapon = [[Weapon alloc] initWithName:@"weapon" andDamage:10 andWeight:1 andCanPickUp:YES];
     [boulevard addToItems:weapon];
+    
+    NPC* alien = [[NPC alloc]initWithRoom:schuster andHealth:20];
+ 
     
 	return outside;
 }

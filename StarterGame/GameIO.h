@@ -16,8 +16,8 @@
 
 @property (retain, nonatomic)NSColor *currentColor;
 
--(id)initWithOutput:(NSTextView *)theOutput;
--(void)sendLines:(NSString *)input;
+-(id)initWithOutput:(NSTextView*)theOutput;
+-(void)sendLines:(NSString*)input;
 -(void)clear;
 
 @end

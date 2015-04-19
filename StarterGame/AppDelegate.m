@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "GameIOManager.h"
 
 @implementation AppDelegate
 
@@ -15,7 +16,7 @@
 
 - (void)dealloc
 {
-    [gameIO release];
+
     [game release];
     
     [super dealloc];
@@ -23,7 +24,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    gameIO = [[GameIO alloc] initWithOutput:output];
+    gameIO = [GameIOManager sharedInstance:output];
     game = [[Game alloc] initWithGameIO:gameIO];
     [game start];
 }

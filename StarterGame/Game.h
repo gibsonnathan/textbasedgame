@@ -11,7 +11,7 @@
 #import "Parser.h"
 #import "Player.h"
 #import "GameIO.h"
-
+#import "NPC.h"
 
 
 @interface Game : NSObject {
@@ -21,12 +21,12 @@
 @property (retain, nonatomic)Parser *parser;
 @property (retain, nonatomic)Player *player;
 
--(id)initWithGameIO:(GameIO *)theIO;
+-(id)initWithGameIO:(GameIO*)theIO;
 -(id<Room>)createWorld;
 -(void)start;
 -(void)end;
--(BOOL)execute:(NSString *)commandString;
--(NSString *)welcome;
--(NSString *)goodbye;
+-(BOOL)execute:(NSString*)commandString;
+-(NSString*)welcome;
+-(NSString*)goodbye;
 
 @end

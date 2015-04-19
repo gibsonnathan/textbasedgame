@@ -21,13 +21,13 @@
 @property (retain, nonatomic)NSString *tag;
 
 -(id)init;
--(id)initWithTag:(NSString *)newTag;
--(void)setExit:(NSString *)exit toRoom:(id<Room>)room;
--(id<Room>)getExit:(NSString *)exit;
--(NSString *)getExits;
--(void)addToItems:(id<Item>) newItem;
+-(id)initWithTag:(NSString*)newTag;
+-(void)setExit:(NSString*)exit toRoom:(id<Room>)room;
+-(id<Room>)getExit:(NSString*)exit;
+-(NSString*)getExits;
+-(void)addToItems:(id<Item>)newItem;
 -(id<Item>)removeFromItems:(NSString*)item;
--(id<Item>)itemForKey:(NSString*) key;
--(NSArray*) items;
+-(id<Item>)itemForKey:(NSString*)key;
+-(NSArray*)items;
 
 @end
