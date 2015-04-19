@@ -22,7 +22,8 @@
         health = newHealth;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopMoving) name:@"NPC1StopMoving" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sameRoomAsNPC:) name:@"PlayerWillWalk" object:nil];
-        moveTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(walk) userInfo:nil repeats:YES];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talk) name:@"NPC1Talk" object:nil];
+        moveTimer = [NSTimer scheduledTimerWithTimeInterval:100 target:self selector:@selector(walk) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -30,24 +31,27 @@
 -(void)sameRoomAsNPC:(NSNotification*)notification{
     if ([[notification object] isEqualTo:[self currentRoom]]) {
         [self stopMoving];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NPC1Talk" object:nil];
     }
 }
 
+-(void)talk{
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(talkToPlayer) userInfo:nil repeats:NO];
+}
+
 -(void)talkToPlayer{
-    [self outputMessage:@"\nHELLO EArthling" withColor:[NSColor greenColor]];
+    
+    [self outputMessage:@"\nalsdkfjalskjfd" withColor:[NSColor greenColor]];
 }
 
 -(void)stopMoving{
     [moveTimer invalidate];
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(talkToPlayer) userInfo:nil repeats:NO];
-    
 }
 
 -(void)walk{
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[self currentRoom] getExits] componentsSeparatedByString:@" "]];
     Room *nextRoom = [[self currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
     if (nextRoom && ![nextRoom isKindOfClass:[TeleportRoom class]]) {
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NPC1WillWalk" object:nextRoom];
         [self setCurrentRoom:nextRoom];
         //[self outputMessage:[NSString stringWithFormat:@"\nAlien moved to %@", nextRoom]];

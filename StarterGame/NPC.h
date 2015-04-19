@@ -15,5 +15,6 @@
 -(id)initWithRoom:(id<Room>)room andHealth:(int)newHealth;
 -(void)walk;
 -(void)talkToPlayer;
+-(void)talk;
 
 @end
