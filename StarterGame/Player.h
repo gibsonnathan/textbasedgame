@@ -29,6 +29,8 @@
 
 -(id)init;
 -(id)initWithRoom:(id<Room>)room;
+-(void)attack;
+-(void)haveBeenAttacked:(NSNotification*)notification;
 -(void)walkTo:(NSString*)direction;
 -(BOOL)canVisit:(id<Room>)room;
 -(void)outputMessage:(NSString*)message;

@@ -8,6 +8,15 @@
 
 #import "NPC.h"
 
-@interface Alien : NPC
-
+@interface Alien : NPC{
+    int health;
+    int strength;
+    NSTimer* moveTimer;
+    BOOL moving;
+}
+-(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(id<Room>)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime;
+-(void)attack;
+-(void)haveBeenAttacked:(NSNotification*)notification;
+-(void)encounteredPlayer:(NSNotification*)notification;
+-(void)stopWalking;
 @end

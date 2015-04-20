@@ -34,15 +34,31 @@
         currentWeight = 0;
         maxWeight = 10;
         health = 100;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(encounteredNPC:) name:@"NPCWillWalk" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(encounteredNPC:) name:@"NPCHasWalked" object:nil];
     
     }
 	return self;
 }
 
+-(void)attack{
+    
+}
+
+-(void)haveBeenAttacked:(NSNotification*)notification{
+    int damage = [notification object];
+    if(health - damage <= 0){
+        
+    }else{
+        health = health - damage;
+    }
+}
+
 -(void)encounteredNPC:(NSNotification*)notification{
-    if ([[notification object] isEqualTo:currentRoom]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"NPCStopMoving" object:currentRoom];
+    NSMutableDictionary* data = [notification object];
+    NSString* sender = [data objectForKey:@"sender"];
+    id<Room> room = [data objectForKey:@"room"];
+    if ([room isEqual:currentRoom]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AlienEncounteredPlayer" object:sender];
     }
 }
 
@@ -138,13 +154,10 @@
 	Room *nextRoom = [currentRoom getExit:direction];
 	if (nextRoom) {
         if([self canVisit:nextRoom]){
-            //needed for teleport room
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasWalked" object:currentRoom];
-            //needed for NPC
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerWillWalk" object:nextRoom];
             [previousLocations addObject:currentRoom];
             [visitedRooms addObject:currentRoom];
             [self setCurrentRoom:nextRoom];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasWalked" object:currentRoom];
             if ([currentRoom isLocked] == YES) {
                 [currentRoom setIsLocked: NO];
             }

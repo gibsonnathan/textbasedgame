@@ -39,10 +39,8 @@
 
 @class NPC;
 @protocol NPC <NSObject>
--(id)initWithRoom:(id<Room>)room andName:(NSString*)newName andMoveTime:(int)newMoveTime;
--(void)encounteredPlayer:(NSNotification*)notification;
+-(id)initWithRoom:(id<Room>)newRoom andName:(NSString*)newName;
 -(void)talkToPlayer:(NSString*)message;
--(void)stopWalking;
 -(void)walk;
 -(void)addToInventory:(id<Item>)item;
 -(void)dropItems;
