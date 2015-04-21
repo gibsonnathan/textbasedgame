@@ -22,6 +22,8 @@
     int currentWeight;
     int maxWeight;
     int health;
+    int strength;
+    id<Item>weapon;
 }
 
 @property (nonatomic, retain)id<Room> currentRoom;
@@ -29,7 +31,9 @@
 
 -(id)init;
 -(id)initWithRoom:(id<Room>)room;
--(void)attack;
+-(void)unEquip:(NSString*)newWeapon;
+-(void)equip:(NSString*)newWeapon;
+-(void)attack:(NSString*)NPC;
 -(void)haveBeenAttacked:(NSNotification*)notification;
 -(void)walkTo:(NSString*)direction;
 -(BOOL)canVisit:(id<Room>)room;

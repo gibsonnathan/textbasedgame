@@ -10,7 +10,7 @@
 
 @implementation Alien
 
--(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(id<Room>)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime{
+-(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(id<Room>)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage{
     
     self = [super initWithRoom:newRoom andName:newName];
     if(self){
@@ -21,24 +21,17 @@
         }
         health = newHealth;
         strength = newStrength;
+        message = newMessage;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEncountered:) name:@"PlayerHasWalked" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(encounteredPlayer:) name:@"AlienEncounteredPlayer" object:nil];
-        
     }
     return self;
 }
-//working for when the player finds the NPC
+
 -(void)playerEncountered:(NSNotification*)notification{
     if ([[notification object] isEqualTo:[[super delegate] currentRoom]]) {
         [self stopWalking];
-        NSLog(@"\nPlayer has encountered %@ at %@", [self name] ,[[[self delegate] currentRoom]name]);
-    }
-}
-
--(void)encounteredPlayer:(NSNotification*)notification{
-    if ([[notification object] isEqualTo:[self name]]) {
-        [self stopWalking];
-        NSLog(@"\%@ has encountered player at %@", [self name] ,[[[self delegate] currentRoom]name]);
+        [self talkToPlayer:[NSString stringWithFormat:@"\n%@", message]];
+        NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[[self delegate] currentRoom]name]);
     }
 }
 
@@ -52,16 +45,11 @@
 }
 
 -(void)attack{
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NPCAttackedPlayer" object:nil];
 }
 
 -(void)haveBeenAttacked:(NSNotification*)notification{
-    int damage = [notification object];
-    if(health - damage <= 0){
     
-    }else{
-        health = health - damage;
-    }
 }
 
 @end

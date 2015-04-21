@@ -24,6 +24,9 @@
 		81AF892416E6AAC400276C6B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AF892316E6AAC400276C6B /* AppDelegate.m */; };
 		81AF892716E6AAC500276C6B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81AF892516E6AAC500276C6B /* MainMenu.xib */; };
 		E400A91E1AE462070069EADC /* Alien.m in Sources */ = {isa = PBXBuildFile; fileRef = E400A91D1AE462070069EADC /* Alien.m */; };
+		E400A9211AE6C6280069EADC /* AttackCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E400A9201AE6C6280069EADC /* AttackCommand.m */; };
+		E400A9241AE6F35E0069EADC /* EquipCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E400A9231AE6F35E0069EADC /* EquipCommand.m */; };
+		E400A9271AE6F6960069EADC /* UnequipCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E400A9261AE6F6960069EADC /* UnequipCommand.m */; };
 		E43FCC721AE2E55C000D66B9 /* NPC.m in Sources */ = {isa = PBXBuildFile; fileRef = E43FCC711AE2E55C000D66B9 /* NPC.m */; };
 		E43FCC751AE2FA34000D66B9 /* GameIOManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E43FCC741AE2FA34000D66B9 /* GameIOManager.m */; };
 		E44645181AD5E93800BC3008 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = E44645171AD5E93800BC3008 /* Item.m */; };
@@ -73,6 +76,12 @@
 		81AF892616E6AAC500276C6B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E400A91C1AE462070069EADC /* Alien.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alien.h; sourceTree = "<group>"; };
 		E400A91D1AE462070069EADC /* Alien.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alien.m; sourceTree = "<group>"; };
+		E400A91F1AE6C6280069EADC /* AttackCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttackCommand.h; sourceTree = "<group>"; };
+		E400A9201AE6C6280069EADC /* AttackCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttackCommand.m; sourceTree = "<group>"; };
+		E400A9221AE6F35E0069EADC /* EquipCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EquipCommand.h; sourceTree = "<group>"; };
+		E400A9231AE6F35E0069EADC /* EquipCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EquipCommand.m; sourceTree = "<group>"; };
+		E400A9251AE6F6960069EADC /* UnequipCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnequipCommand.h; sourceTree = "<group>"; };
+		E400A9261AE6F6960069EADC /* UnequipCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnequipCommand.m; sourceTree = "<group>"; };
 		E43FCC701AE2E55C000D66B9 /* NPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPC.h; sourceTree = "<group>"; };
 		E43FCC711AE2E55C000D66B9 /* NPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPC.m; sourceTree = "<group>"; };
 		E43FCC731AE2FA34000D66B9 /* GameIOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameIOManager.h; sourceTree = "<group>"; };
@@ -166,6 +175,12 @@
 				E446452C1AD702B200BC3008 /* DropCommand.m */,
 				E446452E1AD70ED000BC3008 /* BackCommand.h */,
 				E446452F1AD70ED000BC3008 /* BackCommand.m */,
+				E400A91F1AE6C6280069EADC /* AttackCommand.h */,
+				E400A9201AE6C6280069EADC /* AttackCommand.m */,
+				E400A9221AE6F35E0069EADC /* EquipCommand.h */,
+				E400A9231AE6F35E0069EADC /* EquipCommand.m */,
+				E400A9251AE6F6960069EADC /* UnequipCommand.h */,
+				E400A9261AE6F6960069EADC /* UnequipCommand.m */,
 			);
 			name = Commands;
 			sourceTree = "<group>";
@@ -298,7 +313,9 @@
 				E44645181AD5E93800BC3008 /* Item.m in Sources */,
 				E499C8C51ADC808E004855F7 /* TeleportRoom.m in Sources */,
 				E400A91E1AE462070069EADC /* Alien.m in Sources */,
+				E400A9241AE6F35E0069EADC /* EquipCommand.m in Sources */,
 				E44645271AD6B1D800BC3008 /* PickUpCommand.m in Sources */,
+				E400A9211AE6C6280069EADC /* AttackCommand.m in Sources */,
 				E446452D1AD702B200BC3008 /* DropCommand.m in Sources */,
 				81AF891D16E6AAC400276C6B /* main.m in Sources */,
 				81AF892416E6AAC400276C6B /* AppDelegate.m in Sources */,
@@ -316,6 +333,7 @@
 				819122E316E95A0000BEDA1B /* HelpCommand.m in Sources */,
 				819122E416E95A0000BEDA1B /* Parser.m in Sources */,
 				819122E516E95A0000BEDA1B /* Player.m in Sources */,
+				E400A9271AE6F6960069EADC /* UnequipCommand.m in Sources */,
 				819122E616E95A0000BEDA1B /* QuitCommand.m in Sources */,
 				819122E716E95A0000BEDA1B /* Room.m in Sources */,
 			);

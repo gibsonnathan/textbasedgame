@@ -26,7 +26,6 @@
     return self;
 }
 
-
 -(void)talkToPlayer:(NSString*)message{
     [self performSelector:@selector(outputMessage:) withObject:message afterDelay:1];
 }
@@ -41,10 +40,6 @@
     Room *nextRoom = [[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
     if (nextRoom && [[nextRoom name] isNotEqualTo:@"teleport"]) {
         [delegate setCurrentRoom:nextRoom];
-        NSMutableDictionary* data = [[NSMutableDictionary alloc] init];
-        [data setObject:[delegate currentRoom] forKey:@"room"];
-        [data setObject:[self name] forKey:@"sender"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"NPCHasWalked" object:data];
     }
 }
 

@@ -99,8 +99,8 @@
     Weapon* weapon = [[Weapon alloc] initWithName:@"weapon" andDamage:1 andWeight:1 andCanPickUp:YES];
     [boulevard addToItems:weapon];
     
-    Alien* alien1 = [[Alien alloc] initWithHealth:50 andStrength:20 andRoom:schuster andName:@"NPC1" andMoveTime:10];
-    Alien* alien2 = [[Alien alloc] initWithHealth:20 andStrength:30 andRoom:universityParking andName:@"NPC2" andMoveTime:10];
+    Alien* alien1 = [[Alien alloc] initWithHealth:50 andStrength:20 andRoom:schuster andName:@"NPC1" andMoveTime:20 andMessage:@"I am NPC1"];
+    Alien* alien2 = [[Alien alloc] initWithHealth:20 andStrength:30 andRoom:universityParking andName:@"NPC2" andMoveTime:20 andMessage:@"I am NPC2"];
     
 	return outside;
 }

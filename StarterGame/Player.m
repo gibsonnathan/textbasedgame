@@ -34,32 +34,43 @@
         currentWeight = 0;
         maxWeight = 10;
         health = 100;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(encounteredNPC:) name:@"NPCHasWalked" object:nil];
-    
+        strength = 100;
+        weapon = nil;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(haveBeenAttacked:) name: @"PlayerAttacked" object:nil];
     }
 	return self;
 }
 
--(void)attack{
-    
+-(void)equip:(NSString*)newWeapon{
+    id<Item> temp = [inventory objectForKey:newWeapon];
+    if(temp){
+        weapon = temp;
+        [inventory removeObjectForKey:[temp name]];
+    }else{
+        [self warningMessage:[NSString stringWithFormat:@"\nCannot equip %@", newWeapon]];
+    }
+}
+
+-(void)unEquip:(NSString*)newWeapon{
+    if (weapon) {
+        if ([newWeapon isEqualTo:[weapon name]]) {
+            [inventory setObject:weapon forKey:newWeapon];
+            weapon = nil;
+        }
+        else{
+            [self warningMessage:[NSString stringWithFormat:@"\n%@ not equipped", newWeapon]];
+        }
+    }else{
+        [self warningMessage:[NSString stringWithFormat:@"\nNo weapon equipped"]];
+    }
+}
+
+-(void)attack:(NSString*)NPC{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasAttackedNPC" object:nil];
 }
 
 -(void)haveBeenAttacked:(NSNotification*)notification{
-    int damage = [notification object];
-    if(health - damage <= 0){
-        
-    }else{
-        health = health - damage;
-    }
-}
-
--(void)encounteredNPC:(NSNotification*)notification{
-    NSMutableDictionary* data = [notification object];
-    NSString* sender = [data objectForKey:@"sender"];
-    id<Room> room = [data objectForKey:@"room"];
-    if ([room isEqual:currentRoom]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"AlienEncounteredPlayer" object:sender];
-    }
+    
 }
 
 -(void)goBack{
