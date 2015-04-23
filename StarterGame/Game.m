@@ -28,11 +28,19 @@
 		[self setPlayer:[[[Player alloc] initWithRoom:[self createWorld]] autorelease]];
         playing = NO;
         
-	}
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sameRoom:) name:@"NPCHasWalked" object:nil];
+    }
 	return self;
 }
 
-
+-(void)sameRoom:(NSNotification*)notification{
+    NSDictionary* data = [notification userInfo];
+    NSString* name = [data objectForKey:@"name"];
+    id<Room> room = [data objectForKey:@"room"];
+    if ([room isEqual:[player currentRoom]]) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerEncountered" object:name];
+    }
+}
 -(Room *)createWorld
 {
 	Room *outside, *cctParking, *boulevard, *universityParking, *parkingDeck, *cct, *theGreen, *universityHall, *schuster;

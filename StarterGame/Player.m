@@ -36,7 +36,6 @@
         health = 100;
         strength = 100;
         weapon = nil;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(haveBeenAttacked:) name: @"PlayerAttacked" object:nil];
     }
 	return self;
 }

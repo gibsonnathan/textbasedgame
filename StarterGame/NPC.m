@@ -26,7 +26,6 @@
     }
     return self;
 }
-
 /*
     Waits a second and then sends the message to the screen
  */
@@ -46,6 +45,8 @@
     Room *nextRoom = [[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
     if (nextRoom && [[nextRoom name] isNotEqualTo:@"teleport"]) {
         [delegate setCurrentRoom:nextRoom];
+        NSDictionary* data = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[delegate currentRoom],@"room",[self name], @"name", nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCHasWalked" object:nil userInfo:data];
         NSLog(@"\n%@ is in %@", name, [[delegate currentRoom]name]);
     }
 }
