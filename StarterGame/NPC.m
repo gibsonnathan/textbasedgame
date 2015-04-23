@@ -14,6 +14,7 @@
 @synthesize delegate;
 @synthesize name;
 
+
 -(id)initWithRoom:(id<Room>)newRoom andName:(NSString*)newName{
     self = [self init];
     
@@ -26,6 +27,9 @@
     return self;
 }
 
+/*
+    Waits a second and then sends the message to the screen
+ */
 -(void)talkToPlayer:(NSString*)message{
     [self performSelector:@selector(outputMessage:) withObject:message afterDelay:1];
 }
@@ -33,20 +37,25 @@
 -(void)outputMessage:(NSString*)message{
     [delegate outputMessage:message withColor:[NSColor greenColor]];
 }
-
+/*
+    Creates an array that holds all of the exits for a room, picks one at random and moves there--
+    doesn't allow the NPC to enter the teleport
+ */
 -(void)walk{
-    NSLog(@"\n%@ is in %@", name, [[delegate currentRoom]name]);
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[delegate currentRoom] getExits] componentsSeparatedByString:@" "]];
     Room *nextRoom = [[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
     if (nextRoom && [[nextRoom name] isNotEqualTo:@"teleport"]) {
         [delegate setCurrentRoom:nextRoom];
+        NSLog(@"\n%@ is in %@", name, [[delegate currentRoom]name]);
     }
 }
 
 -(void)addToInventory:(id<Item>)item{
     [delegate addToInventory:item];
 }
-
+/*
+    Iterates through all of the items of the NPC and drops them into the current room
+ */
 -(void)dropItems{
     NSLog(@"\n%@ has dropped his items", name);
     for (int i = 0; i < [[delegate inventoryKeys] count]; i++) {

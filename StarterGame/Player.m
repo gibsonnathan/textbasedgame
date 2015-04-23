@@ -169,6 +169,7 @@
             [visitedRooms addObject:currentRoom];
             [self setCurrentRoom:nextRoom];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasWalked" object:currentRoom];
+            NSLog(@"\nPlayer is in %@", [currentRoom name]);
             if ([currentRoom isLocked] == YES) {
                 [currentRoom setIsLocked: NO];
             }

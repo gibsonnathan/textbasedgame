@@ -15,7 +15,7 @@
     self = [super initWithRoom:newRoom andName:newName];
     if(self){
         if (newMoveTime > 0) {
-            moveTimer = [[NSTimer scheduledTimerWithTimeInterval:newMoveTime target:self selector:@selector(walk) userInfo:nil repeats:YES] retain];
+            moveTimer = [NSTimer scheduledTimerWithTimeInterval:newMoveTime target:self selector:@selector(walk) userInfo:nil repeats:YES];
         }else{
             moveTimer = nil;
         }
@@ -26,15 +26,19 @@
     }
     return self;
 }
-
+/*
+ 
+ */
 -(void)playerEncountered:(NSNotification*)notification{
-    if ([[notification object] isEqualTo:[[super delegate] currentRoom]]) {
+    if ([[notification object] isEqualTo:[[self delegate] currentRoom]]) {
         [self stopWalking];
         [self talkToPlayer:[NSString stringWithFormat:@"\n%@", message]];
         NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[[self delegate] currentRoom]name]);
     }
 }
-
+/*
+    Stops the timer that causes the player to move
+ */
 -(void)stopWalking{
     if (moveTimer) {
         NSLog(@"\n%@ has stopped walking", [self name]);
