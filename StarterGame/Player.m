@@ -27,7 +27,7 @@
     
 	if (nil != self) {
 		[self setCurrentRoom:room];
-        [self setIo:[GameIOManager sharedInstance:nil]];
+        [self setIo:[GameIOManager sharedInstance]];
         inventory = [[NSMutableDictionary alloc]init];
         previousLocations = [[NSMutableArray alloc]init];
         visitedRooms = [[NSMutableArray alloc]init];

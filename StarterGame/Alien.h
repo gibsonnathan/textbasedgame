@@ -16,8 +16,10 @@
     NSString* message;
 }
 -(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(id<Room>)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage;
+-(void)interact;
 -(void)attack;
 -(void)haveBeenAttacked:(NSNotification*)notification;
--(void)playerEncountered:(NSNotification*)notification;
+-(void)encounteredPlayer:(NSNotification*)notification;
+-(void)encounteredByPlayer:(NSNotification*)notification;
 -(void)stopWalking;
 @end

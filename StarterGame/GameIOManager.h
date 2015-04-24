@@ -13,5 +13,5 @@
 }
 
 +(id)sharedInstance:(NSTextView*)output;
-
++(id)sharedInstance;
 @end

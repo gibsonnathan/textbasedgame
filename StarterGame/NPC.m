@@ -22,7 +22,7 @@
         [self setName:newName];
         delegate = [[Player alloc]init];
         [delegate setCurrentRoom:newRoom];
-        [delegate setIo:[GameIOManager sharedInstance:nil]];
+        [delegate setIo:[GameIOManager sharedInstance]];
     }
     return self;
 }

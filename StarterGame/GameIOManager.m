@@ -17,4 +17,8 @@
     }
     return io;
 }
+
++(id)sharedInstance{
+    return [self sharedInstance:nil];
+}
 @end

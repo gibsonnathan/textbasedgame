@@ -22,20 +22,30 @@
         health = newHealth;
         strength = newStrength;
         message = newMessage;
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playerEncountered:) name:@"PlayerEncountered" object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(encounteredPlayer:) name:@"PlayerEncountered" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(encounteredByPlayer:) name:@"PlayerHasWalked" object:nil];
     }
     return self;
+}
+-(void)encounteredPlayer:(NSNotification*)notification{
+    if ([[notification object]isEqualTo:[self name]]) {
+        [self interact];
+    }
+}
+-(void)encounteredByPlayer:(NSNotification*)notification{
+    if([[notification object]isEqualTo:[[self delegate] currentRoom]]){
+        [self interact];
+    }
 }
 /*
  
  */
--(void)playerEncountered:(NSNotification*)notification{
-    if ([[notification object]isEqualTo:[self name]]) {
-        [self stopWalking];
-        [self talkToPlayer:[NSString stringWithFormat:@"\n%@", message]];
-        NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[[self delegate] currentRoom]name]);
-    }
+-(void)interact{
+    [self stopWalking];
+    [self talkToPlayer:[NSString stringWithFormat:@"\n%@", message]];
+    NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[[self delegate] currentRoom]name]);
 }
+
 /*
     Stops the timer that causes the player to move
  */
