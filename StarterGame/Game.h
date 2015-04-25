@@ -23,7 +23,8 @@
 
 -(id)initWithGameIO:(GameIO*)theIO;
 -(id<Room>)createWorld;
--(void)sameRoom:(NSNotification*)notification;
+-(void)playerEncounteredNPC:(NSNotification*)notification;
+-(void)NPCEncounteredPlayer:(NSNotification*)notification;
 -(void)start;
 -(void)end;
 -(BOOL)execute:(NSString*)commandString;

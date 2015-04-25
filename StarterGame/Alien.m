@@ -22,8 +22,8 @@
         health = newHealth;
         strength = newStrength;
         message = newMessage;
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(encounteredPlayer:) name:@"PlayerEncountered" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(encounteredByPlayer:) name:@"PlayerHasWalked" object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(encounteredPlayer:) name:@"PlayerEncounteredByNPC" object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(encounteredByPlayer:) name:@"NPCEncounteredByPlayer" object:nil];
     }
     return self;
 }

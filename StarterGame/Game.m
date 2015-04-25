@@ -27,19 +27,23 @@
 		[self setParser:[[[Parser alloc] init] autorelease]];
 		[self setPlayer:[[[Player alloc] initWithRoom:[self createWorld]] autorelease]];
         playing = NO;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sameRoom:) name:@"NPCHasWalked" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEncounteredNPC:) name:@"PlayerHasWalked" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NPCEncounteredPlayer:) name:@"NPCHasWalked" object:nil];
         
     }
 	return self;
 }
 
--(void)sameRoom:(NSNotification*)notification{
+-(void)playerEncounteredNPC:(NSNotification*)notification{
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCEncounteredByPlayer" object:[notification object]];
+}
+
+-(void)NPCEncounteredPlayer:(NSNotification*)notification{
     NSDictionary* data = [notification userInfo];
     NSString* name = [data objectForKey:@"name"];
     id<Room> room = [data objectForKey:@"room"];
     if ([room isEqual:[player currentRoom]]) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerEncountered" object:name];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerEncounteredByNPC" object:name];
     }
 }
 -(Room *)createWorld
