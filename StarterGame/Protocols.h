@@ -16,6 +16,9 @@
 -(NSString*)name;
 -(int)weight;
 -(BOOL)canPickup;
+-(int)damage;
+-(void)setDamage:(int)newDamage;
+
 @end
 
 @class Room;

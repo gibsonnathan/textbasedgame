@@ -37,4 +37,12 @@
     return self;
 }
 
+-(int)damage{
+    return 0;
+}
+
+-(void)setDamage:(int)newDamage{
+
+}
+
 @end

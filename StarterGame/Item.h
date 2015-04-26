@@ -21,5 +21,6 @@
 -(id)initWithName:(NSString*)newName;
 -(id)initWithName:(NSString*)newName andWeight: (int)newWeight;
 -(id)initWithName:(NSString*)newName andWeight: (int)newWeight andCanPickup:(BOOL)pickup;
-
+-(int)damage;
+-(void)setDamage:(int)newDamage;
 @end

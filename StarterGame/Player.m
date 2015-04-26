@@ -36,13 +36,14 @@
         health = 100;
         strength = 100;
         weapon = nil;
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(haveBeenAttacked:) name:@"NPCAttackedPlayer" object:nil];
     }
 	return self;
 }
 
 -(void)equip:(NSString*)newWeapon{
     id<Item> temp = [inventory objectForKey:newWeapon];
-    if(temp){
+    if(temp && [temp isKindOfClass:[Weapon class]]){
         weapon = temp;
         [inventory removeObjectForKey:[temp name]];
     }else{
@@ -65,10 +66,23 @@
 }
 
 -(void)attack:(NSString*)NPC{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasAttackedNPC" object:nil];
+    NSNumber* attack = [[NSNumber alloc]initWithInt: weapon ? arc4random() % (strength + [weapon damage]) : arc4random() % (strength)];
+    NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack", NPC, @"name", nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerHasAttackedNPC" object:nil userInfo:data];
 }
 
 -(void)haveBeenAttacked:(NSNotification*)notification{
+    if (health - [[notification object] intValue] > 0) {
+        health -= [[notification object] intValue];
+        NSString* output = [NSString stringWithFormat:@"\nPlayer attacked! Health:%d", health];
+        [self outputMessage:output];
+        
+    }else{
+        [self defeated];
+    }
+}
+
+-(void)defeated{
     
 }
 

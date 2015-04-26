@@ -38,6 +38,14 @@
     return [NSString stringWithFormat:@" %@ %d", [self name], [self weight]];
 }
 
+-(int)damage{
+    return 0;
+}
+
+-(void)setDamage:(int)newDamage{
+
+}
+
 -(void)dealloc{
     [name release];
     [super dealloc];

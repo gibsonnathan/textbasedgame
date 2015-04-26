@@ -58,9 +58,13 @@
     Iterates through all of the items of the NPC and drops them into the current room
  */
 -(void)dropItems{
-    NSLog(@"\n%@ has dropped his items", name);
-    for (int i = 0; i < [[delegate inventoryKeys] count]; i++) {
+    int i = 0;
+    for (i = 0; i < [[delegate inventoryKeys] count]; i++) {
         [delegate dropItem:[[delegate inventoryKeys] objectAtIndex:i]];
+    }
+    if (i > 0) {
+        NSString* output = [NSString stringWithFormat: @"\n%@ has dropped his items", name];
+        [self talkToPlayer:output];
     }
 }
 @end
