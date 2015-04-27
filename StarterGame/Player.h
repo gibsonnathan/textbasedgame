@@ -22,6 +22,7 @@
     int health;
     int strength;
     Weapon* weapon;
+    int maxHealth;
 }
 
 @property (nonatomic, retain)id<Room> currentRoom;
@@ -32,8 +33,8 @@
 -(void)eat:(NSString*)food;
 -(void)unEquip:(NSString*)newWeapon;
 -(void)equip:(NSString*)newWeapon;
--(void)attack:(NSString*)NPC;
--(void)haveBeenAttacked:(NSNotification*)notification;
+-(void)attackNPC:(NSString*)NPC;
+-(void)playerHasBeenAttacked:(NSNotification*)notification;
 -(void)walkTo:(NSString*)direction;
 -(BOOL)canVisit:(id<Room>)room;
 -(void)outputMessage:(NSString*)message;

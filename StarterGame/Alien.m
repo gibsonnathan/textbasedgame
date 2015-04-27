@@ -32,6 +32,28 @@
     }
     return self;
 }
+
+-(void)lockDoors{
+    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[[super delegate] currentRoom] getExits] componentsSeparatedByString:@" "]];
+    for (int i = 0; i < [places count]; i++) {
+        id<Room> temp = [[[super delegate] currentRoom] getExit:[places objectAtIndex:i]];
+        [temp lock];
+    }
+}
+
+-(void)unlockDoors{
+    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[[super delegate] currentRoom] getExits] componentsSeparatedByString:@" "]];
+    for (int i = 0; i < [places count]; i++) {
+        id<Room> temp = [[[super delegate] currentRoom] getExit:[places objectAtIndex:i]];
+        /*
+            All rooms that you don't want to remain locked
+         */
+        if([[temp name] isNotEqualTo:@"teleport"]){
+            [temp unlock];
+        }
+    }
+}
+
 -(void)encounteredPlayer:(NSNotification*)notification{
     if ([[notification object]isEqualTo:[self name]]) {
         [self interact];
@@ -48,7 +70,9 @@
 -(void)interact{
     [self stopWalking];
     [self talkToPlayer:[NSString stringWithFormat:@"\n%@", message]];
-    [self performSelector:@selector(attack) withObject:nil afterDelay:2];
+    [self performSelector:@selector(attackPlayer) withObject:nil afterDelay:2];
+    [self lockDoors];
+    
     NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[[self delegate] currentRoom]name]);
 }
 /*
@@ -63,7 +87,7 @@
     }
 }
 
--(void)attack{
+-(void)attackPlayer{
     NSLog(@"\n%@ attacked Player", [self name]);
     NSNumber* attack = [[[NSNumber alloc]initWithInt: arc4random()%(strength)] autorelease];
     NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack",[[self delegate]currentRoom], @"room", [self name], @"name", nil];
@@ -79,7 +103,7 @@
     if ([[self name] isEqualTo:name] && [[[self delegate]currentRoom] isEqual:room]) {
         if (health - [attack intValue] > 0) {
             health -= [attack intValue];
-            NSString* output = [NSString stringWithFormat:@"\n%@ attacked! Health:%d", [self name], health];
+            NSString* output = [NSString stringWithFormat:@"\n%@ attacked by player! Health:%d", [self name], health];
             [self talkToPlayer:output];
             
         }else{
@@ -92,8 +116,8 @@
     NSLog(@"\n%@ has been defeated by player", [self name]);
     NSString* output = [NSString stringWithFormat:@"\n%@ defeated",[self name]];
     [self talkToPlayer:output];
+    [self unlockDoors];
     [self dropItems];
-    
 }
 
 -(void)dealloc{

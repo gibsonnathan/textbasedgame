@@ -23,7 +23,7 @@
 -(BOOL)execute:(Player *)player
 {
     if ([self hasSecondWord]) {
-        [player attack:secondWord];
+        [player attackNPC:secondWord];
     }
     else {
         [player warningMessage:@"\nAttack who?"];

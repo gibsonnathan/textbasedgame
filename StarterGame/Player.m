@@ -34,10 +34,11 @@
         visitedRooms = [[NSMutableArray alloc]init];
         currentWeight = 0;
         maxWeight = 10;
+        maxHealth = 100;
         health = 100;
         strength = 100;
         weapon = nil;
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(haveBeenAttacked:) name:@"NPCAttackedPlayer" object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playerHasBeenAttacked:) name:@"NPCAttackedPlayer" object:nil];
     }
 	return self;
 }
@@ -45,7 +46,11 @@
 -(void)eat:(NSString*)food{
     id<Item> temp = [inventory objectForKey:food];
     if(temp && [temp isKindOfClass:[Food class]]){
-        health += [temp nutrition];
+        if (health + [temp nutrition] > maxHealth) {
+            health = maxHealth;
+        }else{
+            health += [temp nutrition];
+        }
         [inventory removeObjectForKey:food];
         NSString* output = [NSString stringWithFormat:@"\nPlayer health %d", health];
         [self outputMessage:output];
@@ -80,13 +85,13 @@
     }
 }
 
--(void)attack:(NSString*)NPC{
+-(void)attackNPC:(NSString*)NPC{
     NSNumber* attack = [[[NSNumber alloc]initWithInt: weapon ? arc4random() % (strength + [weapon damage]) : arc4random() % (strength)] autorelease];
     NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack, @"attack", NPC, @"name", currentRoom, @"room", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerHasAttackedNPC" object:nil userInfo:data];
 }
 
--(void)haveBeenAttacked:(NSNotification*)notification{
+-(void)playerHasBeenAttacked:(NSNotification*)notification{
     NSDictionary* data = [notification userInfo];
     NSNumber* attack = [data objectForKey:@"attack"];
     id<Room> room = [data objectForKey:@"room"];
@@ -188,10 +193,8 @@
         return YES;
     }else{
         for (id<Item> x in [inventory allValues]) {
-            if ([x isKindOfClass:[Key class]]) {
-                if ([[(Key*)x unlocks] isEqual:room]) {
-                    return YES;
-                }
+            if ([[(Key*)x unlocks] isEqual:room]) {
+                return YES;
             }
         }
     }
