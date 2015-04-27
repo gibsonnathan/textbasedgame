@@ -15,7 +15,7 @@
     BOOL moving;
     NSString* message;
 }
--(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(Room*)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage;
+-(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(id<Room>)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage;
 -(void)interact;
 -(void)attack;
 -(void)haveBeenAttacked:(NSNotification*)notification;

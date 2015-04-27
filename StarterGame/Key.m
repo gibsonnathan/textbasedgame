@@ -9,7 +9,11 @@
 #import "Key.h"
 @implementation Key
 
--(id)initWithName:(NSString*)newName andUnlocks:(Room*)newRoom{
+-(id)init{
+    return [self initWithName:@"key" andUnlocks:nil];
+}
+
+-(id)initWithName:(NSString*)newName andUnlocks:(id<Room>)newRoom{
     self = [super init];
     if (self) {
         name = newName;
@@ -33,8 +37,13 @@
 -(int)nutrition{
     return 0;
 }
--(Room*)unlocks{
+-(id<Room>)unlocks{
     return unlocks;
+}
+-(void)dealloc{
+    [name release];
+    [unlocks release];
+    [super dealloc];
 }
 
 

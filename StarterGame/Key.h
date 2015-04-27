@@ -10,16 +10,16 @@
 #import "Protocols.h"
 @interface Key : NSObject <Item>{
     NSString* name;
-    Room* unlocks;
+    id<Room> unlocks;
 }
 
--(id)initWithName:(NSString*)newName andUnlocks:(Room*)newRoom;
+-(id)initWithName:(NSString*)newName andUnlocks:(id<Room>)newRoom;
 -(NSString*)name;
 -(int)weight;
 -(BOOL)canPickup;
 -(int)damage;
 -(int)nutrition;
--(Room*)unlocks;
+-(id<Room>)unlocks;
 
 
 @end

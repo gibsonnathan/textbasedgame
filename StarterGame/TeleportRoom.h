@@ -13,15 +13,15 @@
     NSMutableDictionary *exits;
     NSMutableArray* previousLocations;
 }
-@property (nonatomic, retain)Room* delegate;
+@property (nonatomic, retain)id<Room> delegate;
 -(NSString*)tag;
 -(NSString*)name;
--(void)setExit:(NSString*)exit toRoom:(Room*)room;
--(Room*)getExit:(NSString*)exit;
+-(void)setExit:(NSString*)exit toRoom:(id<Room>)room;
+-(id<Room>)getExit:(NSString*)exit;
 -(NSString*)getExits;
--(void)addToItems:(Item*)newItem;
--(Item*)removeFromItems:(NSString*)item;
--(Item*)itemForKey:(NSString*)key;
+-(void)addToItems:(id<Item>)newItem;
+-(id<Item>)removeFromItems:(NSString*)item;
+-(id<Item>)itemForKey:(NSString*)key;
 -(NSArray*)items;
 -(void)lock;
 -(void)unlock;

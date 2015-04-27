@@ -22,7 +22,7 @@
 	return [self initWithRoom:nil];
 }
 
--(id)initWithRoom:(Room*)room
+-(id)initWithRoom:(id<Room>)room
 {
 	self = [super init];
     
@@ -43,7 +43,7 @@
 }
 
 -(void)eat:(NSString*)food{
-    Item *temp = [inventory objectForKey:food];
+    id<Item> temp = [inventory objectForKey:food];
     if(temp && [temp isKindOfClass:[Food class]]){
         health += [temp nutrition];
         [inventory removeObjectForKey:food];
@@ -81,15 +81,15 @@
 }
 
 -(void)attack:(NSString*)NPC{
-    NSNumber* attack = [[NSNumber alloc]initWithInt: weapon ? arc4random() % (strength + [weapon damage]) : arc4random() % (strength)];
-    NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack", NPC, @"name", currentRoom, @"room", nil];
+    NSNumber* attack = [[[NSNumber alloc]initWithInt: weapon ? arc4random() % (strength + [weapon damage]) : arc4random() % (strength)] autorelease];
+    NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack, @"attack", NPC, @"name", currentRoom, @"room", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerHasAttackedNPC" object:nil userInfo:data];
 }
 
 -(void)haveBeenAttacked:(NSNotification*)notification{
     NSDictionary* data = [notification userInfo];
     NSNumber* attack = [data objectForKey:@"attack"];
-    Room* room = [data objectForKey:@"room"];
+    id<Room> room = [data objectForKey:@"room"];
     NSString* name = [data objectForKey:@"name"];
     if ([currentRoom isEqual:room]) {
         if (health - [attack intValue] > 0) {
@@ -108,7 +108,7 @@
 }
 
 -(void)goBack{
-    Room* lastRoom = [previousLocations lastObject];
+    id<Room> lastRoom = [previousLocations lastObject];
     if(lastRoom){
         [previousLocations removeLastObject];
         currentRoom = lastRoom;
@@ -119,7 +119,7 @@
 }
 
 -(void)dropItem:(NSString*) item{
-    Item* temp = [inventory objectForKey:item];
+    id<Item> temp = [[inventory objectForKey:item] retain];
     if(temp){
         [inventory removeObjectForKey:item];
         [currentRoom addToItems:temp];
@@ -145,7 +145,7 @@
 }
 
 -(void)pickUp:(NSString*) item{
-    Item* temp = [currentRoom itemForKey:item];
+    id<Item> temp = [currentRoom itemForKey:item];
     if(temp){
         if([temp canPickup]){
             if(currentWeight + [temp weight] <= maxWeight){
@@ -179,11 +179,11 @@
     }
 }
 
--(BOOL)canVisit:(Room*) room{
+-(BOOL)canVisit:(id<Room>) room{
     if([room isLocked] == NO){
         return YES;
     }else{
-        for (Item* x in [inventory allValues]) {
+        for (id<Item> x in [inventory allValues]) {
             if ([x isKindOfClass:[Key class]]) {
                 if ([[(Key*)x unlocks] isEqual:room]) {
                     return YES;
@@ -196,7 +196,7 @@
 
 -(void)walkTo:(NSString *)direction
 {
-	Room *nextRoom = [currentRoom getExit:direction];
+	id<Room> nextRoom = [currentRoom getExit:direction];
 	if (nextRoom) {
         if([self canVisit:nextRoom]){
             [previousLocations addObject:currentRoom];
@@ -245,7 +245,7 @@
     [self outputMessage: message withColor:[NSColor brownColor]];
 }
 
--(void)addToInventory:(Item*) newItem{
+-(void)addToInventory:(id<Item>) newItem{
     [inventory setObject: newItem forKey: [newItem name]];
 }
 
@@ -257,6 +257,10 @@
 {
 	[currentRoom release];
     [io release];
+    [weapon release];
+    [inventory release];
+    [visitedRooms release];
+    [previousLocations release];
 	
 	[super dealloc];
 }

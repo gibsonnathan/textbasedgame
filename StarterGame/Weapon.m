@@ -9,6 +9,10 @@
 #import "Weapon.h"
 @implementation Weapon
 
+-(id)init{
+    return [self initWithName:@"unknown-weapon" andWeight:5 andDamage:10];
+}
+
 -(id)initWithName:(NSString*)newName andWeight:(int)newWeight andDamage:(int)newDamage{
     
     self = [super init];
@@ -35,8 +39,12 @@
 -(int)nutrition{
     return 0;
 }
--(Room*)unlocks{
+-(id<Room>)unlocks{
     return nil;
+}
+-(void)dealloc{
+    [name release];
+    [super dealloc];
 }
 
 @end

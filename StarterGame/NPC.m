@@ -17,9 +17,11 @@
 @synthesize delegate;
 @synthesize name;
 
-
--(id)initWithRoom:(Room*)newRoom andName:(NSString*)newName{
-    self = [self init];
+-(id)init{
+    return [self initWithRoom:nil andName:@"NPC"];
+}
+-(id)initWithRoom:(id<Room>)newRoom andName:(NSString*)newName{
+    self = [super init];
     
     if (nil != self) {
         [self setName:newName];
@@ -28,7 +30,7 @@
     }
     return self;
 }
--(Room*)currentRoom{
+-(id<Room>)currentRoom{
     return [delegate currentRoom];
 }
 /*
@@ -47,7 +49,7 @@
  */
 -(void)walk{
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[delegate currentRoom] getExits] componentsSeparatedByString:@" "]];
-    Room* nextRoom = [[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
+    id<Room> nextRoom = [[[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]] autorelease];
     if (nextRoom && [[nextRoom name] isNotEqualTo:@"teleport"]) {
         [delegate setCurrentRoom:nextRoom];
         NSDictionary* data = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[delegate currentRoom],@"room",[self name], @"name", nil];
@@ -56,7 +58,7 @@
     }
 }
 
--(void)addToInventory:(Item*)item{
+-(void)addToInventory:(id<Item>)item{
     [delegate addToInventory:item];
 }
 /*
@@ -71,5 +73,11 @@
         NSString* output = [NSString stringWithFormat: @"\n%@ has dropped his items", name];
         [self talkToPlayer:output];
     }
+}
+
+-(void)dealloc{
+    [name release];
+    [delegate release];
+    [super dealloc];
 }
 @end

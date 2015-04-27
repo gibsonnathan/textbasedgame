@@ -9,8 +9,11 @@
 #import "Item.h"
 @implementation Item
 
+-(id)init{
+    return [self initWithName:@"item" andWeight:5 andCanPickup:YES];
+}
+
 -(id)initWithName:(NSString*)newName andWeight:(int)newWeight andCanPickup:(BOOL)newCanPickup{
-    
     self = [super init];
     if(self){
         name = newName;
@@ -35,8 +38,12 @@
 -(int)nutrition{
     return 0;
 }
--(Room*)unlocks{
+-(id<Room>)unlocks{
     return nil;
+}
+-(void)dealloc{
+    [name release];
+    [super dealloc];
 }
 
 @end

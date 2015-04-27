@@ -37,26 +37,26 @@
 -(NSArray*)items{
     return [items allKeys];
 }
--(Item*)itemForKey:(NSString*) key{
+-(id<Item>)itemForKey:(NSString*) key{
     return [items objectForKey:key];
 }
 
--(void)addToItems:(Item*) newItem{
+-(void)addToItems:(id<Item>) newItem{
     [items setObject: newItem forKey: [newItem name]];
 }
 
--(Item*)removeFromItems:(NSString*)item{
-    Item* temp = [items objectForKey:item];
+-(id<Item>)removeFromItems:(NSString*)item{
+    id<Item> temp = [items objectForKey:item];
     [items removeObjectForKey:item];
     return temp;
 }
 
--(void)setExit:(NSString *)exit toRoom:(Room*)room
+-(void)setExit:(NSString *)exit toRoom:(id<Room>)room
 {
 	[exits setObject:room forKey:exit];
 }
 
--(Room*)getExit:(NSString *)exit
+-(id<Room>)getExit:(NSString *)exit
 {
 	return [exits objectForKey:exit];
 }
@@ -86,6 +86,8 @@
 {
 	[tag release];
 	[exits release];
+    [items release];
+    [name release];
 	[super dealloc];
 }
 

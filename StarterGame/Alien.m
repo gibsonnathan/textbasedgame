@@ -10,7 +10,11 @@
 
 @implementation Alien
 
--(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(Room*)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage{
+-(id)init{
+    return [self initWithHealth:100 andStrength:10 andRoom:nil andName:@"alien" andMoveTime:10 andMessage:@"Hello"];
+}
+
+-(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(id<Room>)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage{
     
     self = [super initWithRoom:newRoom andName:newName];
     if(self){
@@ -61,7 +65,7 @@
 
 -(void)attack{
     NSLog(@"\n%@ attacked Player", [self name]);
-    NSNumber* attack = [[NSNumber alloc]initWithInt: arc4random()%(strength)];
+    NSNumber* attack = [[[NSNumber alloc]initWithInt: arc4random()%(strength)] autorelease];
     NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack",[[self delegate]currentRoom], @"room", [self name], @"name", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCAttackedPlayer" object:nil userInfo:data];
    }
@@ -71,7 +75,7 @@
     NSDictionary* data = [notification userInfo];
     NSString* name = [data objectForKey:@"name"];
     NSNumber* attack = [data objectForKey:@"attack"];
-    Room* room = [data objectForKey:@"room"];
+    id<Room> room = [data objectForKey:@"room"];
     if ([[self name] isEqualTo:name] && [[[self delegate]currentRoom] isEqual:room]) {
         if (health - [attack intValue] > 0) {
             health -= [attack intValue];
@@ -90,6 +94,12 @@
     [self talkToPlayer:output];
     [self dropItems];
     
+}
+
+-(void)dealloc{
+    [moveTimer release];
+    [message release];
+    [super dealloc];
 }
 
 @end

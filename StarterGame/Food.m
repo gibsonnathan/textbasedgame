@@ -10,6 +10,10 @@
 
 @implementation Food
 
+-(id)init{
+    return [self initWithName:@"food" andNutrition:1];
+}
+
 -(id)initWithName:(NSString*)newName andNutrition:(int)newNutrition{
     self = [super init];
     if(self){
@@ -34,7 +38,12 @@
 -(int)nutrition{
     return nutrition;
 }
--(Room*)unlocks{
+-(id<Room>)unlocks{
     return nil;
+}
+
+-(void)dealloc{
+    [name release];
+    [super dealloc];
 }
 @end

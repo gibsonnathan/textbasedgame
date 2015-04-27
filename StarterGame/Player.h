@@ -24,24 +24,24 @@
     Weapon* weapon;
 }
 
-@property (nonatomic, retain)Room* currentRoom;
+@property (nonatomic, retain)id<Room> currentRoom;
 @property (nonatomic, retain)GameIO* io;
 
 -(id)init;
--(id)initWithRoom:(Room*)room;
+-(id)initWithRoom:(id<Room>)room;
 -(void)eat:(NSString*)food;
 -(void)unEquip:(NSString*)newWeapon;
 -(void)equip:(NSString*)newWeapon;
 -(void)attack:(NSString*)NPC;
 -(void)haveBeenAttacked:(NSNotification*)notification;
 -(void)walkTo:(NSString*)direction;
--(BOOL)canVisit:(Room*)room;
+-(BOOL)canVisit:(id<Room>)room;
 -(void)outputMessage:(NSString*)message;
 -(void)outputMessage:(NSString*)message withColor:(NSColor*)color;
 -(void)warningMessage:(NSString*)message;
 -(void)errorMessage:(NSString*)message;
 -(void)commandMessage:(NSString*)message;
--(void)addToInventory:(Item*)item;
+-(void)addToInventory:(id<Item>)item;
 -(NSArray*)inventoryKeys;
 -(void)exploreRoom;
 -(void)pickUp:(NSString*)item;

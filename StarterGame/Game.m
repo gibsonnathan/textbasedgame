@@ -42,16 +42,14 @@
 -(void)NPCEncounteredPlayer:(NSNotification*)notification{
     NSDictionary* data = [notification userInfo];
     NSString* name = [data objectForKey:@"name"];
-    Room* room = [data objectForKey:@"room"];
+    id<Room> room = [data objectForKey:@"room"];
     if ([room isEqual:[player currentRoom]]) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerEncounteredByNPC" object:name];
     }
 }
 -(Room *)createWorld
 {
-	Room *outside, *cctParking, *boulevard, *universityParking, *parkingDeck, *cct, *theGreen, *universityHall, *schuster;
-    
-    TeleportRoom* teleport;
+	id<Room> outside, cctParking, boulevard, universityParking, parkingDeck, cct, theGreen, universityHall, schuster, teleport;
 	
 	outside = [[[Room alloc] initWithTag:@"outside the main entrance of the university" andName:@"outside" andLocked:NO] autorelease];
 	cctParking = [[[Room alloc] initWithTag:@"in the parking lot at CCT" andName:@"cctParking" andLocked:NO] autorelease];
@@ -62,10 +60,7 @@
 	theGreen = [[[Room alloc] initWithTag:@"in the green in front of Schuster Center" andName:@"the green" andLocked:NO] autorelease];
 	universityHall = [[[Room alloc] initWithTag:@"in University Hall" andName:@"university hall" andLocked:NO] autorelease];
 	schuster = [[[Room alloc] initWithTag:@"in the Schuster Center" andName:@"schuster" andLocked:NO] autorelease];
-    teleport = [[TeleportRoom alloc] initWithTag:@"in the Teleport Room" andName:@"teleport" andLocked:YES];
-    
-    Key* teleportKey = [[Key alloc]initWithName:@"teleport-key" andUnlocks:teleport];
-    [boulevard addToItems:teleportKey];
+    teleport = [[[TeleportRoom alloc] initWithTag:@"in the Teleport Room" andName:@"teleport" andLocked:YES] autorelease];
     
 	[outside setExit:@"west" toRoom:boulevard];
 	
@@ -97,26 +92,27 @@
 	
 	[parkingDeck setExit:@"south" toRoom:universityParking];
 	
-    Item* wood = [[Item alloc]initWithName:@"wood" andWeight:5 andCanPickup:YES];
+    id<Item> wood = [[[Item alloc]initWithName:@"wood" andWeight:5 andCanPickup:YES] autorelease];
+    id<Item> dog = [[[Item alloc]initWithName:@"dog" andWeight:5 andCanPickup:YES] autorelease];
+    id<Item> cat = [[[Item alloc]initWithName:@"cat" andWeight:5 andCanPickup:YES] autorelease];
+    id<Item> car = [[[Item alloc]initWithName:@"car" andWeight:5 andCanPickup:NO] autorelease];
+    id<Item> teleportKey = [[[Key alloc]initWithName:@"teleport-key" andUnlocks:teleport ]autorelease];
+    id<Item> hamburger = [[[Food alloc]initWithName:@"Hamburger" andNutrition:10]autorelease ];
+    id<Item> weapon = [[[Weapon alloc] initWithName:@"weapon" andWeight:5 andDamage:10] autorelease];
+    id<Item> alienItem = [[[Item alloc]initWithName:@"alienItem" andWeight:3 andCanPickup:YES] autorelease];
+    
+    id<NPC> alien1 = [[Alien alloc] initWithHealth:200 andStrength:5 andRoom:schuster andName:@"NPC1" andMoveTime:20 andMessage:@"I am NPC1"];
+    id<NPC> alien2 = [[Alien alloc] initWithHealth:200 andStrength:5 andRoom:universityParking andName:@"NPC2" andMoveTime:20 andMessage:@"I am NPC2"];
+    
     [boulevard addToItems:wood];
-    
-    Item* dog = [[Item alloc]initWithName:@"dog" andWeight:5 andCanPickup:YES];
     [boulevard addToItems:dog];
-    
-    Item* cat = [[Item alloc]initWithName:@"cat" andWeight:5 andCanPickup:YES];
     [boulevard addToItems:cat];
-    
-    Item* car = [[Item alloc]initWithName:@"car" andWeight:5 andCanPickup:NO];
     [boulevard addToItems:car];
-    
-    Food* hamburger = [[Food alloc]initWithName:@"Hamburger" andNutrition:10];
+    [boulevard addToItems:teleportKey];
     [boulevard addToItems:hamburger];
-    Weapon* weapon = [[Weapon alloc] initWithName:@"weapon" andWeight:5 andDamage:10];
     [boulevard addToItems:weapon];
-    Item* alienItem = [[Item alloc]initWithName:@"alienItem" andWeight:3 andCanPickup:YES];
-    Alien* alien1 = [[Alien alloc] initWithHealth:200 andStrength:5 andRoom:schuster andName:@"NPC1" andMoveTime:20 andMessage:@"I am NPC1"];
-    Alien* alien2 = [[Alien alloc] initWithHealth:200 andStrength:5 andRoom:universityParking andName:@"NPC2" andMoveTime:20 andMessage:@"I am NPC2"];
     [alien2 addToInventory:alienItem];
+    
 	return outside;
 }
 

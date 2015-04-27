@@ -19,6 +19,6 @@
 -(BOOL)canPickup;
 -(int)damage;
 -(int)nutrition;
--(Room*)unlocks;
+-(id<Room>)unlocks;
 
 @end
