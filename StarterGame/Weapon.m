@@ -7,32 +7,36 @@
 //
 
 #import "Weapon.h"
-
 @implementation Weapon
 
-@synthesize name;
-@synthesize weight;
-@synthesize damage;
-@synthesize canPickup;
-
--(id) init{
-    return [self initWithName:@"weapon"];
-}
--(id) initWithName:(NSString*)newName{
-    return [self initWithName:newName andWeight:10];
-}
--(id) initWithName:(NSString*)newName andWeight:(int)newWeight{
-    return [self initWithName:newName andDamage:10 andWeight:newWeight andCanPickUp:YES];
-}
--(id) initWithName:(NSString *)newName andDamage:(int)newDamage andWeight:(int)newWeight andCanPickUp:(BOOL*) newCanPickup{
+-(id)initWithName:(NSString*)newName andWeight:(int)newWeight andDamage:(int)newDamage{
+    
     self = [super init];
-    if (self) {
-        [self setName: newName];
-        [self setWeight:newWeight];
-        [self setCanPickup:newCanPickup];
-        [self setDamage:newDamage];
+    if (self){
+        name = newName;
+        weight = newWeight;
+        damage = newDamage;
     }
     return self;
+}
+
+-(NSString*)name{
+    return name;
+}
+-(int)weight{
+    return weight;
+}
+-(BOOL)canPickup{
+    return YES;
+}
+-(int)damage{
+    return damage;
+}
+-(int)nutrition{
+    return 0;
+}
+-(Room*)unlocks{
+    return nil;
 }
 
 @end

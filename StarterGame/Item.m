@@ -7,48 +7,36 @@
 //
 
 #import "Item.h"
-
 @implementation Item
 
-@synthesize name;
-@synthesize weight;
-@synthesize canPickup;
-
--(id)init{
-    return [self initWithName:@"Item"];
-}
--(id)initWithName:(NSString*) newName{
-    return [self initWithName:newName andWeight:10];
-}
-
--(id)initWithName:(NSString *)newName andWeight:(int)newWeight{
-    return[self initWithName:newName andWeight:newWeight andCanPickup:true];
-}
-
--(id)initWithName:(NSString*) newName andWeight: (int) newWeight andCanPickup:(BOOL)pickup{
+-(id)initWithName:(NSString*)newName andWeight:(int)newWeight andCanPickup:(BOOL)newCanPickup{
+    
     self = [super init];
     if(self){
-        [self setCanPickup:pickup];
-        [self setName: newName];
-        [self setWeight: newWeight];
+        name = newName;
+        weight = newWeight;
+        canPickup = newCanPickup;
     }
     return self;
 }
--(NSString*)description{
-    return [NSString stringWithFormat:@" %@ %d", [self name], [self weight]];
-}
 
+-(NSString*)name{
+    return name;
+}
+-(int)weight{
+    return weight;
+}
+-(BOOL)canPickup{
+    return canPickup;
+}
 -(int)damage{
     return 0;
 }
-
--(void)setDamage:(int)newDamage{
-
+-(int)nutrition{
+    return 0;
 }
-
--(void)dealloc{
-    [name release];
-    [super dealloc];
+-(Room*)unlocks{
+    return nil;
 }
 
 @end

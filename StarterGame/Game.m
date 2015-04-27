@@ -13,6 +13,7 @@
 #import "TeleportRoom.h"
 #import "GameIOManager.h"
 #import "Alien.h"
+#import "Food.h"
 
 @implementation Game
 
@@ -41,7 +42,7 @@
 -(void)NPCEncounteredPlayer:(NSNotification*)notification{
     NSDictionary* data = [notification userInfo];
     NSString* name = [data objectForKey:@"name"];
-    id<Room> room = [data objectForKey:@"room"];
+    Room* room = [data objectForKey:@"room"];
     if ([room isEqual:[player currentRoom]]) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerEncounteredByNPC" object:name];
     }
@@ -52,19 +53,18 @@
     
     TeleportRoom* teleport;
 	
-	outside = [[[Room alloc] initWithTag:@"outside the main entrance of the university" andName:@"outside"] autorelease];
-	cctParking = [[[Room alloc] initWithTag:@"in the parking lot at CCT" andName:@"cctParking"] autorelease];
-	boulevard = [[[Room alloc] initWithTag:@"on the boulevard" andName:@"boulevard"] autorelease];
-    universityParking = [[[Room alloc] initWithTag:@"in the parking lot at University Hall" andName:@"university parking"] autorelease];
-	parkingDeck = [[[Room alloc] initWithTag:@"in the parking deck" andName:@"parking deck"] autorelease];
-	cct = [[[Room alloc] initWithTag:@"in the CCT building" andName:@"cct"] autorelease];
-	theGreen = [[[Room alloc] initWithTag:@"in the green in front of Schuster Center" andName:@"the green"] autorelease];
-	universityHall = [[[Room alloc] initWithTag:@"in University Hall" andName:@"university hall"] autorelease];
-	schuster = [[[Room alloc] initWithTag:@"in the Schuster Center" andName:@"schuster"] autorelease];
-    teleport = [[TeleportRoom alloc] initWithTag:@"in the Teleport Room" andName:@"teleport"];
+	outside = [[[Room alloc] initWithTag:@"outside the main entrance of the university" andName:@"outside" andLocked:NO] autorelease];
+	cctParking = [[[Room alloc] initWithTag:@"in the parking lot at CCT" andName:@"cctParking" andLocked:NO] autorelease];
+	boulevard = [[[Room alloc] initWithTag:@"on the boulevard" andName:@"boulevard" andLocked:NO] autorelease];
+    universityParking = [[[Room alloc] initWithTag:@"in the parking lot at University Hall" andName:@"university parking" andLocked:NO] autorelease];
+	parkingDeck = [[[Room alloc] initWithTag:@"in the parking deck" andName:@"parking deck" andLocked:NO] autorelease];
+	cct = [[[Room alloc] initWithTag:@"in the CCT building" andName:@"cct" andLocked:NO] autorelease];
+	theGreen = [[[Room alloc] initWithTag:@"in the green in front of Schuster Center" andName:@"the green" andLocked:NO] autorelease];
+	universityHall = [[[Room alloc] initWithTag:@"in University Hall" andName:@"university hall" andLocked:NO] autorelease];
+	schuster = [[[Room alloc] initWithTag:@"in the Schuster Center" andName:@"schuster" andLocked:NO] autorelease];
+    teleport = [[TeleportRoom alloc] initWithTag:@"in the Teleport Room" andName:@"teleport" andLocked:YES];
     
-    [teleport setIsLocked:YES];
-    Key* teleportKey = [[Key alloc] initWithName:@"teleport-key" andWeight:1 andCanPickup:YES andUnlocks:teleport];
+    Key* teleportKey = [[Key alloc]initWithName:@"teleport-key" andUnlocks:teleport];
     [boulevard addToItems:teleportKey];
     
 	[outside setExit:@"west" toRoom:boulevard];
@@ -97,21 +97,23 @@
 	
 	[parkingDeck setExit:@"south" toRoom:universityParking];
 	
-    Item* wood = [[Item alloc]initWithName:@"wood" andWeight:5];
+    Item* wood = [[Item alloc]initWithName:@"wood" andWeight:5 andCanPickup:YES];
     [boulevard addToItems:wood];
     
-    Item* dog = [[Item alloc]initWithName:@"dog" andWeight:5];
+    Item* dog = [[Item alloc]initWithName:@"dog" andWeight:5 andCanPickup:YES];
     [boulevard addToItems:dog];
     
-    Item* cat = [[Item alloc]initWithName:@"cat" andWeight:5];
+    Item* cat = [[Item alloc]initWithName:@"cat" andWeight:5 andCanPickup:YES];
     [boulevard addToItems:cat];
     
     Item* car = [[Item alloc]initWithName:@"car" andWeight:5 andCanPickup:NO];
     [boulevard addToItems:car];
     
-    Weapon* weapon = [[Weapon alloc] initWithName:@"weapon" andDamage:1 andWeight:1 andCanPickUp:YES];
+    Food* hamburger = [[Food alloc]initWithName:@"Hamburger" andNutrition:10];
+    [boulevard addToItems:hamburger];
+    Weapon* weapon = [[Weapon alloc] initWithName:@"weapon" andWeight:5 andDamage:10];
     [boulevard addToItems:weapon];
-    Item* alienItem = [[Item alloc]initWithName:@"alienItem"];
+    Item* alienItem = [[Item alloc]initWithName:@"alienItem" andWeight:3 andCanPickup:YES];
     Alien* alien1 = [[Alien alloc] initWithHealth:200 andStrength:5 andRoom:schuster andName:@"NPC1" andMoveTime:20 andMessage:@"I am NPC1"];
     Alien* alien2 = [[Alien alloc] initWithHealth:200 andStrength:5 andRoom:universityParking andName:@"NPC2" andMoveTime:20 andMessage:@"I am NPC2"];
     [alien2 addToInventory:alienItem];

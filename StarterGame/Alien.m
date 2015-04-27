@@ -10,7 +10,7 @@
 
 @implementation Alien
 
--(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(id<Room>)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage{
+-(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(Room*)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage{
     
     self = [super initWithRoom:newRoom andName:newName];
     if(self){
@@ -47,7 +47,6 @@
     [self performSelector:@selector(attack) withObject:nil afterDelay:2];
     NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[[self delegate] currentRoom]name]);
 }
-
 /*
     Stops the timer that causes the player to move
  */
@@ -61,15 +60,19 @@
 }
 
 -(void)attack{
+    NSLog(@"\n%@ attacked Player", [self name]);
     NSNumber* attack = [[NSNumber alloc]initWithInt: arc4random()%(strength)];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"NPCAttackedPlayer" object:attack];
-}
+    NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack",[[self delegate]currentRoom], @"room", [self name], @"name", nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCAttackedPlayer" object:nil userInfo:data];
+   }
 
 -(void)haveBeenAttacked:(NSNotification*)notification{
+    NSLog(@"\n%@ has been attack by player", [self name]);
     NSDictionary* data = [notification userInfo];
     NSString* name = [data objectForKey:@"name"];
     NSNumber* attack = [data objectForKey:@"attack"];
-    if ([[self name] isEqualTo:name]) {
+    Room* room = [data objectForKey:@"room"];
+    if ([[self name] isEqualTo:name] && [[[self delegate]currentRoom] isEqual:room]) {
         if (health - [attack intValue] > 0) {
             health -= [attack intValue];
             NSString* output = [NSString stringWithFormat:@"\n%@ attacked! Health:%d", [self name], health];
@@ -82,6 +85,7 @@
 }
 
 -(void)defeated{
+    NSLog(@"\n%@ has been defeated by player", [self name]);
     NSString* output = [NSString stringWithFormat:@"\n%@ defeated",[self name]];
     [self talkToPlayer:output];
     [self dropItems];

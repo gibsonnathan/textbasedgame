@@ -8,19 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "Protocols.h"
-
 @interface Item : NSObject <Item>{
-
+    NSString* name;
+    int weight;
+    BOOL canPickup;
 }
 
-@property (retain, nonatomic) NSString *name;
-@property (nonatomic) int weight;
-@property (nonatomic) BOOL canPickup;
-
--(id)init;
--(id)initWithName:(NSString*)newName;
--(id)initWithName:(NSString*)newName andWeight: (int)newWeight;
--(id)initWithName:(NSString*)newName andWeight: (int)newWeight andCanPickup:(BOOL)pickup;
+-(id)initWithName:(NSString*)newName andWeight:(int)newWeight andCanPickup:(BOOL)newCanPickup;
+-(NSString*)name;
+-(int)weight;
+-(BOOL)canPickup;
 -(int)damage;
--(void)setDamage:(int)newDamage;
+-(int)nutrition;
+-(Room*)unlocks;
 @end

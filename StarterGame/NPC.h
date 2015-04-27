@@ -6,8 +6,10 @@
 //  Copyright (c) 2015 Ringtuple, Inc. All rights reserved.
 //
 
-#import "Player.h"
+#import <Foundation/Foundation.h>
 #import "Protocols.h"
+#import "NPC.h"
+
 @interface NPC : NSObject <NPC>{
     
 }
@@ -15,10 +17,11 @@
 @property(nonatomic, retain)id delegate;
 @property(nonatomic, retain)NSString* name;
 
--(id)initWithRoom:(id<Room>)newRoom andName:(NSString*)newName;
+-(id)initWithRoom:(Room*)newRoom andName:(NSString*)newName;
+-(Room*)currentRoom;
 -(void)talkToPlayer:(NSString*)message;
 -(void)walk;
--(void)addToInventory:(id<Item>)item;
+-(void)addToInventory:(Item*)item;
 -(void)dropItems;
 
 @end

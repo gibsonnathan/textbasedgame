@@ -1,19 +1,20 @@
 //
-//  Key.m
+//  Food.m
 //  StarterGame
 //
-//  Created by Nathan Gibson on 4/13/15.
+//  Created by Nathan Gibson on 4/26/15.
 //  Copyright (c) 2015 Ringtuple, Inc. All rights reserved.
 //
 
-#import "Key.h"
-@implementation Key
+#import "Food.h"
 
--(id)initWithName:(NSString*)newName andUnlocks:(Room*)newRoom{
+@implementation Food
+
+-(id)initWithName:(NSString*)newName andNutrition:(int)newNutrition{
     self = [super init];
-    if (self) {
+    if(self){
         name = newName;
-        unlocks = newRoom;
+        nutrition = newNutrition;
     }
     return self;
 }
@@ -31,11 +32,9 @@
     return 0;
 }
 -(int)nutrition{
-    return 0;
+    return nutrition;
 }
 -(Room*)unlocks{
-    return unlocks;
+    return nil;
 }
-
-
 @end

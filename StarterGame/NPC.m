@@ -8,6 +8,9 @@
 
 #import "NPC.h"
 #import "GameIOManager.h"
+#import "Room.h"
+#import "Item.h"
+#import "Player.h"
 
 @implementation NPC
 
@@ -15,16 +18,18 @@
 @synthesize name;
 
 
--(id)initWithRoom:(id<Room>)newRoom andName:(NSString*)newName{
+-(id)initWithRoom:(Room*)newRoom andName:(NSString*)newName{
     self = [self init];
     
     if (nil != self) {
         [self setName:newName];
-        delegate = [[Player alloc]init];
-        [delegate setCurrentRoom:newRoom];
+        delegate = [[Player alloc]initWithRoom:newRoom];
         [delegate setIo:[GameIOManager sharedInstance]];
     }
     return self;
+}
+-(Room*)currentRoom{
+    return [delegate currentRoom];
 }
 /*
     Waits a second and then sends the message to the screen
@@ -42,7 +47,7 @@
  */
 -(void)walk{
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[delegate currentRoom] getExits] componentsSeparatedByString:@" "]];
-    Room *nextRoom = [[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
+    Room* nextRoom = [[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
     if (nextRoom && [[nextRoom name] isNotEqualTo:@"teleport"]) {
         [delegate setCurrentRoom:nextRoom];
         NSDictionary* data = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[delegate currentRoom],@"room",[self name], @"name", nil];
@@ -51,7 +56,7 @@
     }
 }
 
--(void)addToInventory:(id<Item>)item{
+-(void)addToInventory:(Item*)item{
     [delegate addToInventory:item];
 }
 /*

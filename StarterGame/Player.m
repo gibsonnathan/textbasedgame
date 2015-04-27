@@ -10,6 +10,7 @@
 #import "Player.h"
 #import "Key.h"
 #import "GameIOManager.h"
+#import "Food.h"
 @implementation Player
 
 
@@ -21,7 +22,7 @@
 	return [self initWithRoom:nil];
 }
 
--(id)initWithRoom:(id<Room>)room
+-(id)initWithRoom:(Room*)room
 {
 	self = [super init];
     
@@ -41,11 +42,24 @@
 	return self;
 }
 
+-(void)eat:(NSString*)food{
+    Item *temp = [inventory objectForKey:food];
+    if(temp && [temp isKindOfClass:[Food class]]){
+        health += [temp nutrition];
+        [inventory removeObjectForKey:food];
+        NSString* output = [NSString stringWithFormat:@"\nPlayer health %d", health];
+        [self outputMessage:output];
+    }else{
+        [self warningMessage:[NSString stringWithFormat:@"\nCannot eat %@", food]];
+    }
+}
+
 -(void)equip:(NSString*)newWeapon{
-    id<Item> temp = [inventory objectForKey:newWeapon];
+    Weapon* temp = [inventory objectForKey:newWeapon];
     if(temp && [temp isKindOfClass:[Weapon class]]){
         weapon = temp;
-        [inventory removeObjectForKey:[temp name]];
+        NSString* output = [NSString stringWithFormat:@"\nPlayer's currently equipped weapon: %@", [weapon name]];
+        [self outputMessage:output];
     }else{
         [self warningMessage:[NSString stringWithFormat:@"\nCannot equip %@", newWeapon]];
     }
@@ -54,8 +68,9 @@
 -(void)unEquip:(NSString*)newWeapon{
     if (weapon) {
         if ([newWeapon isEqualTo:[weapon name]]) {
-            [inventory setObject:weapon forKey:newWeapon];
             weapon = nil;
+            NSString* output = [NSString stringWithFormat:@"\nPlayer's currently equipped weapon: none"];
+            [self outputMessage:output];
         }
         else{
             [self warningMessage:[NSString stringWithFormat:@"\n%@ not equipped", newWeapon]];
@@ -67,18 +82,24 @@
 
 -(void)attack:(NSString*)NPC{
     NSNumber* attack = [[NSNumber alloc]initWithInt: weapon ? arc4random() % (strength + [weapon damage]) : arc4random() % (strength)];
-    NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack", NPC, @"name", nil];
+    NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack", NPC, @"name", currentRoom, @"room", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerHasAttackedNPC" object:nil userInfo:data];
 }
 
 -(void)haveBeenAttacked:(NSNotification*)notification{
-    if (health - [[notification object] intValue] > 0) {
-        health -= [[notification object] intValue];
-        NSString* output = [NSString stringWithFormat:@"\nPlayer attacked! Health:%d", health];
-        [self outputMessage:output];
-        
-    }else{
-        [self defeated];
+    NSDictionary* data = [notification userInfo];
+    NSNumber* attack = [data objectForKey:@"attack"];
+    Room* room = [data objectForKey:@"room"];
+    NSString* name = [data objectForKey:@"name"];
+    if ([currentRoom isEqual:room]) {
+        if (health - [attack intValue] > 0) {
+            health -= [attack intValue];
+            NSString* output = [NSString stringWithFormat:@"\nPlayer attacked by %@! Health:%d",name, health];
+            [self outputMessage:output];
+            
+        }else{
+            [self defeated];
+        }
     }
 }
 
@@ -87,7 +108,7 @@
 }
 
 -(void)goBack{
-    id<Room> lastRoom = [previousLocations lastObject];
+    Room* lastRoom = [previousLocations lastObject];
     if(lastRoom){
         [previousLocations removeLastObject];
         currentRoom = lastRoom;
@@ -98,7 +119,7 @@
 }
 
 -(void)dropItem:(NSString*) item{
-    id<Item> temp = [inventory objectForKey:item];
+    Item* temp = [inventory objectForKey:item];
     if(temp){
         [inventory removeObjectForKey:item];
         [currentRoom addToItems:temp];
@@ -158,11 +179,11 @@
     }
 }
 
--(BOOL)canVisit:(id<Room>) room{
+-(BOOL)canVisit:(Room*) room{
     if([room isLocked] == NO){
         return YES;
     }else{
-        for (id<Item> x in [inventory allValues]) {
+        for (Item* x in [inventory allValues]) {
             if ([x isKindOfClass:[Key class]]) {
                 if ([[(Key*)x unlocks] isEqual:room]) {
                     return YES;
@@ -184,7 +205,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasWalked" object:currentRoom];
             NSLog(@"\nPlayer is in %@", [currentRoom name]);
             if ([currentRoom isLocked] == YES) {
-                [currentRoom setIsLocked: NO];
+                [currentRoom unlock];
             }
             [self outputMessage:[NSString stringWithFormat:@"\n%@", nextRoom]];
         }else{

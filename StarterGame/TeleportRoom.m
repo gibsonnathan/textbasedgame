@@ -7,22 +7,23 @@
 //
 
 #import "TeleportRoom.h"
+#import "Room.h"
 
 @implementation TeleportRoom
 
 @synthesize delegate;
 
 -(id)init{
-    return [self initWithTag:@"No Tag" andName:@"Room"];
+    return [self initWithTag:@"No Tag" andName:@"Room" andLocked:NO];
 }
 
--(id)initWithTag:(NSString *)newTag andName:(NSString*)newName{
+-(id)initWithTag:(NSString *)newTag andName:(NSString*)newName andLocked:(BOOL)newLocked{
     self = [super init];
     
     if (nil != self) {
-        [self setDelegate:[[Room alloc]initWithTag:newTag andName:newName]];
+        Room* del = [[Room alloc]initWithTag:newTag andName:newName andLocked:newLocked];
+        [self setDelegate:del];
         previousLocations = [[NSMutableArray alloc] init];
-        [delegate setTag:newTag];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addLocation:) name:@"PlayerHasWalked" object:nil];
     }
     return self;
@@ -34,24 +35,22 @@
     }
 }
 
--(void)setExit:(NSString *)exit toRoom:(id<Room>)room{
+-(void)setExit:(NSString *)exit toRoom:(Room*)room{
     [delegate setExit:exit toRoom:room];
 }
 
--(void)setName:(NSString*)newName{
-    [delegate setName:newName];
-}
+
 -(NSString*)name{
     return [delegate name];
 }
 
--(id<Room>)getExit:(NSString *)exit{
+-(Room*)getExit:(NSString *)exit{
     if ([exit isNotEqualTo:@"outside"]) {
         return nil;
     }else{
         if ([previousLocations count] > 0) {
             NSInteger randomValue = arc4random_uniform((int)[previousLocations count]);
-            id<Room> temp = [previousLocations objectAtIndex: randomValue];
+            Room* temp = [previousLocations objectAtIndex: randomValue];
             return temp;
         }
     }
@@ -61,13 +60,13 @@
     return [NSString stringWithFormat:@"outside"];
 }
 
--(void)addToItems:(id<Item>) newItem{
+-(void)addToItems:(Item*) newItem{
     [delegate addToItems:newItem];
 }
--(id<Item>)removeFromItems:(NSString*)item{
+-(Item*)removeFromItems:(NSString*)item{
     return [delegate removeFromItems:item];
 }
--(id<Item>)itemForKey:(NSString*) key{
+-(Item*)itemForKey:(NSString*) key{
     return [delegate itemForKey:key];
 
 }
@@ -75,22 +74,23 @@
     return [delegate items];
 }
 
--(void)setIsLocked:(BOOL)locked{
-    [delegate setIsLocked:locked];
-}
--(BOOL)isLocked{
-    return [delegate isLocked];
-}
-
--(void)setTag:(NSString*)newTag{
-    [delegate setTag:newTag];
-}
 -(NSString*)tag{
     return [delegate tag];
 }
 
 -(NSString *)description{
     return [NSString stringWithFormat:@"You are %@.\n *** %@", [delegate tag], [self getExits]];
+}
+
+-(void)lock{
+    [delegate lock];
+
+}
+-(void)unlock{
+    [delegate unlock];
+}
+-(BOOL)isLocked{
+    return [delegate isLocked];
 }
 
 -(void)dealloc{

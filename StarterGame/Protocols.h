@@ -1,51 +1,47 @@
 //
-//  Protocols.h
+//  Room.h
 //  StarterGame
 //
-//  Created by Nathan Gibson on 4/14/15.
+//  Created by Nathan Gibson on 4/26/15.
 //  Copyright (c) 2015 Ringtuple, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 @class Item;
+@class Room;
+@class NPC;
+
 @protocol Item <NSObject>
--(void)setName:(NSString*)newName;
--(void)setWeight:(int)newWeight;
--(void)setCanPickup:(BOOL)newPickup;
 -(NSString*)name;
 -(int)weight;
 -(BOOL)canPickup;
 -(int)damage;
--(void)setDamage:(int)newDamage;
-
+-(int)nutrition;
+-(Room*)unlocks;
 @end
 
-@class Room;
 @protocol Room <NSObject>
--(id)init;
--(id)initWithTag:(NSString *)newTag andName:(NSString*)newName;
--(void)setTag:(NSString*)newTag;
+-(id)initWithTag:(NSString *)newTag andName:(NSString*)newName andLocked:(BOOL)newLocked;
 -(NSString*)tag;
--(void)setName:(NSString*)newName;
 -(NSString*)name;
--(void)setExit:(NSString*)exit toRoom:(id<Room>)room;
--(id<Room>)getExit:(NSString*)exit;
+-(void)setExit:(NSString*)exit toRoom:(Room*)room;
+-(Room*)getExit:(NSString*)exit;
 -(NSString*)getExits;
--(void)addToItems:(id<Item>)newItem;
--(id<Item>)removeFromItems:(NSString*)item;
--(id<Item>)itemForKey:(NSString*)key;
+-(void)addToItems:(Item*)newItem;
+-(Item*)removeFromItems:(NSString*)item;
+-(Item*)itemForKey:(NSString*)key;
 -(NSArray*)items;
--(void)setIsLocked:(BOOL)locked;
+-(void)lock;
+-(void)unlock;
 -(BOOL)isLocked;
 @end
 
-@class NPC;
 @protocol NPC <NSObject>
--(id)initWithRoom:(id<Room>)newRoom andName:(NSString*)newName;
+-(id)initWithRoom:(Room*)newRoom andName:(NSString*)newName;
+-(Room*)currentRoom;
 -(void)talkToPlayer:(NSString*)message;
 -(void)walk;
--(void)addToInventory:(id<Item>)item;
+-(void)addToInventory:(Item*)item;
 -(void)dropItems;
-
 @end

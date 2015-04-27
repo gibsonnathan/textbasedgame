@@ -22,7 +22,7 @@
 @property (retain, nonatomic)Player *player;
 
 -(id)initWithGameIO:(GameIO*)theIO;
--(id<Room>)createWorld;
+-(Room*)createWorld;
 -(void)playerEncounteredNPC:(NSNotification*)notification;
 -(void)NPCEncounteredPlayer:(NSNotification*)notification;
 -(void)start;

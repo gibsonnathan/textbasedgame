@@ -10,10 +10,8 @@
 #import <Cocoa/Cocoa.h>
 #import "Room.h"
 #import "GameIO.h"
-#import "Item.h"
 #import "Protocols.h"
 #import "Weapon.h"
-#import "Armor.h"
 
 @interface Player : NSObject{
     NSMutableArray* previousLocations;
@@ -23,26 +21,27 @@
     int maxWeight;
     int health;
     int strength;
-    id<Item>weapon;
+    Weapon* weapon;
 }
 
-@property (nonatomic, retain)id<Room> currentRoom;
+@property (nonatomic, retain)Room* currentRoom;
 @property (nonatomic, retain)GameIO* io;
 
 -(id)init;
--(id)initWithRoom:(id<Room>)room;
+-(id)initWithRoom:(Room*)room;
+-(void)eat:(NSString*)food;
 -(void)unEquip:(NSString*)newWeapon;
 -(void)equip:(NSString*)newWeapon;
 -(void)attack:(NSString*)NPC;
 -(void)haveBeenAttacked:(NSNotification*)notification;
 -(void)walkTo:(NSString*)direction;
--(BOOL)canVisit:(id<Room>)room;
+-(BOOL)canVisit:(Room*)room;
 -(void)outputMessage:(NSString*)message;
 -(void)outputMessage:(NSString*)message withColor:(NSColor*)color;
 -(void)warningMessage:(NSString*)message;
 -(void)errorMessage:(NSString*)message;
 -(void)commandMessage:(NSString*)message;
--(void)addToInventory:(id<Item>)item;
+-(void)addToInventory:(Item*)item;
 -(NSArray*)inventoryKeys;
 -(void)exploreRoom;
 -(void)pickUp:(NSString*)item;

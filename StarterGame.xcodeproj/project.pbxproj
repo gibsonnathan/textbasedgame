@@ -38,6 +38,8 @@
 		E499C8C21ADC323F004855F7 /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8C11ADC323F004855F7 /* Key.m */; };
 		E499C8C51ADC808E004855F7 /* TeleportRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8C41ADC808E004855F7 /* TeleportRoom.m */; };
 		E499C8D41ADF14FB004855F7 /* Weapon.m in Sources */ = {isa = PBXBuildFile; fileRef = E499C8D31ADF14FB004855F7 /* Weapon.m */; };
+		E4B3DC0B1AED746700E1D56C /* Food.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B3DC0A1AED746700E1D56C /* Food.m */; };
+		E4B3DC131AEDBE1300E1D56C /* EatCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B3DC121AEDBE1300E1D56C /* EatCommand.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,9 +104,13 @@
 		E499C8C11ADC323F004855F7 /* Key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Key.m; sourceTree = "<group>"; };
 		E499C8C31ADC808E004855F7 /* TeleportRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeleportRoom.h; sourceTree = "<group>"; };
 		E499C8C41ADC808E004855F7 /* TeleportRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeleportRoom.m; sourceTree = "<group>"; };
-		E499C8CC1ADD820A004855F7 /* Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocols.h; sourceTree = "<group>"; };
 		E499C8D21ADF14FB004855F7 /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
 		E499C8D31ADF14FB004855F7 /* Weapon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weapon.m; sourceTree = "<group>"; };
+		E4B3DC091AED746700E1D56C /* Food.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Food.h; sourceTree = "<group>"; };
+		E4B3DC0A1AED746700E1D56C /* Food.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Food.m; sourceTree = "<group>"; };
+		E4B3DC0F1AED8ED500E1D56C /* Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocols.h; sourceTree = "<group>"; };
+		E4B3DC111AEDBE1300E1D56C /* EatCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EatCommand.h; sourceTree = "<group>"; };
+		E4B3DC121AEDBE1300E1D56C /* EatCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EatCommand.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,7 +145,6 @@
 				E44645171AD5E93800BC3008 /* Item.m */,
 				E499C8C01ADC323F004855F7 /* Key.h */,
 				E499C8C11ADC323F004855F7 /* Key.m */,
-				E499C8CC1ADD820A004855F7 /* Protocols.h */,
 				E499C8C31ADC808E004855F7 /* TeleportRoom.h */,
 				E499C8C41ADC808E004855F7 /* TeleportRoom.m */,
 				E499C8D21ADF14FB004855F7 /* Weapon.h */,
@@ -148,6 +153,9 @@
 				E43FCC711AE2E55C000D66B9 /* NPC.m */,
 				E400A91C1AE462070069EADC /* Alien.h */,
 				E400A91D1AE462070069EADC /* Alien.m */,
+				E4B3DC091AED746700E1D56C /* Food.h */,
+				E4B3DC0A1AED746700E1D56C /* Food.m */,
+				E4B3DC0F1AED8ED500E1D56C /* Protocols.h */,
 			);
 			name = GameClasses;
 			sourceTree = "<group>";
@@ -181,6 +189,8 @@
 				E400A9231AE6F35E0069EADC /* EquipCommand.m */,
 				E400A9251AE6F6960069EADC /* UnequipCommand.h */,
 				E400A9261AE6F6960069EADC /* UnequipCommand.m */,
+				E4B3DC111AEDBE1300E1D56C /* EatCommand.h */,
+				E4B3DC121AEDBE1300E1D56C /* EatCommand.m */,
 			);
 			name = Commands;
 			sourceTree = "<group>";
@@ -310,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E499C8D41ADF14FB004855F7 /* Weapon.m in Sources */,
+				E4B3DC0B1AED746700E1D56C /* Food.m in Sources */,
 				E44645181AD5E93800BC3008 /* Item.m in Sources */,
 				E499C8C51ADC808E004855F7 /* TeleportRoom.m in Sources */,
 				E400A91E1AE462070069EADC /* Alien.m in Sources */,
@@ -319,6 +330,7 @@
 				E446452D1AD702B200BC3008 /* DropCommand.m in Sources */,
 				81AF891D16E6AAC400276C6B /* main.m in Sources */,
 				81AF892416E6AAC400276C6B /* AppDelegate.m in Sources */,
+				E4B3DC131AEDBE1300E1D56C /* EatCommand.m in Sources */,
 				8197B18916E8DF80007F8845 /* GameIO.m in Sources */,
 				E44645301AD70ED000BC3008 /* BackCommand.m in Sources */,
 				819122DF16E95A0000BEDA1B /* Command.m in Sources */,

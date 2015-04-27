@@ -9,17 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "Protocols.h"
 @interface Weapon : NSObject <Item>{
-
+    NSString* name;
+    int weight;
+    int damage;
 }
-
-@property (nonatomic, retain)NSString* name;
-@property (nonatomic) int weight;
-@property (nonatomic) BOOL canPickup;
-@property (nonatomic) int damage;
-
--(id)init;
--(id)initWithName:(NSString*)newName;
--(id)initWithName:(NSString*)newName andWeight:(int)newWeight;
--(id)initWithName:(NSString *)newName andDamage:(int)newDamage andWeight:(int)newWeight andCanPickUp:(BOOL*) newCanPickup;
+-(id)initWithName:(NSString*)newName andWeight:(int)newWeight andDamage:(int)newDamage;
+-(NSString*)name;
+-(int)weight;
+-(BOOL)canPickup;
+-(int)damage;
+-(int)nutrition;
+-(Room*)unlocks;
 
 @end
