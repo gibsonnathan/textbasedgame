@@ -121,9 +121,13 @@
 -(void)dropItem:(NSString*) item{
     id<Item> temp = [[inventory objectForKey:item] retain];
     if(temp){
-        [inventory removeObjectForKey:item];
-        [currentRoom addToItems:temp];
-        currentWeight -= [temp weight];
+        if ([temp isEqual:weapon]) {
+            [self warningMessage:@"\nCannot drop equipped weapon"];
+        }else{
+            [inventory removeObjectForKey:item];
+            [currentRoom addToItems:temp];
+            currentWeight -= [temp weight];
+        }
     }else{
         [self warningMessage:[NSString stringWithFormat:@"\nCannot find %@", item]];
     }
