@@ -23,6 +23,7 @@
 
 -(id)initWithGameIO:(GameIO*)theIO;
 -(id<Room>)createWorld;
+-(void)playerHasBeenDefeated:(NSNotification*)notificiation;
 -(void)playerEncounteredNPC:(NSNotification*)notification;
 -(void)NPCEncounteredPlayer:(NSNotification*)notification;
 -(void)start;

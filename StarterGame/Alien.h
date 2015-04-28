@@ -14,6 +14,7 @@
     NSTimer* moveTimer;
     BOOL moving;
     NSString* message;
+    BOOL alive;
 }
 -(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(id<Room>)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage;
 -(void)unlockDoors;

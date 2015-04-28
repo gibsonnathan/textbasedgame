@@ -34,8 +34,8 @@
         visitedRooms = [[NSMutableArray alloc]init];
         currentWeight = 0;
         maxWeight = 10;
-        maxHealth = 100;
-        health = 100;
+        maxHealth = 1;
+        health = 1;
         strength = 100;
         weapon = nil;
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playerHasBeenAttacked:) name:@"NPCAttackedPlayer" object:nil];
@@ -130,7 +130,7 @@
 }
 
 -(void)defeated{
-    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerHasBeenDefeated" object:nil];
 }
 
 -(void)goBack{

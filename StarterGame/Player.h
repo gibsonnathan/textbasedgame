@@ -13,7 +13,7 @@
 #import "Protocols.h"
 #import "Weapon.h"
 
-@interface Player : NSObject{
+@interface Player : NSObject <Player>{
     NSMutableArray* previousLocations;
     NSMutableArray* visitedRooms;
     NSMutableDictionary* inventory;

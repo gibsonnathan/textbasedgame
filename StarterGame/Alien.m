@@ -23,6 +23,7 @@
         }else{
             moveTimer = nil;
         }
+        alive = YES;
         health = newHealth;
         strength = newStrength;
         message = newMessage;
@@ -34,17 +35,17 @@
 }
 
 -(void)lockDoors{
-    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[[super delegate] currentRoom] getExits] componentsSeparatedByString:@" "]];
+    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[[self delegate] currentRoom] getExits] componentsSeparatedByString:@" "]];
     for (int i = 0; i < [places count]; i++) {
-        id<Room> temp = [[[super delegate] currentRoom] getExit:[places objectAtIndex:i]];
+        id<Room> temp = [[[self delegate] currentRoom] getExit:[places objectAtIndex:i]];
         [temp lock];
     }
 }
 
 -(void)unlockDoors{
-    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[[super delegate] currentRoom] getExits] componentsSeparatedByString:@" "]];
+    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[[self delegate] currentRoom] getExits] componentsSeparatedByString:@" "]];
     for (int i = 0; i < [places count]; i++) {
-        id<Room> temp = [[[super delegate] currentRoom] getExit:[places objectAtIndex:i]];
+        id<Room> temp = [[[self delegate] currentRoom] getExit:[places objectAtIndex:i]];
         /*
             All rooms that you don't want to remain locked
          */
@@ -68,12 +69,13 @@
  
  */
 -(void)interact{
-    [self stopWalking];
-    [self talkToPlayer:[NSString stringWithFormat:@"\n%@", message]];
-    [self performSelector:@selector(attackPlayer) withObject:nil afterDelay:2];
-    [self lockDoors];
-    
-    NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[[self delegate] currentRoom]name]);
+    if (alive) {
+        [self stopWalking];
+        [self talkToPlayer:[NSString stringWithFormat:@"\n%@", message]];
+        [self performSelector:@selector(attackPlayer) withObject:nil afterDelay:2];
+        [self lockDoors];
+        NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[[self delegate] currentRoom]name]);
+    }
 }
 /*
     Stops the timer that causes the player to move
@@ -95,19 +97,22 @@
    }
 
 -(void)hasBeenAttacked:(NSNotification*)notification{
-    NSLog(@"\n%@ has been attack by player", [self name]);
-    NSDictionary* data = [notification userInfo];
-    NSString* name = [data objectForKey:@"name"];
-    NSNumber* attack = [data objectForKey:@"attack"];
-    id<Room> room = [data objectForKey:@"room"];
-    if ([[self name] isEqualTo:name] && [[[self delegate]currentRoom] isEqual:room]) {
-        if (health - [attack intValue] > 0) {
-            health -= [attack intValue];
-            NSString* output = [NSString stringWithFormat:@"\n%@ attacked by player! Health:%d", [self name], health];
-            [self talkToPlayer:output];
-            
-        }else{
-            [self defeated];
+    
+    if(alive){
+        NSLog(@"\n%@ has been attack by player", [self name]);
+        NSDictionary* data = [notification userInfo];
+        NSString* name = [data objectForKey:@"name"];
+        NSNumber* attack = [data objectForKey:@"attack"];
+        id<Room> room = [data objectForKey:@"room"];
+        if ([[self name] isEqualTo:name] && [[[self delegate]currentRoom] isEqual:room]) {
+            if (health - [attack intValue] > 0) {
+                health -= [attack intValue];
+                NSString* output = [NSString stringWithFormat:@"\n%@ attacked by player! Health:%d", [self name], health];
+                [self talkToPlayer:output];
+                
+            }else{
+                [self defeated];
+            }
         }
     }
 }
@@ -118,6 +123,8 @@
     [self talkToPlayer:output];
     [self unlockDoors];
     [self dropItems];
+    [self stopWalking];
+    alive = NO;
 }
 
 -(void)dealloc{

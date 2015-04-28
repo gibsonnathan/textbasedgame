@@ -14,7 +14,7 @@
     
 }
 
-@property(nonatomic, retain)id delegate;
+@property(nonatomic, retain)id<Player> delegate;
 @property(nonatomic, retain)NSString* name;
 
 -(id)initWithRoom:(id<Room>)newRoom andName:(NSString*)newName;

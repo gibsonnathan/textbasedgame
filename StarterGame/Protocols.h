@@ -5,12 +5,25 @@
 //  Created by Nathan Gibson on 4/26/15.
 //  Copyright (c) 2015 Ringtuple, Inc. All rights reserved.
 //
-
+#import "GameIO.h"
 #import <Foundation/Foundation.h>
 
 @protocol Item;
 @protocol Room;
 @protocol NPC;
+@protocol Player;
+
+@protocol Player <NSObject>
+-(void)setIo:(GameIO*)Io;
+-(id<Room>)currentRoom;
+-(void)outputMessage:(NSString*)message withColor:(NSColor*)color;
+-(void)setCurrentRoom:(id<Room>)room;
+-(NSMutableDictionary*)inventory;
+-(void)addToInventory:(id<Item>)item;
+-(NSArray*)inventoryKeys;
+-(void)dropItem:(NSString*)item;
+
+@end
 
 @protocol Item <NSObject>
 -(NSString*)name;

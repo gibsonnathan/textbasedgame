@@ -30,9 +30,13 @@
         playing = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEncounteredNPC:) name:@"PlayerHasWalked" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NPCEncounteredPlayer:) name:@"NPCHasWalked" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerHasBeenDefeated:) name:@"PlayerHasBeenDefeated" object:nil];
         
     }
 	return self;
+}
+
+-(void)playerHasBeenDefeated:(NSNotification*)notificiation{
 }
 
 -(void)playerEncounteredNPC:(NSNotification*)notification{
