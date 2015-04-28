@@ -100,9 +100,9 @@
     id<Item> hamburger = [[[Food alloc]initWithName:@"Hamburger" andNutrition:10]autorelease ];
     id<Item> weapon = [[[Weapon alloc] initWithName:@"weapon" andWeight:5 andDamage:10] autorelease];
     
-    Alien* alien2 = [[Alien alloc] initWithHealth:200 andStrength:5 andRoom:boulevard andName:@"NPC2" andMoveTime:20 andMessage:@"I am NPC2"];
-    Alien* alien3 = [[Alien alloc] initWithHealth:200 andStrength:5 andRoom:boulevard andName:@"NPC3" andMoveTime:20 andMessage:@"I am NPC3"];
-    Alien* alien4 = [[Alien alloc] initWithHealth:200 andStrength:5 andRoom:boulevard andName:@"NPC4" andMoveTime:20 andMessage:@"I am NPC4"];
+    Alien* alien2 = [[Alien alloc] initWithHealth:200 andStrength:100 andRoom:boulevard andName:@"NPC2" andMoveTime:20 andMessage:@"I am NPC2"];
+    Alien* alien3 = [[Alien alloc] initWithHealth:200 andStrength:100 andRoom:boulevard andName:@"NPC3" andMoveTime:20 andMessage:@"I am NPC3"];
+    
     
     [boulevard addToItems:wood];
     [boulevard addToItems:dog];

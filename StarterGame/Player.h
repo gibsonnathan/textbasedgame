@@ -30,6 +30,8 @@
 
 -(id)init;
 -(id)initWithRoom:(id<Room>)room;
+-(id)initWithoutNotifications:(id<Room>)room;
+-(NSMutableDictionary*)inventory;
 -(void)eat:(NSString*)food;
 -(void)unEquip:(NSString*)newWeapon;
 -(void)equip:(NSString*)newWeapon;

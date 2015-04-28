@@ -42,6 +42,7 @@
 -(id<Room>)currentRoom;
 -(void)talkToPlayer:(NSString*)message;
 -(void)walk;
+-(BOOL)canVisit:(id<Room>) room;
 -(void)addToInventory:(id<Item>)item;
 -(void)dropItems;
 @end

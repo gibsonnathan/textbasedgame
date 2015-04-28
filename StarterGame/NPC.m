@@ -25,7 +25,7 @@
     
     if (nil != self) {
         [self setName:newName];
-        delegate = [[Player alloc]initWithRoom:newRoom];
+        delegate = [[Player alloc]initWithoutNotifications:newRoom];
         [delegate setIo:[GameIOManager sharedInstance]];
     }
     return self;
@@ -50,12 +50,25 @@
 -(void)walk{
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[delegate currentRoom] getExits] componentsSeparatedByString:@" "]];
     id<Room> nextRoom = [[[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]] autorelease];
-    if (nextRoom && [[nextRoom name] isNotEqualTo:@"teleport"]) {
+    if (nextRoom && [[nextRoom name] isNotEqualTo:@"teleport"] && [self canVisit:nextRoom]) {
         [delegate setCurrentRoom:nextRoom];
         NSDictionary* data = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[delegate currentRoom],@"room",[self name], @"name", nil];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCHasWalked" object:nil userInfo:data];
         NSLog(@"\n%@ is in %@", name, [[delegate currentRoom]name]);
     }
+}
+
+-(BOOL)canVisit:(id<Room>) room{
+    if([room isLocked] == NO){
+        return YES;
+    }else{
+        for (id<Item> x in [[delegate inventory] allValues]) {
+            if ([[x unlocks] isEqual:room]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
 }
 
 -(void)addToInventory:(id<Item>)item{

@@ -43,6 +43,27 @@
 	return self;
 }
 
+-(id)initWithoutNotifications:(id<Room>)room
+{
+    self = [super init];
+    
+    if (nil != self) {
+        [self setCurrentRoom:room];
+        [self setIo:[GameIOManager sharedInstance]];
+        inventory = [[NSMutableDictionary alloc]init];
+        previousLocations = [[NSMutableArray alloc]init];
+        visitedRooms = [[NSMutableArray alloc]init];
+        currentWeight = 0;
+        maxWeight = 10;
+        maxHealth = 100;
+        health = 100;
+        strength = 100;
+        weapon = nil;
+       
+    }
+    return self;
+}
+
 -(void)eat:(NSString*)food{
     id<Item> temp = [inventory objectForKey:food];
     if(temp && [temp isKindOfClass:[Food class]]){
@@ -121,6 +142,10 @@
     }else{
         [self warningMessage: @"\nNo more previous locations"];
     }
+}
+
+-(NSMutableDictionary*)inventory{
+    return inventory;
 }
 
 -(void)dropItem:(NSString*) item{
