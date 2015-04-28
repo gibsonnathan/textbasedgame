@@ -23,5 +23,6 @@
 -(void)walk;
 -(void)addToInventory:(id<Item>)item;
 -(void)dropItems;
+-(BOOL)canVisit:(id<Room>)room;
 
 @end

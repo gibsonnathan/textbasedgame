@@ -30,6 +30,10 @@
     }
     return self;
 }
+-(BOOL)canVisit:(id<Room>)room{
+    return [delegate canVisit:room];
+}
+
 -(id<Room>)currentRoom{
     return [delegate currentRoom];
 }
