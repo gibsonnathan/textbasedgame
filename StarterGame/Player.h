@@ -23,6 +23,7 @@
     int strength;
     Weapon* weapon;
     int maxHealth;
+    BOOL alive;
 }
 
 @property (nonatomic, retain)id<Room> currentRoom;

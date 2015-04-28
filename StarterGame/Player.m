@@ -37,6 +37,7 @@
         maxHealth = 100;
         health = 100;
         strength = 10;
+        alive = YES;
         weapon = nil;
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playerHasBeenAttacked:) name:@"NPCAttackedPlayer" object:nil];
     }
@@ -117,12 +118,11 @@
     NSNumber* attack = [data objectForKey:@"attack"];
     id<Room> room = [data objectForKey:@"room"];
     NSString* name = [data objectForKey:@"name"];
-    if ([currentRoom isEqual:room]) {
+    if ([currentRoom isEqual:room] && alive) {
         if (health - [attack intValue] > 0) {
             health -= [attack intValue];
             NSString* output = [NSString stringWithFormat:@"\nPlayer attacked by %@! Health:%d",name, health];
             [self outputMessage:output];
-            
         }else{
             [self defeated];
         }
@@ -130,7 +130,11 @@
 }
 
 -(void)defeated{
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerHasBeenDefeated" object:nil];
+    if (alive) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerHasBeenDefeated" object:nil];
+    }
+    alive = NO;
+    
 }
 
 -(void)goBack{

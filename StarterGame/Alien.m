@@ -90,7 +90,6 @@
 }
 
 -(void)attackPlayer{
-    NSLog(@"\n%@ attacked Player", [self name]);
     NSNumber* attack = [[[NSNumber alloc]initWithInt: arc4random()%(strength)] autorelease];
     NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack",[[self delegate]currentRoom], @"room", [self name], @"name", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCAttackedPlayer" object:self userInfo:data];
