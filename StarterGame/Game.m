@@ -101,7 +101,7 @@
     id<Item> weapon = [[[Weapon alloc] initWithName:@"weapon" andWeight:5 andDamage:10] autorelease];
     
     Alien* alien2 = [[Alien alloc] initWithHealth:200 andStrength:100 andRoom:boulevard andName:@"NPC2" andMoveTime:20 andMessage:@"I am NPC2"];
-    Alien* alien3 = [[Alien alloc] initWithHealth:200 andStrength:100 andRoom:boulevard andName:@"NPC3" andMoveTime:20 andMessage:@"I am NPC3"];
+    Alien* alien3 = [[Alien alloc] initWithHealth:200 andStrength:100 andRoom:schuster andName:@"NPC3" andMoveTime:20 andMessage:@"I am NPC3"];
     
     
     [boulevard addToItems:wood];
@@ -111,7 +111,7 @@
     [boulevard addToItems:teleportKey];
     [boulevard addToItems:hamburger];
     [boulevard addToItems:weapon];
-    //[alien2 addToInventory:alienItem];
+
     
 	return outside;
 }

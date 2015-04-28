@@ -218,7 +218,7 @@
         return YES;
     }else{
         for (id<Item> x in [inventory allValues]) {
-            if ([[(Key*)x unlocks] isEqual:room]) {
+            if ([[x unlocks] isEqual:room]) {
                 return YES;
             }
         }

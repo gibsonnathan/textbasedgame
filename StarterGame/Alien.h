@@ -20,7 +20,7 @@
 -(void)lockDoors;
 -(void)interact;
 -(void)attackPlayer;
--(void)haveBeenAttacked:(NSNotification*)notification;
+-(void)hasBeenAttacked:(NSNotification*)notification;
 -(void)encounteredPlayer:(NSNotification*)notification;
 -(void)encounteredByPlayer:(NSNotification*)notification;
 -(void)stopWalking;

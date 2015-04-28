@@ -28,7 +28,7 @@
         message = newMessage;
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(encounteredPlayer:) name:@"PlayerEncounteredByNPC" object:nil];
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(encounteredByPlayer:) name:@"NPCEncounteredByPlayer" object:nil];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(haveBeenAttacked:) name:@"PlayerHasAttackedNPC" object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hasBeenAttacked:) name:@"PlayerHasAttackedNPC" object:nil];
     }
     return self;
 }
@@ -94,7 +94,7 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCAttackedPlayer" object:self userInfo:data];
    }
 
--(void)haveBeenAttacked:(NSNotification*)notification{
+-(void)hasBeenAttacked:(NSNotification*)notification{
     NSLog(@"\n%@ has been attack by player", [self name]);
     NSDictionary* data = [notification userInfo];
     NSString* name = [data objectForKey:@"name"];
