@@ -42,7 +42,6 @@
 }
 -(void)dealloc{
     [name release];
-    [unlocks release];
     [super dealloc];
 }
 

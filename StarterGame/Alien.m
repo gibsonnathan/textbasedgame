@@ -23,7 +23,7 @@
         }else{
             moveTimer = nil;
         }
-        alive = YES;
+                alive = YES;
         health = newHealth;
         strength = newStrength;
         message = newMessage;
@@ -70,9 +70,9 @@
  */
 -(void)interact{
     if (alive) {
+        attackTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(attackPlayer)userInfo:nil repeats:YES];
         [self stopWalking];
         [self talkToPlayer:[NSString stringWithFormat:@"\n%@", message]];
-        [self performSelector:@selector(attackPlayer) withObject:nil afterDelay:2];
         [self lockDoors];
         NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[[self delegate] currentRoom]name]);
     }
@@ -94,7 +94,7 @@
     NSNumber* attack = [[[NSNumber alloc]initWithInt: arc4random()%(strength)] autorelease];
     NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack",[[self delegate]currentRoom], @"room", [self name], @"name", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCAttackedPlayer" object:self userInfo:data];
-   }
+}
 
 -(void)hasBeenAttacked:(NSNotification*)notification{
     
@@ -124,6 +124,7 @@
     [self unlockDoors];
     [self dropItems];
     [self stopWalking];
+    [attackTimer invalidate];
     alive = NO;
 }
 

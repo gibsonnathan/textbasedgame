@@ -49,7 +49,7 @@
  */
 -(void)walk{
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[delegate currentRoom] getExits] componentsSeparatedByString:@" "]];
-    id<Room> nextRoom = [[[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]] autorelease];
+    id<Room> nextRoom = [[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
     if (nextRoom && [[nextRoom name] isNotEqualTo:@"teleport"] && [self canVisit:nextRoom]) {
         [delegate setCurrentRoom:nextRoom];
         NSDictionary* data = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[delegate currentRoom],@"room",[self name], @"name", nil];

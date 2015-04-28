@@ -12,6 +12,7 @@
     int health;
     int strength;
     NSTimer* moveTimer;
+    NSTimer* attackTimer;
     BOOL moving;
     NSString* message;
     BOOL alive;
