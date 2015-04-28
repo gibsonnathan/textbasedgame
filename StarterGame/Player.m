@@ -122,7 +122,7 @@
         if (health - [attack intValue] > 0) {
             health -= [attack intValue];
             NSString* output = [NSString stringWithFormat:@"\nPlayer attacked by %@! Health:%d",name, health];
-            [self outputMessage:output];
+            [self outputMessage:output withColor:[NSColor redColor]];
         }else{
             [self defeated];
         }

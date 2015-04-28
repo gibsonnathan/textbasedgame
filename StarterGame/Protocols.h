@@ -22,6 +22,7 @@
 -(void)addToInventory:(id<Item>)item;
 -(NSArray*)inventoryKeys;
 -(void)dropItem:(NSString*)item;
+-(BOOL)canVisit:(id<Room>)room;
 
 @end
 
