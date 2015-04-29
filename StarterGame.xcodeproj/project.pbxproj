@@ -48,7 +48,7 @@
 		819122CE16E95A0000BEDA1B /* CommandWords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandWords.h; sourceTree = "<group>"; };
 		819122CF16E95A0000BEDA1B /* CommandWords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandWords.m; sourceTree = "<group>"; };
 		819122D016E95A0000BEDA1B /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
-		819122D116E95A0000BEDA1B /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
+		819122D116E95A0000BEDA1B /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Game.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		819122D216E95A0000BEDA1B /* GoCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoCommand.h; sourceTree = "<group>"; };
 		819122D316E95A0000BEDA1B /* GoCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoCommand.m; sourceTree = "<group>"; };
 		819122D416E95A0000BEDA1B /* HelpCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpCommand.h; sourceTree = "<group>"; };

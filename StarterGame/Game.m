@@ -54,70 +54,79 @@
 }
 -(Room *)createWorld
 {
-	id<Room> outside, cctParking, boulevard, universityParking, parkingDeck, cct, theGreen, universityHall, schuster, teleport;
-	
-	outside = [[[Room alloc] initWithTag:@"outside the main entrance of the university" andName:@"outside" andLocked:NO] autorelease];
-	cctParking = [[[Room alloc] initWithTag:@"in the parking lot at CCT" andName:@"cctParking" andLocked:NO] autorelease];
-	boulevard = [[[Room alloc] initWithTag:@"on the boulevard" andName:@"boulevard" andLocked:NO] autorelease];
-    universityParking = [[[Room alloc] initWithTag:@"in the parking lot at University Hall" andName:@"university parking" andLocked:NO] autorelease];
-	parkingDeck = [[[Room alloc] initWithTag:@"in the parking deck" andName:@"parking deck" andLocked:NO] autorelease];
-	cct = [[[Room alloc] initWithTag:@"in the CCT building" andName:@"cct" andLocked:NO] autorelease];
-	theGreen = [[[Room alloc] initWithTag:@"in the green in front of Schuster Center" andName:@"the green" andLocked:NO] autorelease];
-	universityHall = [[[Room alloc] initWithTag:@"in University Hall" andName:@"university hall" andLocked:NO] autorelease];
-	schuster = [[[Room alloc] initWithTag:@"in the Schuster Center" andName:@"schuster" andLocked:NO] autorelease];
-    teleport = [[[TeleportRoom alloc] initWithTag:@"in the Teleport Room" andName:@"teleport" andLocked:YES] autorelease];
     
-	[outside setExit:@"west" toRoom:boulevard];
-	
-	[boulevard setExit:@"east" toRoom:outside];
-	[boulevard setExit:@"south" toRoom:cctParking];
-	[boulevard setExit:@"west" toRoom:theGreen];
-	[boulevard setExit:@"north" toRoom:universityParking];
-    [boulevard setExit:@"teleport" toRoom:teleport];
-    [teleport setExit:@"north" toRoom:cct];
-	[cctParking setExit:@"west" toRoom:cct];
-	[cctParking setExit:@"north" toRoom:boulevard];
-	
-	[cct setExit:@"east" toRoom:cctParking];
-	[cct setExit:@"north" toRoom:schuster];
-	
-	[schuster setExit:@"south" toRoom:cct];
-	[schuster setExit:@"north" toRoom:universityHall];
-	[schuster setExit:@"east" toRoom:theGreen];
-	
-	[theGreen setExit:@"west" toRoom:schuster];
-	[theGreen setExit:@"east" toRoom:boulevard];
-	
-	[universityHall setExit:@"south" toRoom:schuster];
-	[universityHall setExit:@"east" toRoom:universityParking];
-	
-	[universityParking setExit:@"south" toRoom:boulevard];
-	[universityParking setExit:@"west" toRoom:universityHall];
-	[universityParking setExit:@"north" toRoom:parkingDeck];
-	
-	[parkingDeck setExit:@"south" toRoom:universityParking];
-	
-    id<Item> wood = [[[Item alloc]initWithName:@"wood" andWeight:5 andCanPickup:YES] autorelease];
-    id<Item> dog = [[[Item alloc]initWithName:@"dog" andWeight:5 andCanPickup:YES] autorelease];
-    id<Item> cat = [[[Item alloc]initWithName:@"cat" andWeight:5 andCanPickup:YES] autorelease];
-    id<Item> car = [[[Item alloc]initWithName:@"car" andWeight:5 andCanPickup:NO] autorelease];
-    id<Item> teleportKey = [[[Key alloc]initWithName:@"teleport-key" andUnlocks:teleport ]autorelease];
-    id<Item> hamburger = [[[Food alloc]initWithName:@"Hamburger" andNutrition:10]autorelease ];
-    id<Item> weapon = [[[Weapon alloc] initWithName:@"weapon" andWeight:5 andDamage:10] autorelease];
     
-    Alien* alien2 = [[Alien alloc] initWithHealth:100 andStrength:10 andRoom:boulevard andName:@"NPC2" andMoveTime:10 andMessage:@"I am NPC2"];
-    Alien* alien3 = [[Alien alloc] initWithHealth:100 andStrength:10 andRoom:schuster andName:@"NPC3" andMoveTime:10 andMessage:@"I am NPC3"];
+    id<Room> armory, crewCabin, teleport, hallway, probeRoom, library, gym, navigationRoom, scienceLab, greenHouse;
     
-    [alien2 addToInventory:teleportKey];
-    [boulevard addToItems:wood];
-    [boulevard addToItems:dog];
-    [boulevard addToItems:cat];
-    [boulevard addToItems:car];
-    [boulevard addToItems:hamburger];
-    [boulevard addToItems:weapon];
+    
+    armory = [[[Room alloc] initWithTag:@"in the armory room" andName:@"armory" andLocked:NO] autorelease];
+    crewCabin = [[[Room alloc] initWithTag:@"in the crew cabin" andName:@"crew cabin" andLocked:NO] autorelease];
+    teleport = [[[TeleportRoom alloc] initWithTag:@"in the teleport room" andName:@"teleport" andLocked:NO] autorelease];
+    hallway = [[[Room alloc] initWithTag:@"in the hallway" andName:@"hallway" andLocked:NO] autorelease];
+    probeRoom = [[[Room alloc] initWithTag:@"in the probe room" andName:@"probe room" andLocked:NO] autorelease];
+    library = [[[Room alloc] initWithTag:@"in the library" andName:@"library" andLocked:NO] autorelease];
+    gym = [[[Room alloc] initWithTag:@"in the gym" andName:@"gym" andLocked:NO] autorelease];
+    navigationRoom = [[[Room alloc] initWithTag:@"in the navigation room" andName:@"navigation room" andLocked:YES] autorelease];
+    scienceLab = [[[Room alloc] initWithTag:@"in the science lab" andName:@"science lab" andLocked:NO] autorelease];
+    greenHouse = [[[Room alloc] initWithTag:@"in the green house" andName:@"green house" andLocked:NO] autorelease];
+    
+    [probeRoom setExit:@"east" toRoom:hallway];
+    
+    [hallway setExit:@"north" toRoom:crewCabin];
+    [hallway setExit:@"south" toRoom:library];
+    [hallway setExit:@"east" toRoom:scienceLab];
+    [hallway setExit:@"west" toRoom:probeRoom];
+    
+    [library setExit:@"north" toRoom:hallway];
+    
+    [crewCabin setExit:@"north" toRoom:armory];
+    [crewCabin setExit:@"east" toRoom:teleport];
+    [crewCabin setExit:@"south" toRoom:hallway];
+    
+    [armory setExit:@"south" toRoom:crewCabin];
+    
+    [teleport setExit:@"west" toRoom:crewCabin];
+    
+    [scienceLab setExit:@"north" toRoom:navigationRoom];
+    [scienceLab setExit:@"west" toRoom:hallway];
+    [scienceLab setExit:@"east" toRoom:greenHouse];
+    [scienceLab setExit:@"south" toRoom:gym];
+    
+    [gym setExit:@"north" toRoom:scienceLab];
+    
+    [navigationRoom setExit:@"south" toRoom:scienceLab];
+    
+    [greenHouse setExit:@"west" toRoom:scienceLab];
+    
+    id<Item> nav_key, cheese, yogurt, statue, ray_gun, book,  weights, flowerbed;
+    
+    nav_key = [[Key alloc]initWithName:@"navigation_key" andUnlocks:navigationRoom];
+    cheese = [[Food alloc]initWithName:@"cheese" andNutrition:10];
+    yogurt = [[Food alloc]initWithName:@"yogurt" andNutrition:10];
+    statue = [[Item alloc]initWithName:@"statue" andWeight:30 andCanPickup:NO];
+    ray_gun = [[Weapon alloc]initWithName:@"ray_gun" andWeight:5 andDamage:15];
+    book = [[Item alloc]initWithName:@"book" andWeight:1 andCanPickup:YES];
+    weights = [[Item alloc]initWithName:@"weights" andWeight:20 andCanPickup:YES];
+    flowerbed = [[Item alloc]initWithName:@"flowerbed" andWeight:20 andCanPickup:NO];
+    
+    [gym addToItems:weights];
+    [hallway addToItems:cheese];
+    [crewCabin addToItems:yogurt];
+    [hallway addToItems:statue];
+    [armory addToItems:ray_gun];
+    [library addToItems:book];
+    
 
+    Alien* alien1 = [[Alien alloc]initWithHealth:100 andStrength:10 andRoom:hallway andName:@"guard1" andMoveTime:15 andMessage:@"I am alien1"];
+    Alien* alien2 = [[Alien alloc]initWithHealth:100 andStrength:10 andRoom:scienceLab andName:@"guard2" andMoveTime:10 andMessage:@"I am alien2"];
+    Alien* alien3 = [[Alien alloc]initWithHealth:100 andStrength:20 andRoom:gym andName:@"overlord" andMoveTime:30 andMessage:@"I am overlord"];
     
-	return outside;
+    [alien3 addToInventory:nav_key];
+    
+    
+    return probeRoom;
+    
+    
 }
 
 -(void)start
