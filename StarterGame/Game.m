@@ -98,13 +98,14 @@
     
     [greenHouse setExit:@"west" toRoom:scienceLab];
     
-    id<Item> nav_key, cheese, yogurt, statue, ray_gun, book,  weights, flowerbed;
+    id<Item> nav_key, cheese, yogurt, statue, ray_gun, book,  weights, flowerbed, phaser;
     
     nav_key = [[Key alloc]initWithName:@"navigation_key" andUnlocks:navigationRoom];
-    cheese = [[Food alloc]initWithName:@"cheese" andNutrition:10];
-    yogurt = [[Food alloc]initWithName:@"yogurt" andNutrition:10];
+    cheese = [[Food alloc]initWithName:@"cheese" andNutrition:20];
+    yogurt = [[Food alloc]initWithName:@"yogurt" andNutrition:20];
     statue = [[Item alloc]initWithName:@"statue" andWeight:30 andCanPickup:NO];
     ray_gun = [[Weapon alloc]initWithName:@"ray_gun" andWeight:5 andDamage:15];
+    phaser = [[Weapon alloc]initWithName:@"phaser" andWeight:5 andDamage:30];
     book = [[Item alloc]initWithName:@"book" andWeight:1 andCanPickup:YES];
     weights = [[Item alloc]initWithName:@"weights" andWeight:20 andCanPickup:YES];
     flowerbed = [[Item alloc]initWithName:@"flowerbed" andWeight:20 andCanPickup:NO];
@@ -122,6 +123,7 @@
     Alien* alien3 = [[Alien alloc]initWithHealth:100 andStrength:20 andRoom:gym andName:@"overlord" andMoveTime:30 andMessage:@"I am overlord"];
     
     [alien3 addToInventory:nav_key];
+    [alien1 addToInventory:phaser];
     
     
     return probeRoom;

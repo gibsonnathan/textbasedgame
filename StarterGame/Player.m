@@ -74,6 +74,7 @@
             health += [temp nutrition];
         }
         [inventory removeObjectForKey:food];
+        currentWeight -= [temp weight];
         NSString* output = [NSString stringWithFormat:@"\nPlayer health %d", health];
         [self outputMessage:output];
     }else{
