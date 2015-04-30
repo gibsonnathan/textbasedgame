@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1064231B1AF2847900C80E38 /* TeleportDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1064231A1AF2847900C80E38 /* TeleportDelegate.m */; };
 		819122DF16E95A0000BEDA1B /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 819122CD16E95A0000BEDA1B /* Command.m */; };
 		819122E016E95A0000BEDA1B /* CommandWords.m in Sources */ = {isa = PBXBuildFile; fileRef = 819122CF16E95A0000BEDA1B /* CommandWords.m */; };
 		819122E116E95A0000BEDA1B /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 819122D116E95A0000BEDA1B /* Game.m */; };
@@ -43,6 +44,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		106423191AF2847900C80E38 /* TeleportDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeleportDelegate.h; sourceTree = "<group>"; };
+		1064231A1AF2847900C80E38 /* TeleportDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeleportDelegate.m; sourceTree = "<group>"; };
 		819122CC16E95A0000BEDA1B /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
 		819122CD16E95A0000BEDA1B /* Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Command.m; sourceTree = "<group>"; };
 		819122CE16E95A0000BEDA1B /* CommandWords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandWords.h; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 				E4B3DC091AED746700E1D56C /* Food.h */,
 				E4B3DC0A1AED746700E1D56C /* Food.m */,
 				E4B3DC0F1AED8ED500E1D56C /* Protocols.h */,
+				106423191AF2847900C80E38 /* TeleportDelegate.h */,
+				1064231A1AF2847900C80E38 /* TeleportDelegate.m */,
 			);
 			name = GameClasses;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 				8197B18916E8DF80007F8845 /* GameIO.m in Sources */,
 				E44645301AD70ED000BC3008 /* BackCommand.m in Sources */,
 				819122DF16E95A0000BEDA1B /* Command.m in Sources */,
+				1064231B1AF2847900C80E38 /* TeleportDelegate.m in Sources */,
 				819122E016E95A0000BEDA1B /* CommandWords.m in Sources */,
 				E43FCC721AE2E55C000D66B9 /* NPC.m in Sources */,
 				819122E116E95A0000BEDA1B /* Game.m in Sources */,
