@@ -62,7 +62,7 @@
     }
 }
 
--(void)addToInventory:(id<Item>)item{
+-(void)addToInventory:(Item*)item{
     [delegate addToInventory:item];
 }
 /*

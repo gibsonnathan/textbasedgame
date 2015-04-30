@@ -22,7 +22,7 @@
 -(Room*)currentRoom;
 -(void)talkToPlayer:(NSString*)message;
 -(void)walk;
--(void)addToInventory:(id<Item>)item;
+-(void)addToInventory:(Item*)item;
 -(void)dropItems;
 -(BOOL)canVisit:(Room*)room;
 
