@@ -121,12 +121,12 @@
     [armory addToItems:ray_gun];
     
 
-    //Alien* alien1 = [[Alien alloc]initWithHealth:100 andStrength:10 andRoom:hallway andName:@"guard1" andMoveTime:15 andMessage:@"I am alien1"];
-    //Alien* alien2 = [[Alien alloc]initWithHealth:100 andStrength:10 andRoom:scienceLab andName:@"guard2" andMoveTime:10 andMessage:@"I am alien2"];
-    //Alien* alien3 = [[Alien alloc]initWithHealth:100 andStrength:20 andRoom:gym andName:@"overlord" andMoveTime:30 andMessage:@"I am overlord"];
+    Alien* alien1 = [[Alien alloc]initWithHealth:100 andStrength:10 andRoom:hallway andName:@"guard1" andMoveTime:15 andMessage:@"I am alien1"];
+    Alien* alien2 = [[Alien alloc]initWithHealth:100 andStrength:10 andRoom:scienceLab andName:@"guard2" andMoveTime:10 andMessage:@"I am alien2"];
+    Alien* alien3 = [[Alien alloc]initWithHealth:100 andStrength:20 andRoom:gym andName:@"overlord" andMoveTime:30 andMessage:@"I am overlord"];
     
-    //[alien3 addToInventory:nav_key];
-    //[alien1 addToInventory:phaser];
+    [alien3 addToInventory:nav_key];
+    [alien1 addToInventory:phaser];
     
     
     return probeRoom;
