@@ -12,7 +12,6 @@
 @class Room;
 @protocol NPC;
 @protocol Player;
-@protocol Item;
 
 @protocol Player <NSObject>
 -(void)setIo:(GameIO*)Io;
