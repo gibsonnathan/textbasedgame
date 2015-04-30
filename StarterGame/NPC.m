@@ -14,7 +14,6 @@
 
 @implementation NPC
 
-@synthesize delegate;
 @synthesize name;
 
 -(id)init{
@@ -62,7 +61,7 @@
     }
 }
 
--(void)addToInventory:(id<Item>)item{
+-(void)addToInventory:(Item*)item{
     [delegate addToInventory:item];
 }
 /*

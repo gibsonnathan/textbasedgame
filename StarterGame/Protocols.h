@@ -20,27 +20,18 @@
 -(void)outputMessage:(NSString*)message withColor:(NSColor*)color;
 -(void)setCurrentRoom:(Room*)room;
 -(NSMutableDictionary*)inventory;
--(void)addToInventory:(id<Item>)item;
+-(void)addToInventory:(Item*)item;
 -(NSArray*)inventoryKeys;
 -(void)dropItem:(NSString*)item;
 -(BOOL)canVisit:(Room*)room;
 @end
-/*
-@protocol Item <NSObject>
--(NSString*)name;
--(int)weight;
--(BOOL)canPickup;
--(int)damage;
--(int)nutrition;
--(Room*)unlocks;
-@end
-*/
+
 @protocol NPC <NSObject>
 -(id)initWithRoom:(Room*)newRoom andName:(NSString*)newName;
 -(Room*)currentRoom;
 -(void)talkToPlayer:(NSString*)message;
 -(void)walk;
 -(BOOL)canVisit:(Room*) room;
--(void)addToInventory:(id<Item>)item;
+-(void)addToInventory:(Item*)item;
 -(void)dropItems;
 @end

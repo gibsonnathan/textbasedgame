@@ -9,21 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "Protocols.h"
 #import "Room.h"
-#import "NPC.h"
+#import "Player.h"
 
-@interface NPC : NSObject{
+@interface NPC : Player{
     
 }
 
-@property(nonatomic, retain)id<Player> delegate;
 @property(nonatomic, retain)NSString* name;
 
 -(id)initWithRoom:(Room*)newRoom andName:(NSString*)newName;
--(Room*)currentRoom;
 -(void)talkToPlayer:(NSString*)message;
 -(void)walk;
--(void)addToInventory:(id<Item>)item;
--(void)dropItems;
--(BOOL)canVisit:(Room*)room;
+
 
 @end

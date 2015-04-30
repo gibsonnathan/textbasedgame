@@ -66,7 +66,7 @@
 }
 
 -(void)eat:(NSString*)food{
-    id<Item> temp = [inventory objectForKey:food];
+    Item* temp = [inventory objectForKey:food];
     if(temp && [temp isKindOfClass:[Food class]]){
         if (health + [temp nutrition] > maxHealth) {
             health = maxHealth;
@@ -154,7 +154,7 @@
 }
 
 -(void)dropItem:(NSString*) item{
-    id<Item> temp = [[inventory objectForKey:item] retain];
+    Item* temp = [[inventory objectForKey:item] retain];
     if(temp){
         if ([temp isEqual:weapon]) {
             [self warningMessage:@"\nCannot drop equipped weapon"];
@@ -184,7 +184,7 @@
 }
 
 -(void)pickUp:(NSString*) item{
-    id<Item> temp = [currentRoom itemForKey:item];
+    Item* temp = [currentRoom itemForKey:item];
     if(temp){
         if([temp canPickup]){
             if(currentWeight + [temp weight] <= maxWeight){
@@ -222,7 +222,7 @@
     if([room isLocked] == NO){
         return YES;
     }else{
-        for (id<Item> x in [inventory allValues]) {
+        for (Item* x in [inventory allValues]) {
             if ([[x unlocks] isEqual:room]) {
                 return YES;
             }
@@ -282,7 +282,7 @@
     [self outputMessage: message withColor:[NSColor brownColor]];
 }
 
--(void)addToInventory:(id<Item>) newItem{
+-(void)addToInventory:(Item*) newItem{
     [inventory setObject: newItem forKey: [newItem name]];
 }
 

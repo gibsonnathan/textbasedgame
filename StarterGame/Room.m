@@ -37,16 +37,16 @@
 -(NSArray*)items{
     return [items allKeys];
 }
--(id<Item>)itemForKey:(NSString*) key{
+-(Item*)itemForKey:(NSString*) key{
     return [items objectForKey:key];
 }
 
--(void)addToItems:(id<Item>) newItem{
+-(void)addToItems:(Item*) newItem{
     [items setObject: newItem forKey: [newItem name]];
 }
 
--(id<Item>)removeFromItems:(NSString*)item{
-    id<Item> temp = [items objectForKey:item];
+-(Item*)removeFromItems:(NSString*)item{
+    Item* temp = [items objectForKey:item];
     [items removeObjectForKey:item];
     return temp;
 }
