@@ -51,12 +51,12 @@
     return temp;
 }
 
--(void)setExit:(NSString *)exit toRoom:(id<Room>)room
+-(void)setExit:(NSString *)exit toRoom:(Room*)room
 {
 	[exits setObject:room forKey:exit];
 }
 
--(id<Room>)getExit:(NSString *)exit
+-(Room*)getExit:(NSString *)exit
 {
 	return [exits objectForKey:exit];
 }

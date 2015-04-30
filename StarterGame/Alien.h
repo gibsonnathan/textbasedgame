@@ -8,6 +8,8 @@
 
 #import "NPC.h"
 #import "Protocols.h"
+#import "Room.h"
+
 @interface Alien : NPC{
     int health;
     int strength;
@@ -17,7 +19,7 @@
     NSString* message;
     BOOL alive;
 }
--(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(id<Room>)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage;
+-(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(Room*)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage;
 -(void)unlockDoors;
 -(void)lockDoors;
 -(void)interact;

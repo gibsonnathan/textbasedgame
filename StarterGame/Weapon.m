@@ -39,7 +39,7 @@
 -(int)nutrition{
     return 0;
 }
--(id<Room>)unlocks{
+-(Room*)unlocks{
     return nil;
 }
 -(void)dealloc{

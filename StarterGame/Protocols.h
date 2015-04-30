@@ -7,56 +7,40 @@
 //
 #import "GameIO.h"
 #import <Foundation/Foundation.h>
+#import "Room.h"
 
-@protocol Item;
-@protocol Room;
+@class Room;
 @protocol NPC;
 @protocol Player;
+@protocol Item;
 
 @protocol Player <NSObject>
 -(void)setIo:(GameIO*)Io;
--(id<Room>)currentRoom;
+-(Room*)currentRoom;
 -(void)outputMessage:(NSString*)message withColor:(NSColor*)color;
--(void)setCurrentRoom:(id<Room>)room;
+-(void)setCurrentRoom:(Room*)room;
 -(NSMutableDictionary*)inventory;
 -(void)addToInventory:(id<Item>)item;
 -(NSArray*)inventoryKeys;
 -(void)dropItem:(NSString*)item;
--(BOOL)canVisit:(id<Room>)room;
-
+-(BOOL)canVisit:(Room*)room;
 @end
-
+/*
 @protocol Item <NSObject>
 -(NSString*)name;
 -(int)weight;
 -(BOOL)canPickup;
 -(int)damage;
 -(int)nutrition;
--(id<Room>)unlocks;
+-(Room*)unlocks;
 @end
-
-@protocol Room <NSObject>
--(id)initWithTag:(NSString *)newTag andName:(NSString*)newName andLocked:(BOOL)newLocked;
--(NSString*)tag;
--(NSString*)name;
--(void)setExit:(NSString*)exit toRoom:(id<Room>)room;
--(id<Room>)getExit:(NSString*)exit;
--(NSString*)getExits;
--(void)addToItems:(id<Item>)newItem;
--(id<Item>)removeFromItems:(NSString*)item;
--(id<Item>)itemForKey:(NSString*)key;
--(NSArray*)items;
--(void)lock;
--(void)unlock;
--(BOOL)isLocked;
-@end
-
+*/
 @protocol NPC <NSObject>
--(id)initWithRoom:(id<Room>)newRoom andName:(NSString*)newName;
--(id<Room>)currentRoom;
+-(id)initWithRoom:(Room*)newRoom andName:(NSString*)newName;
+-(Room*)currentRoom;
 -(void)talkToPlayer:(NSString*)message;
 -(void)walk;
--(BOOL)canVisit:(id<Room>) room;
+-(BOOL)canVisit:(Room*) room;
 -(void)addToInventory:(id<Item>)item;
 -(void)dropItems;
 @end

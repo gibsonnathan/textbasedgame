@@ -12,6 +12,7 @@
 #import "Player.h"
 #import "GameIO.h"
 #import "NPC.h"
+#import "Room.h"
 
 
 @interface Game : NSObject {
@@ -22,7 +23,7 @@
 @property (retain, nonatomic)Player *player;
 
 -(id)initWithGameIO:(GameIO*)theIO;
--(id<Room>)createWorld;
+-(Room*)createWorld;
 -(void)playerHasBeenDefeated:(NSNotification*)notificiation;
 -(void)playerEncounteredNPC:(NSNotification*)notification;
 -(void)NPCEncounteredPlayer:(NSNotification*)notification;

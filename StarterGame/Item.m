@@ -7,6 +7,7 @@
 //
 
 #import "Item.h"
+#import "Room.h"
 @implementation Item
 
 -(id)init{
@@ -38,7 +39,7 @@
 -(int)nutrition{
     return 0;
 }
--(id<Room>)unlocks{
+-(Room*)unlocks{
     return nil;
 }
 -(void)dealloc{

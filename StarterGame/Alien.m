@@ -14,7 +14,7 @@
     return [self initWithHealth:100 andStrength:10 andRoom:nil andName:@"alien" andMoveTime:10 andMessage:@"Hello"];
 }
 
--(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(id<Room>)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage{
+-(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(Room*)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage{
     
     self = [super initWithRoom:newRoom andName:newName];
     if(self){
@@ -37,7 +37,7 @@
 -(void)lockDoors{
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[[self delegate] currentRoom] getExits] componentsSeparatedByString:@" "]];
     for (int i = 0; i < [places count]; i++) {
-        id<Room> temp = [[[self delegate] currentRoom] getExit:[places objectAtIndex:i]];
+        Room* temp = [[[self delegate] currentRoom] getExit:[places objectAtIndex:i]];
         [temp lock];
     }
 }
@@ -45,11 +45,11 @@
 -(void)unlockDoors{
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[[self delegate] currentRoom] getExits] componentsSeparatedByString:@" "]];
     for (int i = 0; i < [places count]; i++) {
-        id<Room> temp = [[[self delegate] currentRoom] getExit:[places objectAtIndex:i]];
+        Room* temp = [[[self delegate] currentRoom] getExit:[places objectAtIndex:i]];
         /*
             All rooms that you don't want to remain locked
          */
-        if([[temp name] isNotEqualTo:@"teleport"]){
+        if([[temp name] isNotEqualTo:@"navigation room"]){
             [temp unlock];
         }
     }
@@ -102,7 +102,7 @@
         NSDictionary* data = [notification userInfo];
         NSString* name = [data objectForKey:@"name"];
         NSNumber* attack = [data objectForKey:@"attack"];
-        id<Room> room = [data objectForKey:@"room"];
+        Room* room = [data objectForKey:@"room"];
         if ([[self name] isEqualTo:name] && [[[self delegate]currentRoom] isEqual:room]) {
             if (health - [attack intValue] > 0) {
                 health -= [attack intValue];

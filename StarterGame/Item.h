@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Protocols.h"
-@interface Item : NSObject <Item>{
+#import "Room.h"
+
+@class Room;
+
+@interface Item : NSObject{
     NSString* name;
     int weight;
     BOOL canPickup;
@@ -20,5 +23,5 @@
 -(BOOL)canPickup;
 -(int)damage;
 -(int)nutrition;
--(id<Room>)unlocks;
+-(Room*)unlocks;
 @end

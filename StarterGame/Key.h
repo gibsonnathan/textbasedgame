@@ -8,18 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "Protocols.h"
-@interface Key : NSObject <Item>{
-    NSString* name;
-    id<Room> unlocks;
+#import "Room.h"
+
+@interface Key : Item{
+    Room* unlocks;
 }
 
--(id)initWithName:(NSString*)newName andUnlocks:(id<Room>)newRoom;
+-(id)initWithName:(NSString*)newName andUnlocks:(Room*)newRoom;
+/*
+
 -(NSString*)name;
 -(int)weight;
 -(BOOL)canPickup;
 -(int)damage;
 -(int)nutrition;
--(id<Room>)unlocks;
-
+-(Room*)unlocks;
+*/
 
 @end

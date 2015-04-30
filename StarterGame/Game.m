@@ -47,7 +47,7 @@
 -(void)NPCEncounteredPlayer:(NSNotification*)notification{
     NSDictionary* data = [notification userInfo];
     NSString* name = [data objectForKey:@"name"];
-    id<Room> room = [data objectForKey:@"room"];
+    Room* room = [data objectForKey:@"room"];
     if ([room isEqual:[player currentRoom]]) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerEncounteredByNPC" object:name];
     }
@@ -56,7 +56,7 @@
 {
     
     
-    id<Room> armory, crewCabin, teleport, hallway, probeRoom, library, gym, navigationRoom, scienceLab, greenHouse;
+    Room* armory, *crewCabin, *teleport, *hallway, *probeRoom, *library, *gym, *navigationRoom, *scienceLab, *greenHouse;
     
     
     armory = [[[Room alloc] initWithTag:@"in the armory room" andName:@"armory" andLocked:NO] autorelease];
@@ -98,7 +98,7 @@
     
     [greenHouse setExit:@"west" toRoom:scienceLab];
     
-    id<Item> nav_key, cheese, yogurt, statue, ray_gun, book,  weights, flowerbed, phaser;
+    Item *nav_key, *cheese, *yogurt, *statue, *ray_gun, *book,  *weights, *flowerbed, *phaser;
     
     nav_key = [[Key alloc]initWithName:@"navigation_key" andUnlocks:navigationRoom];
     cheese = [[Food alloc]initWithName:@"cheese" andNutrition:20];

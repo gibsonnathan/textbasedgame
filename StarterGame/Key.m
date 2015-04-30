@@ -13,7 +13,7 @@
     return [self initWithName:@"key" andUnlocks:nil];
 }
 
--(id)initWithName:(NSString*)newName andUnlocks:(id<Room>)newRoom{
+-(id)initWithName:(NSString*)newName andUnlocks:(Room*)newRoom{
     self = [super init];
     if (self) {
         name = newName;
@@ -37,7 +37,7 @@
 -(int)nutrition{
     return 0;
 }
--(id<Room>)unlocks{
+-(Room*)unlocks{
     return unlocks;
 }
 -(void)dealloc{

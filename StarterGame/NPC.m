@@ -20,7 +20,7 @@
 -(id)init{
     return [self initWithRoom:nil andName:@"NPC"];
 }
--(id)initWithRoom:(id<Room>)newRoom andName:(NSString*)newName{
+-(id)initWithRoom:(Room*)newRoom andName:(NSString*)newName{
     self = [super init];
     
     if (nil != self) {
@@ -30,11 +30,11 @@
     }
     return self;
 }
--(BOOL)canVisit:(id<Room>)room{
+-(BOOL)canVisit:(Room*)room{
     return [delegate canVisit:room];
 }
 
--(id<Room>)currentRoom{
+-(Room*)currentRoom{
     return [delegate currentRoom];
 }
 /*
@@ -53,7 +53,7 @@
  */
 -(void)walk{
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[delegate currentRoom] getExits] componentsSeparatedByString:@" "]];
-    id<Room> nextRoom = [[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
+    Room* nextRoom = [[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
     if (nextRoom && [[nextRoom name] isNotEqualTo:@"teleport"] && [delegate canVisit:nextRoom]) {
         [delegate setCurrentRoom:nextRoom];
         NSDictionary* data = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[delegate currentRoom],@"room",[self name], @"name", nil];

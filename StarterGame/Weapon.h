@@ -7,18 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Protocols.h"
-@interface Weapon : NSObject <Item>{
-    NSString* name;
-    int weight;
+#import "Room.h"
+#import "Item.h"
+
+@interface Weapon : Item{
+  
     int damage;
 }
+
 -(id)initWithName:(NSString*)newName andWeight:(int)newWeight andDamage:(int)newDamage;
+/*
+
 -(NSString*)name;
 -(int)weight;
 -(BOOL)canPickup;
 -(int)damage;
 -(int)nutrition;
--(id<Room>)unlocks;
+-(Room*)unlocks;
+*/
 
 @end

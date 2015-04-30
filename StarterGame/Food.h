@@ -8,18 +8,23 @@
 
 #import <Foundation/Foundation.h>
 #import "Room.h"
-@interface Food : NSObject <Item>{
-    NSString* name;
+#import "Item.h"
+
+@interface Food : Item{
     int nutrition;
 }
+
 -(id)initWithName:(NSString*)newName andNutrition:(int)newNutrition;
+
+/*
+
 -(NSString*)name;
 -(int)weight;
 -(BOOL)canPickup;
 -(int)damage;
 -(int)nutrition;
--(id<Room>)unlocks;
-
+-(Room*)unlocks;
+*/
 
 
 @end

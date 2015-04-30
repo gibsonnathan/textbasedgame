@@ -22,7 +22,7 @@
 	return [self initWithRoom:nil];
 }
 
--(id)initWithRoom:(id<Room>)room
+-(id)initWithRoom:(Room*)room
 {
 	self = [super init];
     
@@ -44,7 +44,7 @@
 	return self;
 }
 
--(id)initWithoutNotifications:(id<Room>)room
+-(id)initWithoutNotifications:(Room*)room
 {
     self = [super init];
     
@@ -117,7 +117,7 @@
 -(void)playerHasBeenAttacked:(NSNotification*)notification{
     NSDictionary* data = [notification userInfo];
     NSNumber* attack = [data objectForKey:@"attack"];
-    id<Room> room = [data objectForKey:@"room"];
+    Room* room = [data objectForKey:@"room"];
     NSString* name = [data objectForKey:@"name"];
     if ([currentRoom isEqual:room] && alive) {
         if (health - [attack intValue] > 0) {
@@ -139,7 +139,7 @@
 }
 
 -(void)goBack{
-    id<Room> lastRoom = [previousLocations lastObject];
+    Room* lastRoom = [previousLocations lastObject];
     if(lastRoom){
         [previousLocations removeLastObject];
         currentRoom = lastRoom;
@@ -218,7 +218,7 @@
     }
 }
 
--(BOOL)canVisit:(id<Room>) room{
+-(BOOL)canVisit:(Room*) room{
     if([room isLocked] == NO){
         return YES;
     }else{
@@ -233,7 +233,7 @@
 
 -(void)walkTo:(NSString *)direction
 {
-	id<Room> nextRoom = [currentRoom getExit:direction];
+	Room* nextRoom = [currentRoom getExit:direction];
 	if (nextRoom) {
         if([self canVisit:nextRoom]){
             [previousLocations addObject:currentRoom];

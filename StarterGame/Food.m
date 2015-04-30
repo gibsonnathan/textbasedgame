@@ -38,7 +38,7 @@
 -(int)nutrition{
     return nutrition;
 }
--(id<Room>)unlocks{
+-(Room*)unlocks{
     return nil;
 }
 

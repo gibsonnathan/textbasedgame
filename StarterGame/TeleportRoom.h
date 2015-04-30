@@ -7,24 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Protocols.h"
+#import "Room.h"
 
-@interface TeleportRoom : NSObject <Room>{
-    NSMutableDictionary *exits;
+@interface TeleportRoom : Room{
+
     NSMutableArray* previousLocations;
 }
-@property (nonatomic, retain)id<Room> delegate;
--(NSString*)tag;
--(NSString*)name;
--(void)setExit:(NSString*)exit toRoom:(id<Room>)room;
--(id<Room>)getExit:(NSString*)exit;
--(NSString*)getExits;
--(void)addToItems:(id<Item>)newItem;
--(id<Item>)removeFromItems:(NSString*)item;
--(id<Item>)itemForKey:(NSString*)key;
--(NSArray*)items;
--(void)lock;
--(void)unlock;
--(BOOL)isLocked;
+
 
 @end
