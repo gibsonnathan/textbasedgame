@@ -35,7 +35,7 @@
 }
 /*
     picks an exit by looking at the previous locations list, picking a random
-    location and returns it
+    location and returning the room at that index
  */
 -(Room*)getExit:(NSString *)exit{
     if ([exit isNotEqualTo:@"outside"]) {
@@ -50,7 +50,7 @@
     return nil;
 }
 /*
- overrides the default behavior of room and only allows the player one exit
+    overrides the default behavior of room and only allows the player one exit
  */
 -(NSString *)getExits{
     return [NSString stringWithFormat:@"outside"];

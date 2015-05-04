@@ -5,6 +5,9 @@
 //  Created by Nathan Gibson on 4/8/15.
 //  Copyright (c) 2015 Ringtuple, Inc. All rights reserved.
 //
+//  A generic item that has a name, weight, and a boolean value that describes whether or not
+//  it can be picked up
+//
 
 #import <Foundation/Foundation.h>
 #import "Room.h"

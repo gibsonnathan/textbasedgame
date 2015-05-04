@@ -120,18 +120,18 @@
     
     Item *nav_key, *cheese, *yogurt, *statue, *ray_gun, *book, *weights, *flowerbed, *phaser, *mango, *grapes, *operatingTable;
     
-    nav_key = [[Key alloc]initWithName:@"navigation_key" andUnlocks:navigationRoom];
-    cheese = [[Food alloc]initWithName:@"cheese" andNutrition:20];
-    yogurt = [[Food alloc]initWithName:@"yogurt" andNutrition:20];
-    statue = [[Item alloc]initWithName:@"statue" andWeight:30 andCanPickup:NO];
-    ray_gun = [[Weapon alloc]initWithName:@"ray_gun" andWeight:5 andDamage:15];
-    phaser = [[Weapon alloc]initWithName:@"phaser" andWeight:5 andDamage:30];
-    book = [[Item alloc]initWithName:@"book" andWeight:1 andCanPickup:YES];
-    weights = [[Item alloc]initWithName:@"weights" andWeight:20 andCanPickup:YES];
-    flowerbed = [[Item alloc]initWithName:@"flowerbed" andWeight:20 andCanPickup:NO];
-    mango = [[Food alloc]initWithName:@"mango" andNutrition:10];
-    grapes = [[Food alloc]initWithName:@"grapes" andNutrition:15];
-    operatingTable = [[Item alloc]initWithName:@"operating_table" andWeight:50 andCanPickup:NO];
+    nav_key = [[[Key alloc]initWithName:@"navigation_key" andUnlocks:navigationRoom]autorelease];
+    cheese = [[[Food alloc]initWithName:@"cheese" andNutrition:20]autorelease];
+    yogurt = [[[Food alloc]initWithName:@"yogurt" andNutrition:20]autorelease];
+    statue = [[[Item alloc]initWithName:@"statue" andWeight:30 andCanPickup:NO]autorelease];
+    ray_gun = [[[Weapon alloc]initWithName:@"ray_gun" andWeight:5 andDamage:15]autorelease];
+    phaser = [[[Weapon alloc]initWithName:@"phaser" andWeight:5 andDamage:30]autorelease];
+    book = [[[Item alloc]initWithName:@"book" andWeight:1 andCanPickup:YES]autorelease];
+    weights = [[[Item alloc]initWithName:@"weights" andWeight:20 andCanPickup:YES]autorelease];
+    flowerbed = [[[Item alloc]initWithName:@"flowerbed" andWeight:20 andCanPickup:NO]autorelease];
+    mango = [[[Food alloc]initWithName:@"mango" andNutrition:10]autorelease];
+    grapes = [[[Food alloc]initWithName:@"grapes" andNutrition:15]autorelease];
+    operatingTable = [[[Item alloc]initWithName:@"operating_table" andWeight:50 andCanPickup:NO]autorelease];
     
     [gym addToItems:weights];
     [hallway addToItems:cheese];
@@ -142,14 +142,14 @@
     [greenHouse addToItems:flowerbed];
     [probeRoom addToItems:operatingTable];
     
-    //NPC* alien1 = [[NPC alloc]initWithHealth:100 andStrength:5 andRoom:armory andName:@"guard1" andMoveTime:15 andMessage:@"guard1: What are you doing? You are not supposed to be roaming this ship!"];
-    //NPC* alien2 = [[NPC alloc]initWithHealth:100 andStrength:10 andRoom:library andName:@"guard2" andMoveTime:0 andMessage:@"guard2: You aren't supposed to be here!"];
-    //NPC* alien3 = [[NPC alloc]initWithHealth:100 andStrength:20 andRoom:scienceLab andName:@"overlord" andMoveTime:0 andMessage:@"overlord: I am the alien overlord, you are not supposed to be roaming around this ship. Prepare for your demise."];
+    NPC* alien1 = [[NPC alloc]initWithHealth:100 andStrength:5 andRoom:armory andName:@"guard1" andMoveTime:15 andMessage:@"guard1: What are you doing? You are not supposed to be roaming this ship!"];
+    NPC* alien2 = [[NPC alloc]initWithHealth:100 andStrength:10 andRoom:library andName:@"guard2" andMoveTime:0 andMessage:@"guard2: You aren't supposed to be here!"];
+    NPC* alien3 = [[NPC alloc]initWithHealth:100 andStrength:20 andRoom:scienceLab andName:@"overlord" andMoveTime:0 andMessage:@"overlord: I am the alien overlord, you are not supposed to be roaming around this ship. Prepare for your demise."];
     
-    //[alien3 addToInventory:nav_key];
-    //[alien2 addToInventory:mango];
-    //[alien1 addToInventory:phaser];
-    //[alien1 addToInventory:grapes];
+    [alien3 addToInventory:nav_key];
+    [alien2 addToInventory:mango];
+    [alien1 addToInventory:phaser];
+    [alien1 addToInventory:grapes];
     
     return probeRoom;
 }
@@ -206,7 +206,6 @@
 {
 	[parser release];
 	[player release];
-	
 	[super dealloc];
 }
 

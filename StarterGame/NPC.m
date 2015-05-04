@@ -39,15 +39,15 @@
 
 
 /*
- Waits a second and then sends the message to the screen
+    Waits a second and then sends the message to the screen
  */
 -(void)talkToPlayer:(NSString*)newMessage{
     [self performSelector:@selector(outputMessage:) withObject:newMessage afterDelay:1];
 }
 
 /*
- Creates an array that holds all of the exits for a room, picks one at random and moves there--
- doesn't allow the NPC to enter the teleport
+    Creates an array that holds all of the exits for a room, picks one at random and moves there--
+    doesn't allow the NPC to enter the teleport
  */
 -(void)walk{
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[self currentRoom] getExits] componentsSeparatedByString:@" "]];
@@ -132,13 +132,20 @@
         moveTimer = nil;
     }
 }
-
+/*
+    Generate a random attack value and send the notification to the player along with the current
+    room
+ */
 -(void)attackPlayer{
     NSNumber* attack = [[[NSNumber alloc]initWithInt: arc4random()%(strength)] autorelease];
     NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack",[self currentRoom], @"room", [self name], @"name", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCAttackedPlayer" object:self userInfo:data];
 }
-
+/*
+    If the player is alive unpack the dictionary sent by the player and 
+    handle decrementing health, if health goes below 0 then the NPC has
+    died
+ */
 -(void)hasBeenAttacked:(NSNotification*)notification{
     
     if(alive){
@@ -159,7 +166,10 @@
         }
     }
 }
-
+/*
+    Let the player know that this NPC has been defeated, unlock the surrounding doors
+    drop items, stop the automatic attack timer, and stop walking
+ */
 -(void)defeated{
     NSLog(@"\n%@ has been defeated by player", [self name]);
     NSString* output = [NSString stringWithFormat:@"\n%@ defeated",[self name]];
@@ -172,7 +182,9 @@
 }
 
 -(void)dealloc{
-    
+    [message dealloc];
+    [attackTimer dealloc];
+    [moveTimer dealloc];
     [super dealloc];
 }
 @end

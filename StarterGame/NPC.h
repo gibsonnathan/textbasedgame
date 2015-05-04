@@ -5,6 +5,10 @@
 //  Created by Nathan Gibson on 4/18/15.
 //  Copyright (c) 2015 Ringtuple, Inc. All rights reserved.
 //
+//  A specific type of player that adds the functionality of
+//  walking on a timer, attacking on a timer, un/locking surrounding doors,
+//  and handling attacks
+//
 
 #import <Foundation/Foundation.h>
 #import "Protocols.h"

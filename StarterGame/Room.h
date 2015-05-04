@@ -19,7 +19,6 @@
     BOOL locked;
 }
 
-
 @property (retain, nonatomic)NSString *tag;
 @property (retain, nonatomic)NSString* name;
 
@@ -36,7 +35,5 @@
 -(void)lock;
 -(void)unlock;
 -(BOOL)isLocked;
-
-
 
 @end

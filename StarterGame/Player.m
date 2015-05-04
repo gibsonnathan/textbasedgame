@@ -13,7 +13,6 @@
 #import "Food.h"
 @implementation Player
 
-
 @synthesize currentRoom;
 @synthesize io;
 
@@ -71,7 +70,7 @@
     the inventory
  */
 -(void)eat:(NSString*)food{
-    Item* temp = [inventory objectForKey:food];
+    Item* temp = [[inventory objectForKey:food]retain];
     if(temp && [temp isKindOfClass:[Food class]]){
         if (health + [temp nutrition] > maxHealth) {
             health = maxHealth;
@@ -82,6 +81,7 @@
         currentWeight -= [temp weight];
         NSString* output = [NSString stringWithFormat:@"\nPlayer health %d", health];
         [self outputMessage:output];
+        [temp release];
     }else{
         [self warningMessage:[NSString stringWithFormat:@"\nCannot eat %@", food]];
     }
@@ -97,6 +97,8 @@
         weapon = temp;
         NSString* output = [NSString stringWithFormat:@"\nPlayer's currently equipped weapon: %@", [weapon name]];
         [self outputMessage:output];
+        [weapon retain];
+        [temp release];
     }else{
         [self warningMessage:[NSString stringWithFormat:@"\nCannot equip %@", newWeapon]];
     }
