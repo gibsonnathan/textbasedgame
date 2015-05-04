@@ -14,6 +14,7 @@
     self = [super init];
     if (nil != self) {
         name = @"eat";
+        [self setHelp:@"consumes food from the player's inventory and increases health"];
     }
     return self;
 }

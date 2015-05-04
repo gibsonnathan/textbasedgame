@@ -16,6 +16,7 @@
     self = [super init];
     if (nil != self) {
         name = @"attack";
+        [self setHelp:@"attacks an NPC"];
     }
     return self;
 }

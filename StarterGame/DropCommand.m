@@ -15,6 +15,7 @@
     self = [super init];
     if (nil != self) {
         name = @"drop";
+        [self setHelp:@"takes an item from the players inventory and puts it in the current room"];
     }
     return self;
 }

@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @interface GameIOManager : NSObject{
-    
+
 }
 +(id)sharedInstance:(NSTextView*)output;
 +(id)sharedInstance;

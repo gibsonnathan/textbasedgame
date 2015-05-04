@@ -15,6 +15,7 @@
 
 @synthesize name;
 @synthesize secondWord;
+@synthesize help;
 
 -(id)init
 {
@@ -22,6 +23,7 @@
 	if (nil != self) {
         name = @"";
 		secondWord = nil;
+        help = @"";
 	}
 	return self;
 }

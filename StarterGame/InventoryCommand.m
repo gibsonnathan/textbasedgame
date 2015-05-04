@@ -16,6 +16,7 @@
     self = [super init];
     if (nil != self) {
         name = @"inventory";
+        [self setHelp:@"looks at the items the player is currently holding"];
     }
     return self;
 }

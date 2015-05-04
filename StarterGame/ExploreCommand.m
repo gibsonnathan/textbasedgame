@@ -15,6 +15,7 @@
     self = [super init];
     if (nil != self) {
         name = @"explore";
+        [self setHelp:@"looks around the room and tells you what items are there"];
     }
     return self;
 }

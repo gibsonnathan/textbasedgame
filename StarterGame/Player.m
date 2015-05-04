@@ -31,7 +31,6 @@
         [self setIo:[GameIOManager sharedInstance]];
         inventory = [[NSMutableDictionary alloc]init];
         previousLocations = [[NSMutableArray alloc]init];
-        visitedRooms = [[NSMutableArray alloc]init];
         currentWeight = 0;
         maxWeight = 10;
         maxHealth = 100;
@@ -43,7 +42,10 @@
     }
 	return self;
 }
-
+/*
+    Initializer that doesn't cause subclasses to receive 
+    notifications intended for the player
+ */
 -(id)initWithoutNotifications:(Room*)room
 {
     self = [super init];
@@ -53,7 +55,6 @@
         [self setIo:[GameIOManager sharedInstance]];
         inventory = [[NSMutableDictionary alloc]init];
         previousLocations = [[NSMutableArray alloc]init];
-        visitedRooms = [[NSMutableArray alloc]init];
         currentWeight = 0;
         maxWeight = 10;
         maxHealth = 100;
@@ -64,7 +65,11 @@
     }
     return self;
 }
-
+/*
+    takes an item from the inventory, makes sure that it
+    is a food, increases health, and then removes it from
+    the inventory
+ */
 -(void)eat:(NSString*)food{
     Item* temp = [inventory objectForKey:food];
     if(temp && [temp isKindOfClass:[Food class]]){
@@ -81,7 +86,11 @@
         [self warningMessage:[NSString stringWithFormat:@"\nCannot eat %@", food]];
     }
 }
-
+/*
+    takes an item from the inventory, checks to make sure
+    that is a weapon, and sets the player's current weapon
+    to that item
+ */
 -(void)equip:(NSString*)newWeapon{
     Weapon* temp = [inventory objectForKey:newWeapon];
     if(temp && [temp isKindOfClass:[Weapon class]]){
@@ -92,7 +101,10 @@
         [self warningMessage:[NSString stringWithFormat:@"\nCannot equip %@", newWeapon]];
     }
 }
-
+/*
+    checks to see if a weapon is currently equipped, if 
+    it is player's weapon is set back to nil
+ */
 -(void)unEquip:(NSString*)newWeapon{
     if (weapon) {
         if ([newWeapon isEqualTo:[weapon name]]) {
@@ -107,13 +119,21 @@
         [self warningMessage:[NSString stringWithFormat:@"\nNo weapon equipped"]];
     }
 }
-
+/*
+    calculates an attack based on the player's strength and whether or not
+    he is holding a weapon, creates a dictionary that holds the attack value, 
+    the player's current room, and the name of the NPC that is being attack and
+    sends it via notification
+ */
 -(void)attackNPC:(NSString*)NPC{
     NSNumber* attack = [[[NSNumber alloc]initWithInt: weapon ? arc4random() % (strength + [weapon damage]) : arc4random() % (strength)] autorelease];
     NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack, @"attack", NPC, @"name", currentRoom, @"room", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerHasAttackedNPC" object:nil userInfo:data];
 }
-
+/*
+    receives a notification that an NPC has attacked, checks to see if the NPC
+    is in the current room, and if so decrements the player's health
+ */
 -(void)playerHasBeenAttacked:(NSNotification*)notification{
     NSDictionary* data = [notification userInfo];
     NSNumber* attack = [data objectForKey:@"attack"];
@@ -129,7 +149,9 @@
         }
     }
 }
-
+/*
+    Sends notification alerting the Game class that the player is no longer alive
+ */
 -(void)defeated{
     if (alive) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerHasBeenDefeated" object:nil];
@@ -137,10 +159,13 @@
     alive = NO;
     
 }
-
+/*
+    Sets current room equal to the last location added to the previousLocations
+    stack
+ */
 -(void)goBack{
     Room* lastRoom = [previousLocations lastObject];
-    if(lastRoom){
+    if(lastRoom && [previousLocations count] > 0){
         [previousLocations removeLastObject];
         currentRoom = lastRoom;
         [self outputMessage:[NSString stringWithFormat:@"\n%@",[currentRoom description]]];
@@ -152,7 +177,11 @@
 -(NSMutableDictionary*)inventory{
     return inventory;
 }
-
+/*
+    removes an item from the player's inventory
+    and adds it to the current room, then deducts its weight
+    from the player's current weight
+ */
 -(void)dropItem:(NSString*) item{
     Item* temp = [[inventory objectForKey:item] retain];
     if(temp){
@@ -167,7 +196,11 @@
         [self warningMessage:[NSString stringWithFormat:@"\nCannot find %@", item]];
     }
 }
-
+/*
+    Constructs a string that represents all the items in
+    the player's inventory and prints it along with the current
+    weight of the inventory
+ */
 -(void)searchInventory{
     if([[inventory allKeys] count] > 0){
         NSString* header = @"\nItems in inventory:";
@@ -182,7 +215,11 @@
         [self outputMessage:@"\nEmpty Inventory"];
     }
 }
-
+/*
+    Takes an item from the current room and adds it 
+    to the players inventory, increases carry weight,
+    and then removes it from the room
+ */
 -(void)pickUp:(NSString*) item{
     Item* temp = [currentRoom itemForKey:item];
     if(temp){
@@ -201,7 +238,10 @@
         [self warningMessage:[NSString stringWithFormat:@"\nCannot find %@", item]];
     }
 }
-
+/*
+    Builds a string that represents all the items in the
+    current room and then prints them out
+ */
 -(void) exploreRoom{
     NSArray *items = [currentRoom items];
     if([items count] > 0){
@@ -217,7 +257,10 @@
         [self outputMessage:@"\nEmpty Room"];
     }
 }
-
+/*
+    Checks to see if a player has the needed key for a 
+    particular room
+ */
 -(BOOL)canVisit:(Room*) room{
     if([room isLocked] == NO){
         return YES;
@@ -236,11 +279,12 @@
 	Room* nextRoom = [currentRoom getExit:direction];
 	if (nextRoom) {
         if([self canVisit:nextRoom]){
+            //keeps a stack of the previously visited rooms
             [previousLocations addObject:currentRoom];
-            [visitedRooms addObject:currentRoom];
             [self setCurrentRoom:nextRoom];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayerHasWalked" object:currentRoom];
             NSLog(@"\nPlayer is in %@", [currentRoom name]);
+            //unlock the door after you enter
             if ([currentRoom isLocked] == YES) {
                 [currentRoom unlock];
             }
@@ -296,7 +340,6 @@
     [io release];
     [weapon release];
     [inventory release];
-    [visitedRooms release];
     [previousLocations release];
 	
 	[super dealloc];

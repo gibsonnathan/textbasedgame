@@ -16,6 +16,7 @@
     self = [super init];
     if (nil != self) {
         name = @"back";
+        [self setHelp:@"takes the player back to the previously visited room"];
     }
     return self;
 }

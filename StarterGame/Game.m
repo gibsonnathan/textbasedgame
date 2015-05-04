@@ -35,11 +35,20 @@
     }
 	return self;
 }
-
+/*
+    Handles the case that the player has sent a notification alerting 
+    the Game class that it has been defeated and calls the end method
+    to end the game
+ */
 -(void)playerHasBeenDefeated:(NSNotification*)notificiation{
     [self performSelector:@selector(end) withObject:nil afterDelay:1];
 }
-
+/*
+    Every time the player walks it post a notification with the room
+    it traveled to, if the player's room is the same as the NPC's room
+    a notification is posted to alert that an NPC has been encountered 
+    by the player
+ */
 -(void)playerEncounteredNPC:(NSNotification*)notification{
     //check to see if where the player has moved is the win location
     if ([[[notification object] name] isEqualTo:@"navigation room"]) {
@@ -48,7 +57,13 @@
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCEncounteredByPlayer" object:[notification object]];
 }
-
+/*
+    every time an NPC moves it posts a notification that
+    is observed by this class that contains the room that
+    the NPC moved to, this is compared to the players current
+    room, if they are the same a notification signaling the
+    that the player has been found by the NPC is posted
+ */
 -(void)NPCEncounteredPlayer:(NSNotification*)notification{
     NSDictionary* data = [notification userInfo];
     NSString* name = [data objectForKey:@"name"];
@@ -57,13 +72,16 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PlayerEncounteredByNPC" object:name];
     }
 }
+/*
+    Creates all rooms, connects them, and adds items including NPCs
+ */
 -(Room *)createWorld
 {
     Room* armory, *crewCabin, *teleport, *hallway, *probeRoom, *library, *gym, *navigationRoom, *scienceLab, *greenHouse;
     
     armory = [[[Room alloc] initWithTag:@"in the armory room. This seems to be where they store their weapons and other items for battling" andName:@"armory" andLocked:NO] autorelease];
-    crewCabin = [[[Room alloc] initWithTag:@"in the crew cabin. It appears that this is the housing quarter for the inhabitants" andName:@"crew cabin" andLocked:NO] autorelease];
-    teleport = [[[TeleportRoom alloc] initWithTag:@"in the teleport room" andName:@"teleport" andLocked:NO] autorelease];
+    crewCabin = [[[Room alloc] initWithTag:@"in the crew cabin. It appears that this is the housing quarter for the inhabitants of the ship" andName:@"crew cabin" andLocked:NO] autorelease];
+    teleport = [[[TeleportRoom alloc] initWithTag:@"in a strange room, there is an electric glow around the exit" andName:@"teleport" andLocked:NO] autorelease];
     hallway = [[[Room alloc] initWithTag:@"in the hallway" andName:@"hallway" andLocked:NO] autorelease];
     probeRoom = [[[Room alloc] initWithTag:@"in the probe room. There are all sorts of tools lying around to disect humans" andName:@"probe room" andLocked:NO] autorelease];
     library = [[[Room alloc] initWithTag:@"in the library. This species seems to be very intelligent" andName:@"library" andLocked:NO] autorelease];
@@ -100,7 +118,7 @@
     
     [greenHouse setExit:@"west" toRoom:scienceLab];
     
-    Item *nav_key, *cheese, *yogurt, *statue, *ray_gun, *book, *weights, *flowerbed, *phaser, *mango, *grapes;
+    Item *nav_key, *cheese, *yogurt, *statue, *ray_gun, *book, *weights, *flowerbed, *phaser, *mango, *grapes, *operatingTable;
     
     nav_key = [[Key alloc]initWithName:@"navigation_key" andUnlocks:navigationRoom];
     cheese = [[Food alloc]initWithName:@"cheese" andNutrition:20];
@@ -113,6 +131,7 @@
     flowerbed = [[Item alloc]initWithName:@"flowerbed" andWeight:20 andCanPickup:NO];
     mango = [[Food alloc]initWithName:@"mango" andNutrition:10];
     grapes = [[Food alloc]initWithName:@"grapes" andNutrition:15];
+    operatingTable = [[Item alloc]initWithName:@"operating_table" andWeight:50 andCanPickup:NO];
     
     [gym addToItems:weights];
     [hallway addToItems:cheese];
@@ -121,8 +140,7 @@
     [armory addToItems:ray_gun];
     [library addToItems:book];
     [greenHouse addToItems:flowerbed];
-    [gym addToItems:weights];
-    [armory addToItems:ray_gun];
+    [probeRoom addToItems:operatingTable];
     
     //NPC* alien1 = [[NPC alloc]initWithHealth:100 andStrength:5 andRoom:armory andName:@"guard1" andMoveTime:15 andMessage:@"guard1: What are you doing? You are not supposed to be roaming this ship!"];
     //NPC* alien2 = [[NPC alloc]initWithHealth:100 andStrength:10 andRoom:library andName:@"guard2" andMoveTime:0 andMessage:@"guard2: You aren't supposed to be here!"];
@@ -134,20 +152,21 @@
     //[alien1 addToInventory:grapes];
     
     return probeRoom;
-    
-    
 }
-
+/*
+    Called when the game begins and prints out the welcome message
+ */
 -(void)start
 {
     playing = YES;
     [player outputMessage:[self welcome]];
 }
-
+/*
+    Called when the player enters the navigation and ends the game
+ */
 -(void)won{
-    [player outputMessage: [NSString stringWithFormat: @"\nCongratulations, you have reached the navigation room! You will soon be back on planet Earth! %@", [self goodbye]]];
-    
-    playing = NO;
+    [player outputMessage: @"\nCongratulations, you have reached the navigation room! You will soon be back on planet Earth!"];
+    [self end];
 }
 
 -(void)end

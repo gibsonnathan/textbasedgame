@@ -18,6 +18,7 @@
 	self = [super init];
     if (nil != self) {
         name = @"go";
+        [self setHelp:@"tells the player to move to another room"];
     }
     return self;
 }

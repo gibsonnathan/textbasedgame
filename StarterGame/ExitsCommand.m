@@ -15,6 +15,7 @@
     self = [super init];
     if (nil != self) {
         name = @"exits";
+        [self setHelp:@"prints the exits currently available to the player"];
     }
     return self;
 }

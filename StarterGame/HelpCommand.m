@@ -27,6 +27,7 @@
 	if (nil != self) {
 		[self setWords:newWords];
         name = @"help";
+        [self setHelp:@"tells the player about the game or a command"];
 	}
     
 	return self;
@@ -35,10 +36,18 @@
 -(BOOL)execute:(Player *)player
 {
     if ([self hasSecondWord]) {
-        [player warningMessage:[NSString stringWithFormat:@"\nI can't help you with %@", [self secondWord]]];
+        
+        NSString* help = [[[self words]get:secondWord] help];
+        if (help) {
+            [player outputMessage:[NSString stringWithFormat:@"\n%@", help]];
+        }else{
+            [player outputMessage: @"\nI don't have that command."];
+        }
+        
+        
     }
     else {
-        [player outputMessage:[NSString stringWithFormat:@"\nYou are lost. You are alone. You wander\naround the university.\n\nYour available commands are:\n%@", [words description]  ]];
+        [player outputMessage:[NSString stringWithFormat:@"\nYou are on an alien spacecraft. You are looking for the navigation room so that you can guide the craft back to your home planet. You are lost. You are alone. Your available commands are: %@", [words description]  ]];
     }
 	return NO;
 }

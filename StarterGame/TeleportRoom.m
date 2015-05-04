@@ -23,13 +23,20 @@
     }
     return self;
 }
-
+/*
+    receives the notification that the player has moved to a new rooms, takes
+    the rooms and adds it to the previousLocations list, first making sure that it
+    is not already there
+ */
 -(void)addLocation:(NSNotification*)notification{
     if (![previousLocations containsObject:[notification object]] && ![[notification object] isEqualTo:self]) {
         [previousLocations addObject:[notification object]];
     }
 }
-
+/*
+    picks an exit by looking at the previous locations list, picking a random
+    location and returns it
+ */
 -(Room*)getExit:(NSString *)exit{
     if ([exit isNotEqualTo:@"outside"]) {
         return nil;
@@ -42,7 +49,9 @@
     }
     return nil;
 }
-
+/*
+ overrides the default behavior of room and only allows the player one exit
+ */
 -(NSString *)getExits{
     return [NSString stringWithFormat:@"outside"];
 }

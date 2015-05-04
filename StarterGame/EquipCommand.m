@@ -15,6 +15,7 @@
     self = [super init];
     if (nil != self) {
         name = @"equip";
+        [self setHelp:@"equips a weapon from the player's inventory"];
     }
     return self;
 }

@@ -10,7 +10,6 @@
 #import "Room.h"
 
 @interface TeleportRoom : Room{
-
     NSMutableArray* previousLocations;
 }
 

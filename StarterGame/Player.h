@@ -15,7 +15,6 @@
 
 @interface Player : NSObject{
     NSMutableArray* previousLocations;
-    NSMutableArray* visitedRooms;
     NSMutableDictionary* inventory;
     int currentWeight;
     int maxWeight;
@@ -52,6 +51,5 @@
 -(void)searchInventory;
 -(void)dropItem:(NSString*)item;
 -(void)goBack;
--(void)stats;
 
 @end

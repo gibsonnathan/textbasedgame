@@ -24,4 +24,5 @@
 -(int)damage;
 -(int)nutrition;
 -(Room*)unlocks;
+
 @end

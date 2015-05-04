@@ -19,6 +19,7 @@
 
 @property (readonly, nonatomic)NSString *name;
 @property (retain, nonatomic)NSString *secondWord;
+@property(nonatomic, retain)NSString* help;
 
 -(id)init;
 -(BOOL)hasSecondWord;

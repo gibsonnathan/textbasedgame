@@ -19,6 +19,7 @@
     
     if (nil != self) {
         name = @"quit";
+        [self setHelp:@"quits the game"];
     }
     
     return self;

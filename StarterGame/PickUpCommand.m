@@ -15,6 +15,7 @@
     self = [super init];
     if (nil != self) {
         name = @"pickup";
+        [self setHelp:@"take an item from a room and adds it to your inventory"];
     }
     return self;
 }

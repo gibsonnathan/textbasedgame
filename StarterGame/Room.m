@@ -33,10 +33,15 @@
     
 	return self;
 }
-
+/*
+    returns all the items that the room holds
+ */
 -(NSArray*)items{
     return [items allKeys];
 }
+/*
+    gets a particular item from the room
+ */
 -(Item*)itemForKey:(NSString*) key{
     return [items objectForKey:key];
 }
@@ -75,15 +80,16 @@
 -(void)lock{
     locked = YES;
 }
+
 -(void)unlock{
     locked = NO;
 }
+
 -(BOOL)isLocked{
     return locked;
 }
 
--(void)dealloc
-{
+-(void)dealloc{
 	[tag release];
 	[exits release];
     [items release];

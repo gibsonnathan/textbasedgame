@@ -14,6 +14,7 @@
     self = [super init];
     if (nil != self) {
         name = @"unequip";
+        [self setHelp:@"unequips a weapon from the player's inventory"];
     }
     return self;
 }

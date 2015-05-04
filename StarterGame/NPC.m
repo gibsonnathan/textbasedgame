@@ -73,7 +73,9 @@
         [self talkToPlayer:output];
     }
 }
-
+/*
+    locks all of the exits currently available to the NPC
+ */
 -(void)lockDoors{
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[self currentRoom] getExits] componentsSeparatedByString:@" "]];
     for (int i = 0; i < [places count]; i++) {
@@ -81,14 +83,15 @@
         [temp lock];
     }
 }
-
+/*
+    unlocks all of the doors currently available to the NPC, except for ones that
+    are explicitly supposed to stay locked
+ */
 -(void)unlockDoors{
     NSMutableArray* places = [NSMutableArray arrayWithArray: [[[self currentRoom] getExits] componentsSeparatedByString:@" "]];
     for (int i = 0; i < [places count]; i++) {
         Room* temp = [[self currentRoom] getExit:[places objectAtIndex:i]];
-        /*
-         All rooms that you don't want to remain locked
-         */
+        //All rooms that you want to remain locked
         if([[temp name] isNotEqualTo:@"navigation room"]){
             [temp unlock];
         }
@@ -106,7 +109,8 @@
     }
 }
 /*
- 
+    starts the attack timer, stops the NPC from walking, and locks all surrounding 
+    doors
  */
 -(void)interact{
     if (alive) {

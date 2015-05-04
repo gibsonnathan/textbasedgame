@@ -10,8 +10,13 @@
 #import "GameIO.h"
 @implementation GameIOManager
 
+/*
+    Checks to see if there is already an instance
+    of GameIO, if there is it returns it, otherwise
+    it creates one and returns it
+ */
 +(id)sharedInstance: (NSTextView*) output{
-    static GameIO* io = nil;
+    static GameIO* io;
     if (!io) {
         io = [[GameIO alloc]initWithOutput:output];
     }
@@ -21,4 +26,5 @@
 +(id)sharedInstance{
     return [self sharedInstance:nil];
 }
+
 @end
