@@ -37,10 +37,15 @@
 }
 
 -(void)playerHasBeenDefeated:(NSNotification*)notificiation{
-    [self end];
+    [self performSelector:@selector(end) withObject:nil afterDelay:1];
 }
 
 -(void)playerEncounteredNPC:(NSNotification*)notification{
+    //check to see if where the player has moved is the win location
+    if ([[[notification object] name] isEqualTo:@"navigation room"]) {
+        [self performSelector:@selector(won) withObject:nil afterDelay:1];
+    }
+    
     [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCEncounteredByPlayer" object:[notification object]];
 }
 
@@ -54,21 +59,18 @@
 }
 -(Room *)createWorld
 {
-    
-    
     Room* armory, *crewCabin, *teleport, *hallway, *probeRoom, *library, *gym, *navigationRoom, *scienceLab, *greenHouse;
     
-    
-    armory = [[[Room alloc] initWithTag:@"in the armory room" andName:@"armory" andLocked:NO] autorelease];
-    crewCabin = [[[Room alloc] initWithTag:@"in the crew cabin" andName:@"crew cabin" andLocked:NO] autorelease];
+    armory = [[[Room alloc] initWithTag:@"in the armory room. This seems to be where they store their weapons and other items for battling" andName:@"armory" andLocked:NO] autorelease];
+    crewCabin = [[[Room alloc] initWithTag:@"in the crew cabin. It appears that this is the housing quarter for the inhabitants" andName:@"crew cabin" andLocked:NO] autorelease];
     teleport = [[[TeleportRoom alloc] initWithTag:@"in the teleport room" andName:@"teleport" andLocked:NO] autorelease];
     hallway = [[[Room alloc] initWithTag:@"in the hallway" andName:@"hallway" andLocked:NO] autorelease];
-    probeRoom = [[[Room alloc] initWithTag:@"in the probe room" andName:@"probe room" andLocked:NO] autorelease];
-    library = [[[Room alloc] initWithTag:@"in the library" andName:@"library" andLocked:NO] autorelease];
+    probeRoom = [[[Room alloc] initWithTag:@"in the probe room. There are all sorts of tools lying around to disect humans" andName:@"probe room" andLocked:NO] autorelease];
+    library = [[[Room alloc] initWithTag:@"in the library. This species seems to be very intelligent" andName:@"library" andLocked:NO] autorelease];
     gym = [[[Room alloc] initWithTag:@"in the gym" andName:@"gym" andLocked:NO] autorelease];
     navigationRoom = [[[Room alloc] initWithTag:@"in the navigation room" andName:@"navigation room" andLocked:YES] autorelease];
-    scienceLab = [[[Room alloc] initWithTag:@"in the science lab" andName:@"science lab" andLocked:NO] autorelease];
-    greenHouse = [[[Room alloc] initWithTag:@"in the green house" andName:@"green house" andLocked:NO] autorelease];
+    scienceLab = [[[Room alloc] initWithTag:@"in the science lab. The instruments in this lab look very advanced" andName:@"science lab" andLocked:NO] autorelease];
+    greenHouse = [[[Room alloc] initWithTag:@"in the green house. It looks like this is where they grow their food and other vegetation" andName:@"green house" andLocked:NO] autorelease];
     
     [probeRoom setExit:@"east" toRoom:hallway];
     
@@ -98,7 +100,7 @@
     
     [greenHouse setExit:@"west" toRoom:scienceLab];
     
-    Item *nav_key, *cheese, *yogurt, *statue, *ray_gun, *book,  *weights, *flowerbed, *phaser;
+    Item *nav_key, *cheese, *yogurt, *statue, *ray_gun, *book, *weights, *flowerbed, *phaser, *mango, *grapes;
     
     nav_key = [[Key alloc]initWithName:@"navigation_key" andUnlocks:navigationRoom];
     cheese = [[Food alloc]initWithName:@"cheese" andNutrition:20];
@@ -109,6 +111,8 @@
     book = [[Item alloc]initWithName:@"book" andWeight:1 andCanPickup:YES];
     weights = [[Item alloc]initWithName:@"weights" andWeight:20 andCanPickup:YES];
     flowerbed = [[Item alloc]initWithName:@"flowerbed" andWeight:20 andCanPickup:NO];
+    mango = [[Food alloc]initWithName:@"mango" andNutrition:10];
+    grapes = [[Food alloc]initWithName:@"grapes" andNutrition:15];
     
     [gym addToItems:weights];
     [hallway addToItems:cheese];
@@ -120,14 +124,14 @@
     [gym addToItems:weights];
     [armory addToItems:ray_gun];
     
-
-    Alien* alien1 = [[Alien alloc]initWithHealth:100 andStrength:10 andRoom:hallway andName:@"guard1" andMoveTime:15 andMessage:@"I am alien1"];
-    Alien* alien2 = [[Alien alloc]initWithHealth:100 andStrength:10 andRoom:scienceLab andName:@"guard2" andMoveTime:10 andMessage:@"I am alien2"];
-    Alien* alien3 = [[Alien alloc]initWithHealth:100 andStrength:20 andRoom:gym andName:@"overlord" andMoveTime:30 andMessage:@"I am overlord"];
+    //NPC* alien1 = [[NPC alloc]initWithHealth:100 andStrength:5 andRoom:armory andName:@"guard1" andMoveTime:15 andMessage:@"guard1: What are you doing? You are not supposed to be roaming this ship!"];
+    //NPC* alien2 = [[NPC alloc]initWithHealth:100 andStrength:10 andRoom:library andName:@"guard2" andMoveTime:0 andMessage:@"guard2: You aren't supposed to be here!"];
+    //NPC* alien3 = [[NPC alloc]initWithHealth:100 andStrength:20 andRoom:scienceLab andName:@"overlord" andMoveTime:0 andMessage:@"overlord: I am the alien overlord, you are not supposed to be roaming around this ship. Prepare for your demise."];
     
-    [alien3 addToInventory:nav_key];
-    [alien1 addToInventory:phaser];
-    
+    //[alien3 addToInventory:nav_key];
+    //[alien2 addToInventory:mango];
+    //[alien1 addToInventory:phaser];
+    //[alien1 addToInventory:grapes];
     
     return probeRoom;
     
@@ -138,6 +142,12 @@
 {
     playing = YES;
     [player outputMessage:[self welcome]];
+}
+
+-(void)won{
+    [player outputMessage: [NSString stringWithFormat: @"\nCongratulations, you have reached the navigation room! You will soon be back on planet Earth! %@", [self goodbye]]];
+    
+    playing = NO;
 }
 
 -(void)end
@@ -164,7 +174,7 @@
 
 -(NSString *)welcome
 {
-	NSString *message = @"Welcome to the World of CSU!\n\nThe World of CSU is a new, incredibly boring adventure game.\n\nType 'help' if you need help.";
+	NSString *message = @"\nYou wake up and realize that you are on an alien spacecraft. In order to get back home you must find your way to the navigation room and set the craft to navigate back to Earth; however, the inhabitants of the craft will not make this an easy task.\n";
 	return [NSString stringWithFormat:@"%@\n%@", message, [player currentRoom]];
 }
 

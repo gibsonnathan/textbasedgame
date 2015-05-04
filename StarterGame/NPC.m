@@ -14,74 +14,161 @@
 
 @implementation NPC
 
-@synthesize delegate;
-@synthesize name;
 
--(id)init{
-    return [self initWithRoom:nil andName:@"NPC"];
-}
--(id)initWithRoom:(Room*)newRoom andName:(NSString*)newName{
-    self = [super init];
+-(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(Room*)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage{
     
-    if (nil != self) {
+    self = [self initWithoutNotifications:newRoom];
+    if(self){
+        if (newMoveTime > 0) {
+            moveTimer = [NSTimer scheduledTimerWithTimeInterval:newMoveTime target:self selector:@selector(walk)userInfo:nil repeats:YES];
+        }else{
+            moveTimer = nil;
+        }
+        alive = YES;
+        health = newHealth;
+        strength = newStrength;
+        message = newMessage;
         [self setName:newName];
-        delegate = [[Player alloc]initWithoutNotifications:newRoom];
-        [delegate setIo:[GameIOManager sharedInstance]];
+        
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(encounteredPlayer:) name:@"PlayerEncounteredByNPC" object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(encounteredByPlayer:) name:@"NPCEncounteredByPlayer" object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hasBeenAttacked:) name:@"PlayerHasAttackedNPC" object:nil];
     }
     return self;
 }
--(BOOL)canVisit:(Room*)room{
-    return [delegate canVisit:room];
-}
 
--(Room*)currentRoom{
-    return [delegate currentRoom];
-}
+
 /*
  Waits a second and then sends the message to the screen
  */
--(void)talkToPlayer:(NSString*)message{
-    [self performSelector:@selector(outputMessage:) withObject:message afterDelay:1];
+-(void)talkToPlayer:(NSString*)newMessage{
+    [self performSelector:@selector(outputMessage:) withObject:newMessage afterDelay:1];
 }
 
--(void)outputMessage:(NSString*)message{
-    [delegate outputMessage:message withColor:[NSColor greenColor]];
-}
 /*
  Creates an array that holds all of the exits for a room, picks one at random and moves there--
  doesn't allow the NPC to enter the teleport
  */
 -(void)walk{
-    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[delegate currentRoom] getExits] componentsSeparatedByString:@" "]];
-    Room* nextRoom = [[delegate currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
-    if (nextRoom && [[nextRoom name] isNotEqualTo:@"teleport"] && [delegate canVisit:nextRoom]) {
-        [delegate setCurrentRoom:nextRoom];
-        NSDictionary* data = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[delegate currentRoom],@"room",[self name], @"name", nil];
+    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[self currentRoom] getExits] componentsSeparatedByString:@" "]];
+    Room* nextRoom = [[self currentRoom] getExit:[places objectAtIndex:arc4random() % [places count]]];
+    if (nextRoom && [[nextRoom name] isNotEqualTo:@"teleport"] && [self canVisit:nextRoom]) {
+        [self setCurrentRoom:nextRoom];
+        NSDictionary* data = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[self currentRoom],@"room",[self name], @"name", nil];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCHasWalked" object:nil userInfo:data];
-        NSLog(@"\n%@ is in %@", name, [[delegate currentRoom]name]);
+        NSLog(@"\n%@ is in %@", [self name], [[self currentRoom]name]);
     }
 }
 
--(void)addToInventory:(Item*)item{
-    [delegate addToInventory:item];
-}
 /*
  Iterates through all of the items of the NPC and drops them into the current room
  */
 -(void)dropItems{
     int i = 0;
-    for (i = 0; i < [[delegate inventoryKeys] count]; i++) {
-        [delegate dropItem:[[delegate inventoryKeys] objectAtIndex:i]];
+    for (i = 0; i < [[self inventoryKeys] count]; i++) {
+        [self dropItem:[[self inventoryKeys] objectAtIndex:i]];
     }
     if (i > 0) {
-        NSString* output = [NSString stringWithFormat: @"\n%@ has dropped his items", name];
+        NSString* output = [NSString stringWithFormat: @"\n%@ has dropped his items", [self name]];
         [self talkToPlayer:output];
     }
 }
 
+-(void)lockDoors{
+    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[self currentRoom] getExits] componentsSeparatedByString:@" "]];
+    for (int i = 0; i < [places count]; i++) {
+        Room* temp = [[self currentRoom] getExit:[places objectAtIndex:i]];
+        [temp lock];
+    }
+}
+
+-(void)unlockDoors{
+    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[self currentRoom] getExits] componentsSeparatedByString:@" "]];
+    for (int i = 0; i < [places count]; i++) {
+        Room* temp = [[self currentRoom] getExit:[places objectAtIndex:i]];
+        /*
+         All rooms that you don't want to remain locked
+         */
+        if([[temp name] isNotEqualTo:@"navigation room"]){
+            [temp unlock];
+        }
+    }
+}
+
+-(void)encounteredPlayer:(NSNotification*)notification{
+    if ([[notification object]isEqualTo:[self name]]) {
+        [self interact];
+    }
+}
+-(void)encounteredByPlayer:(NSNotification*)notification{
+    if([[notification object]isEqualTo:[self currentRoom]]){
+        [self interact];
+    }
+}
+/*
+ 
+ */
+-(void)interact{
+    if (alive) {
+        attackTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(attackPlayer)userInfo:nil repeats:YES];
+        [self stopWalking];
+        [self talkToPlayer:[NSString stringWithFormat:@"\n%@", message]];
+        [self lockDoors];
+        NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[self currentRoom]name]);
+    }
+}
+/*
+ Stops the timer that causes the player to move
+ */
+-(void)stopWalking{
+    if (moveTimer) {
+        NSLog(@"\n%@ has stopped walking", [self name]);
+        moving = NO;
+        [moveTimer invalidate];
+        moveTimer = nil;
+    }
+}
+
+-(void)attackPlayer{
+    NSNumber* attack = [[[NSNumber alloc]initWithInt: arc4random()%(strength)] autorelease];
+    NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack",[self currentRoom], @"room", [self name], @"name", nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCAttackedPlayer" object:self userInfo:data];
+}
+
+-(void)hasBeenAttacked:(NSNotification*)notification{
+    
+    if(alive){
+        NSLog(@"\n%@ has been attack by player", [self name]);
+        NSDictionary* data = [notification userInfo];
+        NSString* name = [data objectForKey:@"name"];
+        NSNumber* attack = [data objectForKey:@"attack"];
+        Room* room = [data objectForKey:@"room"];
+        if ([[self name] isEqualTo:name] && [[self currentRoom] isEqual:room]) {
+            if (health - [attack intValue] > 0) {
+                health -= [attack intValue];
+                NSString* output = [NSString stringWithFormat:@"\n%@ attacked by player! Health:%d", [self name], health];
+                [self talkToPlayer:output];
+                
+            }else{
+                [self defeated];
+            }
+        }
+    }
+}
+
+-(void)defeated{
+    NSLog(@"\n%@ has been defeated by player", [self name]);
+    NSString* output = [NSString stringWithFormat:@"\n%@ defeated",[self name]];
+    [self talkToPlayer:output];
+    [self unlockDoors];
+    [self dropItems];
+    [self stopWalking];
+    [attackTimer invalidate];
+    alive = NO;
+}
+
 -(void)dealloc{
-    [name release];
-    [delegate release];
+    
     [super dealloc];
 }
 @end

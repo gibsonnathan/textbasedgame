@@ -10,20 +10,27 @@
 #import "Protocols.h"
 #import "Room.h"
 #import "NPC.h"
+#import "Player.h"
 
-@interface NPC : NSObject{
-    
+@interface NPC : Player{
+    NSTimer* moveTimer;
+    NSTimer* attackTimer;
+    BOOL moving;
+    NSString* message;
 }
 
-@property(nonatomic, retain)id<Player> delegate;
 @property(nonatomic, retain)NSString* name;
-
--(id)initWithRoom:(Room*)newRoom andName:(NSString*)newName;
--(Room*)currentRoom;
+-(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(Room*)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage;
 -(void)talkToPlayer:(NSString*)message;
 -(void)walk;
--(void)addToInventory:(Item*)item;
 -(void)dropItems;
--(BOOL)canVisit:(Room*)room;
+-(void)unlockDoors;
+-(void)lockDoors;
+-(void)interact;
+-(void)attackPlayer;
+-(void)hasBeenAttacked:(NSNotification*)notification;
+-(void)encounteredPlayer:(NSNotification*)notification;
+-(void)encounteredByPlayer:(NSNotification*)notification;
+-(void)stopWalking;
 
 @end

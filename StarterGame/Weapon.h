@@ -16,7 +16,7 @@
 }
 
 -(id)initWithName:(NSString*)newName andWeight:(int)newWeight andDamage:(int)newDamage;
-/*
+
 
 -(NSString*)name;
 -(int)weight;
@@ -24,6 +24,6 @@
 -(int)damage;
 -(int)nutrition;
 -(Room*)unlocks;
-*/
+
 
 @end

@@ -52,5 +52,6 @@
 -(void)searchInventory;
 -(void)dropItem:(NSString*)item;
 -(void)goBack;
+-(void)stats;
 
 @end

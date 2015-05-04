@@ -9,21 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "Room.h"
 
-@class Room;
-@protocol NPC;
-@protocol Player;
+/*
 
-@protocol Player <NSObject>
--(void)setIo:(GameIO*)Io;
--(Room*)currentRoom;
--(void)outputMessage:(NSString*)message withColor:(NSColor*)color;
--(void)setCurrentRoom:(Room*)room;
--(NSMutableDictionary*)inventory;
--(void)addToInventory:(Item*)item;
--(NSArray*)inventoryKeys;
--(void)dropItem:(NSString*)item;
--(BOOL)canVisit:(Room*)room;
-@end
+@protocol NPC;
+
 
 @protocol NPC <NSObject>
 -(id)initWithRoom:(Room*)newRoom andName:(NSString*)newName;
@@ -34,3 +23,5 @@
 -(void)addToInventory:(Item*)item;
 -(void)dropItems;
 @end
+
+*/

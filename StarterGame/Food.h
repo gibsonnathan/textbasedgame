@@ -16,15 +16,11 @@
 
 -(id)initWithName:(NSString*)newName andNutrition:(int)newNutrition;
 
-/*
-
 -(NSString*)name;
 -(int)weight;
 -(BOOL)canPickup;
 -(int)damage;
 -(int)nutrition;
 -(Room*)unlocks;
-*/
-
 
 @end

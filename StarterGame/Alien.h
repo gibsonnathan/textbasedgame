@@ -11,13 +11,10 @@
 #import "Room.h"
 
 @interface Alien : NPC{
-    int health;
-    int strength;
-    NSTimer* moveTimer;
-    NSTimer* attackTimer;
-    BOOL moving;
-    NSString* message;
-    BOOL alive;
+    //NSTimer* moveTimer;
+    //NSTimer* attackTimer;
+    //BOOL moving;
+    //NSString* message;
 }
 -(id)initWithHealth:(int)newHealth andStrength:(int)newStrength andRoom:(Room*)newRoom andName:(NSString*)newName andMoveTime:(int)newMoveTime andMessage:(NSString*)newMessage;
 -(void)unlockDoors;

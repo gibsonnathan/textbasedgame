@@ -35,17 +35,17 @@
 }
 
 -(void)lockDoors{
-    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[[self delegate] currentRoom] getExits] componentsSeparatedByString:@" "]];
+    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[self currentRoom] getExits] componentsSeparatedByString:@" "]];
     for (int i = 0; i < [places count]; i++) {
-        Room* temp = [[[self delegate] currentRoom] getExit:[places objectAtIndex:i]];
+        Room* temp = [[self currentRoom] getExit:[places objectAtIndex:i]];
         [temp lock];
     }
 }
 
 -(void)unlockDoors{
-    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[[self delegate] currentRoom] getExits] componentsSeparatedByString:@" "]];
+    NSMutableArray* places = [NSMutableArray arrayWithArray: [[[self currentRoom] getExits] componentsSeparatedByString:@" "]];
     for (int i = 0; i < [places count]; i++) {
-        Room* temp = [[[self delegate] currentRoom] getExit:[places objectAtIndex:i]];
+        Room* temp = [[self currentRoom] getExit:[places objectAtIndex:i]];
         /*
             All rooms that you don't want to remain locked
          */
@@ -61,7 +61,7 @@
     }
 }
 -(void)encounteredByPlayer:(NSNotification*)notification{
-    if([[notification object]isEqualTo:[[self delegate] currentRoom]]){
+    if([[notification object]isEqualTo:[self currentRoom]]){
         [self interact];
     }
 }
@@ -74,7 +74,7 @@
         [self stopWalking];
         [self talkToPlayer:[NSString stringWithFormat:@"\n%@", message]];
         [self lockDoors];
-        NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[[self delegate] currentRoom]name]);
+        NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[self currentRoom]name]);
     }
 }
 /*
@@ -91,7 +91,7 @@
 
 -(void)attackPlayer{
     NSNumber* attack = [[[NSNumber alloc]initWithInt: arc4random()%(strength)] autorelease];
-    NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack",[[self delegate]currentRoom], @"room", [self name], @"name", nil];
+    NSDictionary* data = [[NSDictionary alloc]initWithObjectsAndKeys:attack,@"attack",[self currentRoom], @"room", [self name], @"name", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"NPCAttackedPlayer" object:self userInfo:data];
 }
 
@@ -103,7 +103,7 @@
         NSString* name = [data objectForKey:@"name"];
         NSNumber* attack = [data objectForKey:@"attack"];
         Room* room = [data objectForKey:@"room"];
-        if ([[self name] isEqualTo:name] && [[[self delegate]currentRoom] isEqual:room]) {
+        if ([[self name] isEqualTo:name] && [[self currentRoom] isEqual:room]) {
             if (health - [attack intValue] > 0) {
                 health -= [attack intValue];
                 NSString* output = [NSString stringWithFormat:@"\n%@ attacked by player! Health:%d", [self name], health];
