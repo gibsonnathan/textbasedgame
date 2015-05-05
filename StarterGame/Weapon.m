@@ -24,24 +24,18 @@
     return self;
 }
 
--(NSString*)name{
-    return name;
-}
 -(int)weight{
     return weight;
 }
+
 -(BOOL)canPickup{
     return YES;
 }
+
 -(int)damage{
     return damage;
 }
--(int)nutrition{
-    return 0;
-}
--(Room*)unlocks{
-    return nil;
-}
+
 -(void)dealloc{
     [name release];
     [super dealloc];

@@ -23,23 +23,15 @@
     return self;
 }
 
--(NSString*)name{
-    return name;
-}
 -(int)weight{
     return 2;
 }
 -(BOOL)canPickup{
     return YES;
 }
--(int)damage{
-    return 0;
-}
+
 -(int)nutrition{
     return nutrition;
-}
--(Room*)unlocks{
-    return nil;
 }
 
 -(void)dealloc{

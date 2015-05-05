@@ -27,21 +27,27 @@
 -(NSString*)name{
     return name;
 }
+
 -(int)weight{
     return weight;
 }
+
 -(BOOL)canPickup{
     return canPickup;
 }
+
 -(int)damage{
     return 0;
 }
+
 -(int)nutrition{
     return 0;
 }
+
 -(Room*)unlocks{
     return nil;
 }
+
 -(void)dealloc{
     [name release];
     [super dealloc];
