@@ -118,7 +118,6 @@
         [self stopWalking];
         [self talkToPlayer:[NSString stringWithFormat:@"\n%@", message]];
         [self lockDoors];
-        NSLog(@"\nPlayer has encountered %@ at %@", [self name], [[self currentRoom]name]);
     }
 }
 /*
@@ -126,7 +125,6 @@
  */
 -(void)stopWalking{
     if (moveTimer) {
-        NSLog(@"\n%@ has stopped walking", [self name]);
         moving = NO;
         [moveTimer invalidate];
         moveTimer = nil;
@@ -149,7 +147,6 @@
 -(void)hasBeenAttacked:(NSNotification*)notification{
     
     if(alive){
-        NSLog(@"\n%@ has been attack by player", [self name]);
         NSDictionary* data = [notification userInfo];
         NSString* name = [data objectForKey:@"name"];
         NSNumber* attack = [data objectForKey:@"attack"];
@@ -171,7 +168,6 @@
     drop items, stop the automatic attack timer, and stop walking
  */
 -(void)defeated{
-    NSLog(@"\n%@ has been defeated by player", [self name]);
     NSString* output = [NSString stringWithFormat:@"\n%@ defeated",[self name]];
     [self talkToPlayer:output];
     [self unlockDoors];

@@ -10,6 +10,8 @@
 @interface GameIOManager : NSObject{
 
 }
+
 +(id)sharedInstance:(NSTextView*)output;
 +(id)sharedInstance;
+
 @end

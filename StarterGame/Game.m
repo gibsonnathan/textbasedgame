@@ -100,23 +100,23 @@
     [library setExit:@"north" toRoom:hallway];
     
     [crewCabin setExit:@"north" toRoom:armory];
-    [crewCabin setExit:@"east" toRoom:teleport];
+    [crewCabin setExit:@"east" toRoom:greenHouse];
     [crewCabin setExit:@"south" toRoom:hallway];
     
     [armory setExit:@"south" toRoom:crewCabin];
     
-    [teleport setExit:@"west" toRoom:crewCabin];
+    [teleport setExit:@"west" toRoom:scienceLab];
     
     [scienceLab setExit:@"north" toRoom:navigationRoom];
     [scienceLab setExit:@"west" toRoom:hallway];
-    [scienceLab setExit:@"east" toRoom:greenHouse];
+    [scienceLab setExit:@"east" toRoom:teleport];
     [scienceLab setExit:@"south" toRoom:gym];
     
     [gym setExit:@"north" toRoom:scienceLab];
     
     [navigationRoom setExit:@"south" toRoom:scienceLab];
     
-    [greenHouse setExit:@"west" toRoom:scienceLab];
+    [greenHouse setExit:@"west" toRoom:crewCabin];
     
     Item *nav_key, *cheese, *yogurt, *statue, *ray_gun, *book, *weights, *flowerbed, *phaser, *mango, *grapes, *operatingTable;
     
@@ -149,7 +149,6 @@
     [alien3 addToInventory:nav_key];
     [alien2 addToInventory:mango];
     [alien1 addToInventory:phaser];
-    [alien1 addToInventory:grapes];
     
     return probeRoom;
 }
